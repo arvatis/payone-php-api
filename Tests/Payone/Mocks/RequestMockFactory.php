@@ -3,13 +3,15 @@
 namespace Tests\Payone\Mock;
 
 use Payone\Request\Types;
-use Tests\Payone\Mock\Data\DataAbstract;
 use Tests\Payone\Mock\Request\RequestContract;
 
 class RequestMockFactory
 {
     private static $allowedPayments = [
         'Sofort',
+        'PrePayment',
+        'CashOnDelivery',
+        'Invoice',
     ];
 
 

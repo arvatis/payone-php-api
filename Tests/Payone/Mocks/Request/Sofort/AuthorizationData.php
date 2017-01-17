@@ -13,31 +13,6 @@ class AuthorizationData extends DataAbstract implements RequestContract
     /**
      * @return array
      */
-    public function getPersonalData()
-    {
-        return [
-            "salutation" => "Herr",
-            "title" => "Dr.",
-            "firstname" => "Paul",
-            "lastname" => "Neverpayer",
-            "street" => "Fraunhoferstraße 2-4",
-            "addressaddition" => "EG",
-            "zip" => "24118",
-            "city" => "Kiel",
-            "country" => "DE",
-            "email" => "paul.neverpayer@payone.de",
-            "telephonenumber" => "043125968500",
-            "birthday" => "19700204",
-            "language" => "de",
-            "gender" => "m",
-            "ip" => "8.8.8.8"
-        ];
-    }
-
-
-    /**
-     * @return array
-     */
     public function getRequestData()
     {
         return [
