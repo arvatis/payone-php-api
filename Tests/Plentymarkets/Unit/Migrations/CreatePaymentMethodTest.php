@@ -9,6 +9,7 @@ use Payone\Methods\PayonePayPalPaymentMethod;
 use Payone\Methods\PayoneRatePayInstallmentPaymentMethod;
 use Payone\Methods\PayoneSofortPaymentMethod;
 use Payone\Migrations\CreatePaymentMethods;
+use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 
 /**
@@ -74,7 +75,8 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
 
                 ]
             );
-        $this->helper = new PaymentHelper($this->paymentRepo);
+        $paymentRepository = $this->createMock(PaymentRepositoryContract::class);
+        $this->helper = new PaymentHelper($this->paymentRepo, $paymentRepository);
         $this->migration = new CreatePaymentMethods($this->paymentRepo, $this->helper);
     }
 
@@ -83,7 +85,8 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetPaymentMethodMop()
     {
-        $this->paymentRepo->expects($this->exactly(6))
+        $countOfUnregisteredPayments = 2;
+        $this->paymentRepo->expects($this->exactly($countOfUnregisteredPayments))
             ->method('createPaymentMethod');
 
         $this->migration->run();

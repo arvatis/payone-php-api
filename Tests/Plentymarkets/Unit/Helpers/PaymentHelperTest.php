@@ -8,6 +8,7 @@ use Payone\Methods\PayonePayolutionInstallmentPaymentMethod;
 use Payone\Methods\PayonePayPalPaymentMethod;
 use Payone\Methods\PayoneRatePayInstallmentPaymentMethod;
 use Payone\Methods\PayoneSofortPaymentMethod;
+use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
 
 /**
@@ -23,9 +24,10 @@ class PaymentHelperTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $paymentRepo = $this->createMock(PaymentMethodRepositoryContract::class);
+        $paymentRepo = $this->createMock(PaymentRepositoryContract::class);
+        $paymentMethodRepo = $this->createMock(PaymentMethodRepositoryContract::class);
 
-        $paymentRepo->method('allForPlugin')
+        $paymentMethodRepo->method('allForPlugin')
             ->willReturn(
                 [
                     (object)
@@ -67,7 +69,7 @@ class PaymentHelperTest extends \PHPUnit_Framework_TestCase
                 ]
             );
 
-        $this->helper = new PaymentHelper($paymentRepo);
+        $this->helper = new PaymentHelper($paymentMethodRepo, $paymentRepo);
     }
 
     /**
