@@ -24,7 +24,7 @@ class AuthorizationData extends DataAbstract implements RequestContract
             //"bankcode" => "88888888",
             "iban" => "DE85123456782599100003",  // Test data for Sofort
             "bic" => "TESTTEST",
-            "amount" => "100000",
+            "amount" => 100000,
             'currency' => 'EUR',
             "reference" => uniqid(),
             "narrative_text" => "Just an order",

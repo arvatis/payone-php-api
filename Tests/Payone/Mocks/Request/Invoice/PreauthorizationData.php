@@ -18,9 +18,9 @@ class PreauthorizationData extends DataAbstract implements RequestContract
     {
         return [
             "request" => "preauthorization", // create account receivable
-            "clearingtype" => "rec", // prepayment
+            "clearingtype" => "rec",
             "reference" => uniqid(), // a unique reference, e.g. order number
-            "amount" => "10000", // amount in smallest currency unit, i.e. cents
+            "amount" => 10000, // amount in smallest currency unit, i.e. cents
             "currency" => "EUR",
         ];
     }

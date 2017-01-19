@@ -4,7 +4,9 @@
 namespace Payone\Request;
 
 
-class Capture
+use Payone\Request\Parts\Config;
+
+class Capture implements RequestDataContract
 {
     private $request;
     private $txid;

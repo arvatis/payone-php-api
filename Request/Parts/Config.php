@@ -1,10 +1,12 @@
 <?php
 
 
-namespace Payone\Request;
+namespace Payone\Request\Parts;
 
 
-class Config
+use Payone\Request\RequestDataContract;
+
+class Config implements RequestDataContract
 {
     private $aid;
     private $mid;

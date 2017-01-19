@@ -15,6 +15,11 @@ interface RequestContract
     /**
      * @return array
      */
+    public function getPersonalDataStatic();
+
+    /**
+     * @return array
+     */
     public function getRequestData();
 
     /**
