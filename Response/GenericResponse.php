@@ -7,7 +7,7 @@ namespace Payone\Response;
  *
  * @package Payone\Api
  */
-class GenericResponse implements ResponseContract
+class GenericResponse extends ResponseAbstract implements ResponseContract
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class GenericResponse implements ResponseContract
      */
     public function __construct(string $responseString)
     {
-        $this->responseArray = $this->parseResponse($responseString);
+        $this->responseData = $this->parseResponse($responseString);
     }
 
     /**
@@ -31,7 +31,7 @@ class GenericResponse implements ResponseContract
      */
     public function getSuccess()
     {
-        if ($this->responseData['status'] == "ERROR") {
+        if (!$this->responseData || $this->getStatus() == "ERROR") {
             return false;
         }
 
@@ -48,7 +48,8 @@ class GenericResponse implements ResponseContract
             return '';
         }
 
-        return "Payone returned an error:\n" . print_r($this->responseData, true);
+        return "Payone returned an error: " . ($this->responseData ?
+                print_r($this->responseData, true) : 'empty response');
     }
 
     /**
@@ -57,7 +58,16 @@ class GenericResponse implements ResponseContract
      */
     public function getTransactionID()
     {
-        return (string) $this->responseData['txid'];
+        return isset($this->responseData['txid']) ? (string)$this->responseData['txid'] : '';
+    }
+
+    /**
+     * Getter for ResponseData
+     * @return array
+     */
+    public function getResponseData(): array
+    {
+        return $this->responseData;
     }
 
     /**
@@ -66,21 +76,16 @@ class GenericResponse implements ResponseContract
      */
     private function parseResponse(string $response)
     {
-        $responseLines = explode(PHP_EOL, $response);
-        foreach ($responseLines as $line) {
-            $keyValue = explode("=", $line);
-            if (trim($keyValue[0]) == "") {
+        $separator = "\n\t";
+        $line = strtok($response, $separator);
+
+        while ($line !== false) {
+            $keyValue = explode("=", $line, 2);
+            if (!trim($keyValue[0])) {
                 continue;
             }
-            if (count($keyValue) == 2) {
-                $this->responseData[$keyValue[0]] = trim($keyValue[1]);
-            } else {
-                $key = $keyValue[0];
-                unset($keyValue[0]);
-                $value = implode("=", $keyValue);
-                $this->responseData[$key] = $value;
-            }
-
+            $this->responseData[$keyValue[0]] = isset($keyValue[1]) ? trim($keyValue[1]) : '';
+            $line = strtok($separator);
         }
         return $this->responseData;
     }
@@ -90,6 +95,8 @@ class GenericResponse implements ResponseContract
      */
     public function getStatus()
     {
-        return (string) $this->responseData['status'];
+        return isset($this->responseData['status']) ? (string)$this->responseData['status'] : '';
     }
+
+
 }

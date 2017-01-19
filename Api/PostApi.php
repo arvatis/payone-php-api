@@ -2,7 +2,13 @@
 
 namespace Payone\Api;
 
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
+use Payone\Response\ClientErrorResponse;
 use Payone\Response\GenericResponse;
+use Payone\Response\ResponseAbstract;
+use Payone\Response\ResponseContract;
 
 /**
  * Class XmlApi
@@ -60,12 +66,19 @@ class PostApi
 
     /**
      * @param array $data
-     * @return GenericResponse
+     * @return ResponseContract
      */
     public function doRequest(array $data)
     {
-        $responseBody = $this->client->doRequest($data);
-        return new GenericResponse($responseBody);
+        try {
+            $responseBody = $this->client->doRequest($data);
+            return new GenericResponse($responseBody);
+        } catch (ClientException $e) {
+        } catch (ServerException $e) {
+        } catch (BadResponseException $e) {
+        } catch (\Exception $e) {
+        }
+        return new ClientErrorResponse($e->getMessage());
     }
 
     /**
