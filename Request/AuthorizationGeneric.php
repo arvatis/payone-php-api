@@ -10,7 +10,7 @@ use Payone\Request\Parts\Customer;
 /**
  * Class PreAuthorizationGeneric
  */
-class PreAuthorizationGeneric implements RequestDataContract
+class AuthorizationGeneric implements RequestDataContract
 {
 
     /**

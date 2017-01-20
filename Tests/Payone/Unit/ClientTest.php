@@ -68,7 +68,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testInvoicePreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
-        $client = new PostApi(new Client());
+        $client = new PostApi(new ApiClient());
         $response = $client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
         print_r($response);
         $this->assertTrue($response->getSuccess());

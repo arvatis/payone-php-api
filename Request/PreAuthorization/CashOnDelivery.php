@@ -6,7 +6,7 @@ namespace Payone\Request\PreAuthorization;
 use Payone\Request\ClearingTypes;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
-use Payone\Request\PreAuthorizationGeneric;
+use Payone\Request\AuthorizationGeneric;
 use Payone\Request\RequestDataContract;
 use Payone\Request\Types;
 
@@ -17,7 +17,7 @@ class CashOnDelivery implements RequestDataContract
 {
     private $shippingprovider;
     /**
-     * @var PreAuthorizationGeneric
+     * @var AuthorizationGeneric
      */
     private $request;
 
@@ -31,7 +31,7 @@ class CashOnDelivery implements RequestDataContract
      */
     public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider)
     {
-        $this->request = new PreAuthorizationGeneric(
+        $this->request = new AuthorizationGeneric(
             $config,
             $customer,
             Types::PREAUTHORIZATION,
