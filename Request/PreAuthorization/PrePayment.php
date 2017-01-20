@@ -1,43 +1,44 @@
 <?php
 
 
-namespace Payone\Request;
+namespace Payone\Request\PreAuthorization;
 
+use Payone\Request\ClearingTypes;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
+use Payone\Request\PreAuthorizationGeneric;
+use Payone\Request\RequestDataContract;
+use Payone\Request\Types;
 
 /**
- * Class PreAuthorizationCOD
+ * Class PrePayment
  */
-class PreAuthorizationCOD implements RequestDataContract
+class PrePayment implements RequestDataContract
 {
-    private $shippingprovider;
     /**
      * @var PreAuthorizationGeneric
      */
     private $request;
-
 
     /**
      * @param Config $config
      * @param $orderId
      * @param int $amount Total amount (in smallest currency unit! e.g. cent)
      * @param $currency
-     * @param $shippingprovider
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider)
+    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer)
     {
+        $this->config = $config;
+        $this->customer = $customer;
         $this->request = new PreAuthorizationGeneric(
             $config,
             $customer,
             Types::PREAUTHORIZATION,
-            ClearingTypes::COD,
+            ClearingTypes::VOR,
             $orderId,
             (int)$amount,
             $currency
         );
-        $this->shippingprovider = $shippingprovider;
-
     }
 
     /**
@@ -45,8 +46,6 @@ class PreAuthorizationCOD implements RequestDataContract
      */
     public function toArray()
     {
-        $data = $this->request->toArray();
-        $data['shippingprovider'] = $this->shippingprovider;
-        return $data;
+        return $this->request->toArray();
     }
 }

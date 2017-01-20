@@ -1,15 +1,20 @@
 <?php
 
 
-namespace Payone\Request;
+namespace Payone\Request\PreAuthorization;
 
+use Payone\Request\ClearingTypes;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
+use Payone\Request\PreAuthorizationGeneric;
+use Payone\Request\RequestDataContract;
+use Payone\Request\Types;
+
 
 /**
- * Class PreAuthorizationInvoice
+ * Class Invoice
  */
-class PreAuthorizationPrePayment implements RequestDataContract
+class Invoice implements RequestDataContract
 {
     /**
      * @var PreAuthorizationGeneric
@@ -24,13 +29,11 @@ class PreAuthorizationPrePayment implements RequestDataContract
      */
     public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer)
     {
-        $this->config = $config;
-        $this->customer = $customer;
         $this->request = new PreAuthorizationGeneric(
             $config,
             $customer,
             Types::PREAUTHORIZATION,
-            ClearingTypes::VOR,
+            ClearingTypes::REC,
             $orderId,
             (int)$amount,
             $currency

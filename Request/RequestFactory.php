@@ -7,6 +7,9 @@ namespace Payone\Request;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
 use Payone\Request\Parts\CustomerAddress;
+use Payone\Request\PreAuthorization\CashOnDelivery;
+use Payone\Request\PreAuthorization\Invoice;
+use Payone\Request\PreAuthorization\PrePayment;
 
 class RequestFactory
 {
@@ -56,7 +59,7 @@ class RequestFactory
                 $basket = $data['basket'];
                 switch ($paymentMethod) {
                     case 'Invoice':
-                        return new PreAuthorizationInvoice(
+                        return new Invoice(
                             $config,
                             $order['orderId'],
                             $basket['basketAmount'],
@@ -64,7 +67,7 @@ class RequestFactory
                             $customer
                         );
                     case 'PrePayment':
-                        return new PreAuthorizationPrePayment(
+                        return new PrePayment(
                             $config,
                             $order['orderId'],
                             $basket['basketAmount'],
@@ -72,7 +75,7 @@ class RequestFactory
                             $customer
                         );
                     case 'CashOnDelivery':
-                        return new PreAuthorizationCOD(
+                        return new CashOnDelivery(
                             $config,
                             $order['orderId'],
                             $basket['basketAmount'],
