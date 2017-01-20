@@ -17,13 +17,6 @@ class PreAuthorizationCOD implements RequestDataContract
      */
     private $request;
 
-    /**
-     * @var Config
-     */
-    private $config;
-
-    /** @var Customer */
-    private $customer;
 
     /**
      * @param Config $config
@@ -32,11 +25,11 @@ class PreAuthorizationCOD implements RequestDataContract
      * @param $currency
      * @param $shippingprovider
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer,$shippingprovider)
+    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider)
     {
-        $this->config = $config;
-        $this->customer = $customer;
         $this->request = new PreAuthorizationGeneric(
+            $config,
+            $customer,
             Types::PREAUTHORIZATION,
             ClearingTypes::COD,
             $orderId,
@@ -54,6 +47,6 @@ class PreAuthorizationCOD implements RequestDataContract
     {
         $data = $this->request->toArray();
         $data['shippingprovider'] = $this->shippingprovider;
-        return array_merge($this->config->toArray(), $this->customer->toArray(), $data);
+        return $data;
     }
 }

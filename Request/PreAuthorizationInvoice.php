@@ -18,14 +18,6 @@ class PreAuthorizationInvoice implements RequestDataContract
     private $request;
 
     /**
-     * @var Config
-     */
-    private $config;
-
-    /** @var Customer */
-    private $customer;
-
-    /**
      * @param Config $config
      * @param $orderId
      * @param int $amount Total amount (in smallest currency unit! e.g. cent)
@@ -33,9 +25,9 @@ class PreAuthorizationInvoice implements RequestDataContract
      */
     public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer)
     {
-        $this->config = $config;
-        $this->customer = $customer;
         $this->request = new PreAuthorizationGeneric(
+            $config,
+            $customer,
             Types::PREAUTHORIZATION,
             ClearingTypes::REC,
             $orderId,
@@ -49,8 +41,6 @@ class PreAuthorizationInvoice implements RequestDataContract
      */
     public function toArray()
     {
-        $data = $this->request->toArray();
-
-        return array_merge($this->config->toArray(), $this->customer->toArray(), $data);
+        return $this->request->toArray();
     }
 }
