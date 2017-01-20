@@ -20,7 +20,14 @@ use Tests\Payone\Mock\RequestMockFactory;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var  PostApi */
+    private $client;
 
+
+    public function setUp()
+    {
+        $this->client = new PostApi(new ApiClient());
+    }
 
     /**
      * @return void
@@ -28,8 +35,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testBasicRequestSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
-        $client = new PostApi(new ApiClient());
-        $response = $client->doRequest(RequestMockFactory::getRequestData('Sofort', 'authorization'));
+
+        $response = $this->client->doRequest(RequestMockFactory::getRequestData('Sofort', 'authorization'));
 
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::REDIRECT, $response->getStatus());
@@ -41,8 +48,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testPrePaymentPreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
-        $client = new PostApi(new ApiClient());
-        $response = $client->doRequest(RequestMockFactory::getRequestData('PrePayment', 'preauthorization'));
+
+        $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', 'preauthorization'));
         print_r($response);
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());
@@ -54,9 +61,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testCODPreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
-        $client = new PostApi(new ApiClient());
+
         $request = RequestMockFactory::getRequestData('CashOnDelivery', 'preauthorization');
-        $response = $client->doRequest($request);
+        $response = $this->client->doRequest($request);
         print_r($request);
         $this->assertTrue($response->getSuccess(), $response->getErrorMessage());
         $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
@@ -68,8 +75,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testInvoicePreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
-        $client = new PostApi(new ApiClient());
-        $response = $client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
+
+        $response = $this->client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
         print_r($response);
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());

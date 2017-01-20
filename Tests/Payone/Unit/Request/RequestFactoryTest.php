@@ -3,6 +3,7 @@
 
 namespace Payone\Request;
 
+use Tests\Payone\Helpers\Config;
 use Tests\Payone\Mock\RequestMockFactory;
 
 
@@ -52,11 +53,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $customer['gender'] = 'm';
         $customer['ip'] = '8.8.8.8';
 
-        $context = [];
-        $context['aid'] = 25027;
-        $context['mid'] = 24067;
-        $context['portalid'] = 2025425;
-        $context['key'] = 'sfSTWloDrMtbSZGc';
+        $context = Config::getConfig()['api_context'];
         $context['mode'] = 'test';
 
         $shippingProvider = [];

@@ -3,6 +3,7 @@ namespace Tests\Payone\Mock\Request;
 
 use Faker;
 use Payolution\Tests\Mocks\Faker\Providers\PayoneCountryCode;
+use Tests\Payone\Helpers\Config;
 
 /**
  * Class DataAbstract
@@ -82,15 +83,17 @@ abstract class DataAbstract
      */
     public function getConfig()
     {
-        return [
-            "aid" => 25027,//"your_account_id",
-            "mid" => 24067,//"your_merchant_id",
-            "portalid" => 2025425,
-            "key" => hash("md5", "sfSTWloDrMtbSZGc"), // the key has to be hashed as md5
-            "mode" => "test", // can be "live" for actual transactions
-            "api_version" => "3.10",
-            "encoding" => "UTF-8"
-        ];
+        $config = Config::getConfig();
+        $data = array_merge(
+            $config['api_context'],
+            [
+                "mode" => "test", // can be "live" for actual transactions
+                "api_version" => "3.10",
+                "encoding" => "UTF-8"
+            ]
+        );
+        $data['key'] = md5($data['key']);
+        return $data;
     }
 
 

@@ -8,7 +8,7 @@ use Payone\Request\Parts\Customer;
 
 
 /**
- * Class PreAuthorizationGeneric
+ * Class AuthorizationGeneric
  */
 class AuthorizationGeneric implements RequestDataContract
 {
@@ -40,11 +40,11 @@ class AuthorizationGeneric implements RequestDataContract
 
     /** @var Config */
     private $config;
+
     /** @var Customer */
     private $customer;
 
     /**
-     * PreAuthorizationAbstract constructor.
      * @param Config $config
      * @param Customer $customer
      * @param $request
