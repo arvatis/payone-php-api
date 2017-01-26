@@ -11,6 +11,7 @@ use Payone\Methods\PayoneSofortPaymentMethod;
 use Payone\Migrations\CreatePaymentMethods;
 use Plenty\Modules\Payment\Contracts\PaymentRepositoryContract;
 use Plenty\Modules\Payment\Method\Contracts\PaymentMethodRepositoryContract;
+use Plenty\Plugin\ConfigRepository;
 
 /**
  * Class PaymentHelperTest
@@ -76,7 +77,8 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
                 ]
             );
         $paymentRepository = $this->createMock(PaymentRepositoryContract::class);
-        $this->helper = new PaymentHelper($this->paymentRepo, $paymentRepository);
+        $confRepos = $this->createMock(ConfigRepository::class);
+        $this->helper = new PaymentHelper($this->paymentRepo, $paymentRepository, $confRepos);
         $this->migration = new CreatePaymentMethods($this->paymentRepo, $this->helper);
     }
 

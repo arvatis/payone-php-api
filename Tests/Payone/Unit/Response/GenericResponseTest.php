@@ -56,5 +56,19 @@ TEXT;
         );
     }
 
+    public function testTransactionDataRetrieval()
+    {
+        $responseBody = include __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR
+            . 'Mocks' . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'Invoice' . DIRECTORY_SEPARATOR .
+            'Authorization.php';
+
+        $response = new GenericResponse($responseBody);
+
+        $this->assertSame('213736587', $response->getTransactionID());
+        $this->assertTrue($response->getSuccess());
+        $this->assertSame('', $response->getErrorMessage());
+        $this->assertSame('APPROVED', $response->getStatus());
+    }
+
 
 }

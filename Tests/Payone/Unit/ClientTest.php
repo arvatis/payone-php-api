@@ -10,6 +10,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Payone\Api\Client as ApiClient;
 use Payone\Api\PostApi;
+use Payone\Request\Types;
 use Payone\Response\Status;
 use Tests\Payone\Mock\RequestMockFactory;
 
@@ -144,4 +145,53 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'response was: ' . print_r($response->toArray(), true)
         );
     }
+
+
+    /**
+     * @return void
+     */
+    public function testPrePaymentAuthSuccessfullyPlaced()
+    {
+        $this->markTestSkipped('Requests to external APIs are slow.');
+
+        $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', Types::AUTHORIZATION));
+        print_r($response);
+        $this->assertTrue($response->getSuccess());
+        $this->assertSame(9, strlen($response->getTransactionID()));
+        $this->assertSame(Status::APPROVED, $response->getStatus());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCODAuthSuccessfullyPlaced()
+    {
+
+        $this->markTestSkipped('Requests to external APIs are slow.');
+
+        $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::AUTHORIZATION);
+        $response = $this->client->doRequest($request);
+        //print_r($request);
+        print_r($response);
+        $this->assertTrue($response->getSuccess(), $response->getErrorMessage());
+        $this->assertSame(9, strlen($response->getTransactionID()));
+        $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+    }
+
+    /**
+     * @return void
+     */
+    public function testInvoiceAuthSuccessfullyPlaced()
+    {
+
+        $this->markTestSkipped('Requests to external APIs are slow.');
+
+        $request = RequestMockFactory::getRequestData('Invoice', Types::AUTHORIZATION);
+        $response = $this->client->doRequest($request);
+        print_r($response);
+        $this->assertTrue($response->getSuccess());
+        $this->assertSame(9, strlen($response->getTransactionID()));
+        $this->assertSame(Status::APPROVED, $response->getStatus());
+    }
+
 }
