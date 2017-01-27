@@ -10,8 +10,11 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Payone\Api\Client as ApiClient;
 use Payone\Api\PostApi;
+
+use Payone\Request\RequestFactory;
 use Payone\Request\Types;
 use Payone\Response\Status;
+use Tests\Payone\Helpers\Config;
 use Tests\Payone\Mock\RequestMockFactory;
 
 /**
@@ -25,6 +28,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     private $client;
 
 
+    /**
+     * @return void
+     */
     public function setUp()
     {
         $this->client = new PostApi(new ApiClient());
@@ -81,6 +87,49 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         print_r($response);
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());
+    }
+
+
+    /**
+     * @return void
+     */
+    public function testPreauthAndCapture()
+    {
+        $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
+        $response = $this->client->doRequest($preAuthRequestData);
+        $this->assertTrue($response->getSuccess());
+        $this->assertSame(Status::APPROVED, $response->getStatus());
+
+        //sleep(3);
+
+        print_r($preAuthRequestData);
+
+
+        $order = [];
+        $order['orderId'] = 'order-123657';
+        $order['amount'] = 10000;
+        $order['currency'] = 'EUR';
+        $context = Config::getConfig()['api_context'];
+        $context['capturemode'] = 'completed';
+        $context['sequencenumber'] = 1;
+        $context['txid'] = 'preAuthId';
+        $context['mode'] = 'test';
+
+        $captureRequestData = [];
+        $captureRequestData['context'] = $context;
+        $captureRequestData['order'] = $order;
+
+        $request = RequestFactory::create(
+            Types::CAPTURE,
+            'Invoice',
+            $response->getTransactionID(),
+            $captureRequestData
+        );
+
+        $response = $this->client->doRequest($request->toArray());
+        print_r($response);
+        $this->assertSame(Status::APPROVED, $response->getStatus());
+        $this->assertTrue($response->getSuccess());
     }
 
     /**

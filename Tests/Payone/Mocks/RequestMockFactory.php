@@ -23,27 +23,42 @@ class RequestMockFactory
      */
     public static function getRequestData($paymentMethod, $request, $returnStaticData = false)
     {
+        self::validate($paymentMethod, $request);
+
+        $className = 'Tests\Payone\Mock\Request\\' . $paymentMethod . '\\' . ucfirst($request) . 'Data';
+        /** @var RequestContract $mockData */
+        $mockData = new  $className();
+
+        $data = array_merge(
+            $mockData->getConfig(),
+            $mockData->getPersonalDataStatic(),
+            $mockData->getRequestData(),
+            $mockData->getOrder()
+        );
+
+        if($request == 'capture'){
+            unset($data['reference']);
+        }
+        if ($returnStaticData) {
+            return array_merge($data, $mockData->getPersonalDataStatic());
+
+        }
+        return array_merge($data, $mockData->getRequestData());
+    }
+
+    /**
+     * @param $paymentMethod
+     * @param $request
+     * @return void
+     */
+    private static function validate($paymentMethod, $request)
+    {
         if (!in_array($paymentMethod, self::$allowedPayments)) {
             throw new \InvalidArgumentException('Unknown payment method "' . $paymentMethod . '"');
         }
         if (!in_array($request, Types::getRequestTypes())) {
             throw new \InvalidArgumentException('Unknown request type "' . $request . '""');
         }
-
-        $className = 'Tests\Payone\Mock\Request\\' . $paymentMethod . '\\' . ucfirst($request) . 'Data';
-        /** @var RequestContract $mockData */
-        $mockData = new  $className();
-
-        if ($returnStaticData) {
-            $data = array_merge(
-                $mockData->getConfig(),
-                $mockData->getPersonalDataStatic(),
-                $mockData->getRequestData()
-            );
-            $data['reference'] = 'order-123657';
-            return $data;
-        }
-        return array_merge($mockData->getConfig(), $mockData->getPersonalData(), $mockData->getRequestData());
     }
 
 }

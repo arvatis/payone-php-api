@@ -18,6 +18,8 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $order = [];
         $order['orderId'] = 'order-123657';
+        $order['amount'] = 10000;
+        $order['currency'] = 'EUR';
 
         $basket = [];
         $basket['basketAmount'] = 10000;
@@ -104,13 +106,43 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     public function testPreAuthPrePaymentSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('PrePayment', Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'PrePayment', false, $this->data);
+        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'PrePayment', false, $this->data)->toArray();
+
         $this->assertSame(
             $requestMockData,
-            $requestData->toArray(),
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->toArray()), true)
+            $requestData,
+            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
         );
     }
 
+    /**
+     * @return void
+     */
+    public function testCaptureInvoiceSameAsMock()
+    {
+        $order = [];
+        $order['orderId'] = 'order-123657';
+        $order['amount'] = 10000;
+        $order['currency'] = 'EUR';
+        $context = Config::getConfig()['api_context'];
+        $context['capturemode'] = 'completed';
+        $context['sequencenumber'] = 1;
+        $context['txid'] = 'preAuthId';
+        $context['mode'] = 'test';
+
+        $data = [];
+        $data['context'] = $context;
+        $data['order'] = $order;
+
+
+        $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::CAPTURE, true);
+        $requestData = RequestFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'], $data)->toArray();
+
+        $this->assertEquals(
+            $requestMockData,
+            $requestData,
+            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
+        );
+    }
 
 }

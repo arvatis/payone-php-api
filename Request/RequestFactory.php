@@ -23,16 +23,17 @@ class RequestFactory
      */
     public static function create($requestType, $paymentMethod, $referenceId = false, $data = []): RequestDataContract
     {
+        $context = $data['context'];
+        $config = new Config(
+            $context['aid'],
+            $context['mid'],
+            $context['portalid'],
+            $context['key'],
+            $context['mode']
+        );
+
         switch ($requestType) {
             case Types::PREAUTHORIZATION:
-                $context = $data['context'];
-                $config = new Config(
-                    $context['aid'],
-                    $context['mid'],
-                    $context['portalid'],
-                    $context['key'],
-                    $context['mode']
-                );
                 $customerAddressData = $data['shippingAddress'];
                 $customerAddress = new CustomerAddress(
                     $customerAddressData['street'] . ' ' . $customerAddressData['houseNumber'],
@@ -85,7 +86,21 @@ class RequestFactory
                         );
 
                 }
+                break;
+            case Types::CAPTURE:
+                $order = $data['order'];
+                return new Capture(
+                    $config,
+                    $referenceId,
+                    $order['amount'],
+                    $order['currency'],
+                    $context['capturemode'],
+                    $context['sequencenumber']
+                );
+                break;
+
         }
         throw new \Exception('Uknown request type ' . $requestType . ' for ' . $paymentMethod . ' payment method.');
     }
 }
+

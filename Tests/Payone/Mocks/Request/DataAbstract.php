@@ -96,6 +96,13 @@ abstract class DataAbstract
         return $data;
     }
 
+    /**
+     * @return array
+     */
+    public function getOrder()
+    {
+        return ['reference' => 'order-123657'];
+    }
 
 }
 
