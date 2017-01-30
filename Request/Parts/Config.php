@@ -20,7 +20,7 @@ class Config implements RequestDataContract
      * @param $mid
      * @param $portalid
      * @param $key
-     * @param $mode
+     * @param string $mode live|test
      */
     public function __construct($aid, $mid, $portalid, $key, $mode)
     {
