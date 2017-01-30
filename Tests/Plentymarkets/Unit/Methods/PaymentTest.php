@@ -15,13 +15,13 @@ class PaymentTest extends \PHPUnit_Framework_TestCase
     {
         $paymentMethodRepo = $this->createMock(PaymentMethodRepositoryContract::class);
         $paymentRepo = $this->createMock(PaymentRepositoryContract::class);
-        $config = $this->createMock(ConfigRepository::class);
+        $configRepo = $this->createMock(ConfigRepository::class);
 
         $config = new Config();
-        $paymentHelper = new PaymentHelper($paymentMethodRepo,$paymentRepo,$config);
+        $paymentHelper = new PaymentHelper($paymentMethodRepo, $paymentRepo, $configRepo);
 
         $config = $config->getConfig();
-        $paymentMethods = $paymentHelper->getPayolutionPaymentCodes();
+        $paymentMethods = $paymentHelper->getPayonePaymentCodes();
         $this->assertTrue(count($paymentMethods) > 0, 'No payment methods defined');
 
         foreach ($paymentMethods as $method) {
