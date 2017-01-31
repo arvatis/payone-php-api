@@ -80,11 +80,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
         $line = strtok($response, $separator);
 
         while ($line !== false) {
-            $keyValue = explode("=", $line, 2);
-            if (!trim($keyValue[0])) {
-                continue;
-            }
-            $this->responseData[$keyValue[0]] = isset($keyValue[1]) ? trim($keyValue[1]) : '';
+            $this->parseLine($line);
             $line = strtok($separator);
         }
         return $this->responseData;
@@ -96,6 +92,20 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
     public function getStatus()
     {
         return isset($this->responseData['status']) ? (string)$this->responseData['status'] : '';
+    }
+
+    /**
+     * @param string $line
+     * @return void
+     */
+    private function parseLine($line)
+    {
+        if (!trim($line)) {
+            return;
+        }
+        list($key, $value) = explode("=", $line, 2);
+
+        $this->responseData[trim($key)] = trim($value);
     }
 
 
