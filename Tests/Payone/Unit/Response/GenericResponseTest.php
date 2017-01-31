@@ -54,6 +54,8 @@ TEXT;
             ],
             $response->getResponseData()
         );
+        $this->assertSame('', $response->getStatus());
+        $this->assertSame('', $response->getTransactionID());
     }
 
     public function testTransactionDataRetrieval()
