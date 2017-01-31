@@ -48,8 +48,12 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
             return '';
         }
 
-        return "Payone returned an error: " . ($this->responseData ?
-                print_r($this->responseData, true) : 'empty response');
+        $response = 'empty response';
+        if ($this->responseData) {
+            $response = print_r($this->responseData, true);
+        }
+
+        return "Payone returned an error: " . $response;
     }
 
     /**
@@ -58,7 +62,10 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      */
     public function getTransactionID()
     {
-        return isset($this->responseData['txid']) ? (string)$this->responseData['txid'] : '';
+        if (!isset($this->responseData['txid'])) {
+            return '';
+        }
+        return (string)$this->responseData['txid'];
     }
 
     /**
@@ -91,7 +98,10 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      */
     public function getStatus()
     {
-        return isset($this->responseData['status']) ? (string)$this->responseData['status'] : '';
+        if (!isset($this->responseData['status'])) {
+            return '';
+        }
+        return (string)$this->responseData['status'];
     }
 
     /**
