@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Payone\Request;
 
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
-
 
 /**
  * Class AuthorizationGeneric
  */
 class AuthorizationGeneric implements RequestDataContract
 {
-
     /**
      * @var string
      */
@@ -77,16 +74,13 @@ class AuthorizationGeneric implements RequestDataContract
     public function toArray()
     {
         $data = [
-            "request" => $this->request, // create account receivable
-            "clearingtype" => $this->clearingtype, // prepayment
-            "reference" => $this->reference, // a unique reference, e.g. order number
-            "amount" => $this->amount, // amount in smallest currency unit, i.e. cents
-            "currency" => $this->currency,
+            'request' => $this->request, // create account receivable
+            'clearingtype' => $this->clearingtype, // prepayment
+            'reference' => $this->reference, // a unique reference, e.g. order number
+            'amount' => $this->amount, // amount in smallest currency unit, i.e. cents
+            'currency' => $this->currency,
         ];
 
         return array_merge($this->config->toArray(), $this->customer->toArray(), $data);
-
     }
-
-
 }

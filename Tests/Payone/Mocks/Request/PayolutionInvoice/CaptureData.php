@@ -3,7 +3,6 @@
 
 class CaptureData
 {
-
     public function getRequestData()
     {
         return [
@@ -13,9 +12,7 @@ class CaptureData
 
             'capturemode' => 'completed',
             'sequencenumber' => 1,
-            'txid' => ''
+            'txid' => '',
         ];
-
     }
-
 }

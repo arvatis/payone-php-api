@@ -1,4 +1,5 @@
 <?php
+
 namespace Payolution\Tests\Mocks\Faker\Providers;
 
 use Faker\Provider\Base;

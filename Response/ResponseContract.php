@@ -1,11 +1,9 @@
 <?php
-namespace Payone\Response;
 
+namespace Payone\Response;
 
 /**
  * Class XmlApiResponse
- *
- * @package Payone\Api
  */
 interface ResponseContract
 {
@@ -18,6 +16,7 @@ interface ResponseContract
 
     /**
      * Get full error description from response
+     *
      * @return string
      */
     public function getErrorMessage();
@@ -29,6 +28,7 @@ interface ResponseContract
 
     /**
      * Get the transaction id
+     *
      * @return string
      */
     public function getTransactionID();
@@ -37,5 +37,4 @@ interface ResponseContract
      * @return array
      */
     public function toArray();
-
 }

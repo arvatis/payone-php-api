@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Payone\Request\Authorization;
 
+use Payone\Request\AuthorizationGeneric;
 use Payone\Request\ClearingTypes;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
-use Payone\Request\AuthorizationGeneric;
 use Payone\Request\RequestDataContract;
 use Payone\Request\Types;
 
@@ -36,7 +35,7 @@ class PrePayment implements RequestDataContract
             Types::AUTHORIZATION,
             ClearingTypes::VOR,
             $orderId,
-            (int)$amount,
+            (int) $amount,
             $currency
         );
     }

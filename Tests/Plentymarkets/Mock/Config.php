@@ -1,4 +1,5 @@
 <?php
+
 namespace Payone\Mocks;
 
 /**
@@ -12,20 +13,10 @@ class Config
     private $config = [];
 
     /**
-     * Getter for Config
-     * @return mixed
-     */
-    public function getConfig()
-    {
-        return $this->config;
-    }
-
-    /**
      * Config constructor.
      */
     public function __construct()
     {
-
         $configJson = file_get_contents(realpath(__DIR__ . DIRECTORY_SEPARATOR
             . '..' . DIRECTORY_SEPARATOR
             . '..' . DIRECTORY_SEPARATOR
@@ -38,5 +29,15 @@ class Config
         foreach ($config as $confEntry) {
             $this->config[$confEntry->key] = $confEntry;
         }
+    }
+
+    /**
+     * Getter for Config
+     *
+     * @return mixed
+     */
+    public function getConfig()
+    {
+        return $this->config;
     }
 }

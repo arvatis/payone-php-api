@@ -1,4 +1,5 @@
 <?php
+
 namespace Payone\Request;
 
 class Types
@@ -10,9 +11,10 @@ class Types
     /**
      * @return mixed
      */
-    static public function getRequestTypes()
+    public static function getRequestTypes()
     {
         $oClass = new \ReflectionClass(__CLASS__);
+
         return $oClass->getConstants();
     }
 }

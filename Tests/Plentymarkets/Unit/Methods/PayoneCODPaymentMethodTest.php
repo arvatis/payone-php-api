@@ -7,9 +7,8 @@ use Plenty\Plugin\ConfigRepository;
 
 class PayoneCODPaymentMethodTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
-     * @expectedException TypeError
+     * @expectedException \TypeError
      */
     public function testNameIsString()
     {

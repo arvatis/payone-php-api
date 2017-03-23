@@ -1,4 +1,5 @@
 <?php
+
 namespace Payone\Tests\Unit\Migrations;
 
 use Payone\Helper\PaymentHelper;
@@ -18,9 +19,9 @@ use Plenty\Plugin\ConfigRepository;
  */
 class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  PaymentMethodRepositoryContract|PHPUnit_Framework_MockObject_MockObject */
+    /** @var PaymentMethodRepositoryContract|PHPUnit_Framework_MockObject_MockObject */
     private $paymentRepo;
-    /** @var  PaymentHelper */
+    /** @var PaymentHelper */
     private $helper;
 
     /**
@@ -28,9 +29,6 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
      */
     private $migration;
 
-    /**
-     * @return void
-     */
     public function setUp()
     {
         $this->paymentRepo = $this->createMock(PaymentMethodRepositoryContract::class);
@@ -41,39 +39,33 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
                     (object)
                     [
                         'paymentKey' => PayoneInvoicePaymentMethod::PAYMENT_CODE,
-                        'id' => 'invoice_mop'
-                    ]
-                    ,
+                        'id' => 'invoice_mop',
+                    ],
                     (object)
                     [
                         'paymentKey' => PayonePaydirektPaymentMethod::PAYMENT_CODE,
-                        'id' => 'direct_mop'
-                    ]
-                    ,
+                        'id' => 'direct_mop',
+                    ],
                     (object)
                     [
                         'paymentKey' => PayonePayolutionInstallmentPaymentMethod::PAYMENT_CODE,
-                        'id' => 'inst_mop'
-                    ]
-                    ,
+                        'id' => 'inst_mop',
+                    ],
                     (object)
                     [
                         'paymentKey' => PayonePayPalPaymentMethod::PAYMENT_CODE,
-                        'id' => 'invoice_mop'
-                    ]
-                    ,
+                        'id' => 'invoice_mop',
+                    ],
                     (object)
                     [
                         'paymentKey' => PayoneRatePayInstallmentPaymentMethod::PAYMENT_CODE,
-                        'id' => 'ratepay_inst_mop'
-                    ]
-                    ,
+                        'id' => 'ratepay_inst_mop',
+                    ],
                     (object)
                     [
                         'paymentKey' => PayoneSofortPaymentMethod::PAYMENT_CODE,
-                        'id' => 'sofort_mop'
-                    ]
-
+                        'id' => 'sofort_mop',
+                    ],
                 ]
             );
         $paymentRepository = $this->createMock(PaymentRepositoryContract::class);
@@ -82,9 +74,6 @@ class CreatePaymentMethodTest extends \PHPUnit_Framework_TestCase
         $this->migration = new CreatePaymentMethods($this->paymentRepo, $this->helper);
     }
 
-    /**
-     * @return void
-     */
     public function testGetPaymentMethodMop()
     {
         $countOfUnregisteredPayments = 2;

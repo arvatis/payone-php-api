@@ -1,4 +1,5 @@
 <?php
+
 return <<<BODY
 status=APPROVED
 txid=213737458

@@ -10,20 +10,18 @@ use Tests\Payone\Mock\Request\RequestContract;
  */
 class AuthorizationData extends DataAbstract implements RequestContract
 {
-
     /**
      * @return array
      */
     public function getRequestData()
     {
         return [
-            "request" => "authorization", // create account receivable
-            "clearingtype" => "cod", // prepayment
-            "reference" => uniqid(), // a unique reference, e.g. order number
-            "amount" => 10000, // amount in smallest currency unit, i.e. cents
-            "currency" => "EUR",
-            'shippingprovider' => 'DHL'
+            'request' => 'authorization', // create account receivable
+            'clearingtype' => 'cod', // prepayment
+            'reference' => uniqid(), // a unique reference, e.g. order number
+            'amount' => 10000, // amount in smallest currency unit, i.e. cents
+            'currency' => 'EUR',
+            'shippingprovider' => 'DHL',
         ];
     }
-
 }

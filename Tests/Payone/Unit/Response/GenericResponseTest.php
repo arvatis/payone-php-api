@@ -1,18 +1,12 @@
 <?php
 
-
 namespace Payone\Response;
-
 
 /**
  * Class GenericResponseTest
  */
 class GenericResponseTest extends \PHPUnit_Framework_TestCase
 {
-
-    /**
-     * @return void
-     */
     public function testResponseContainsBasicData()
     {
         $response = new GenericResponse('');
@@ -29,9 +23,6 @@ class GenericResponseTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testResponseParsing()
     {
         $responseBody = <<<TEXT
@@ -50,7 +41,7 @@ TEXT;
                 'param2' => '2',
                 'param3' => '3param4=4',
                 'param5' => '5&param6=6',
-                'param7' => ''
+                'param7' => '',
             ],
             $response->getResponseData()
         );
@@ -71,6 +62,4 @@ TEXT;
         $this->assertSame('', $response->getErrorMessage());
         $this->assertSame('APPROVED', $response->getStatus());
     }
-
-
 }

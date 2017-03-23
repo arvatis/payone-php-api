@@ -10,22 +10,20 @@ use Tests\Payone\Mock\Request\RequestContract;
  */
 class CaptureData extends DataAbstract implements RequestContract
 {
-
     /**
      * @return array
      */
     public function getRequestData()
     {
         return [
-            "request" => "capture", // create account receivable
-            "amount" => 10000, // amount in smallest currency unit, i.e. cents
-            "currency" => "EUR",
+            'request' => 'capture', // create account receivable
+            'amount' => 10000, // amount in smallest currency unit, i.e. cents
+            'currency' => 'EUR',
             'capturemode' => 'completed',
             'sequencenumber' => 1,
-            'txid'=> 'preAuthId'
+            'txid' => 'preAuthId',
         ];
     }
-
 
     /**
      * @return array

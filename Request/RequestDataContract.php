@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Payone\Request;
-
 
 interface RequestDataContract
 {
-
     /**
      * @return array
      */

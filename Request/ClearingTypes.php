@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Payone\Request;
-
 
 class ClearingTypes
 {

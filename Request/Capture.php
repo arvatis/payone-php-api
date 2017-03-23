@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Payone\Request;
-
 
 use Payone\Request\Parts\Config;
 
@@ -20,6 +18,7 @@ class Capture implements RequestDataContract
 
     /**
      * Capture constructor.
+     *
      * @param Config $config
      * @param string $txid
      * @param string $amount
@@ -48,6 +47,7 @@ class Capture implements RequestDataContract
         if ($this->sequencenumber) {
             $data['sequencenumber'] = $this->sequencenumber;
         }
+
         return array_merge($this->config->toArray(), $data);
     }
 }

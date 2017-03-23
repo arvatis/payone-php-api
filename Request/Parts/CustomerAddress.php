@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Payone\Request\Parts;
-
 
 use Payone\Request\RequestDataContract;
 
@@ -16,6 +14,7 @@ class CustomerAddress implements RequestDataContract
 
     /**
      * CustomerAddress constructor.
+     *
      * @param $street
      * @param $addressaddition
      * @param $zip

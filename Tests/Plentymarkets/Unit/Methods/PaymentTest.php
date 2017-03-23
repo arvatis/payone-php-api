@@ -10,7 +10,6 @@ use Plenty\Plugin\ConfigRepository;
 
 class PaymentTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testConfigContainsBasicSettings()
     {
         $paymentMethodRepo = $this->createMock(PaymentMethodRepositoryContract::class);

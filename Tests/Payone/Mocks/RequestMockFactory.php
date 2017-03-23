@@ -14,11 +14,11 @@ class RequestMockFactory
         'Invoice',
     ];
 
-
     /**
      * @param string $paymentMethod
      * @param string $request PreCheck
      * @param bool $returnStaticData
+     *
      * @return array
      */
     public static function getRequestData($paymentMethod, $request, $returnStaticData = false)
@@ -36,20 +36,19 @@ class RequestMockFactory
             $mockData->getOrder()
         );
 
-        if($request == 'capture'){
+        if ($request == 'capture') {
             unset($data['reference']);
         }
         if ($returnStaticData) {
             return array_merge($data, $mockData->getPersonalDataStatic());
-
         }
+
         return array_merge($data, $mockData->getRequestData());
     }
 
     /**
      * @param $paymentMethod
      * @param $request
-     * @return void
      */
     private static function validate($paymentMethod, $request)
     {
@@ -60,5 +59,4 @@ class RequestMockFactory
             throw new \InvalidArgumentException('Unknown request type "' . $request . '""');
         }
     }
-
 }

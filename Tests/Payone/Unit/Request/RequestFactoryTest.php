@@ -1,11 +1,9 @@
 <?php
 
-
 namespace Payone\Request;
 
 use Tests\Payone\Helpers\Config;
 use Tests\Payone\Mock\RequestMockFactory;
-
 
 /**
  * Class RequestFactoryTest
@@ -72,9 +70,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $this->data = $data;
     }
 
-    /**
-     * @return void
-     */
     public function testPreAuthInvoiceSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::PREAUTHORIZATION, true);
@@ -86,9 +81,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testPreAuthCODSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('CashOnDelivery', Types::PREAUTHORIZATION, true);
@@ -100,9 +92,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testPreAuthPrePaymentSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('PrePayment', Types::PREAUTHORIZATION, true);
@@ -115,9 +104,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function testCaptureInvoiceSameAsMock()
     {
         $order = [];
@@ -134,7 +120,6 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $data['context'] = $context;
         $data['order'] = $order;
 
-
         $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::CAPTURE, true);
         $requestData = RequestFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'], $data)->toArray();
 
@@ -144,5 +129,4 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
             'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
         );
     }
-
 }

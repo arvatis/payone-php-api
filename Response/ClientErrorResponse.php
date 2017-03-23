@@ -1,20 +1,18 @@
 <?php
 
-
 namespace Payone\Response;
-
 
 /**
  * Class ClientErrorResponse
  */
 class ClientErrorResponse extends ResponseAbstract implements ResponseContract
 {
-
-    /** @var  string */
+    /** @var string */
     private $message;
 
     /**
      * ClientErrorResponse constructor.
+     *
      * @param string $message
      */
     public function __construct($message)
@@ -53,5 +51,4 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
     {
         return '';
     }
-
 }

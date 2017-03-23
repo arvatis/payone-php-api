@@ -1,4 +1,5 @@
 <?php
+
 namespace Payolution\Tests\Mocks\Faker\Providers;
 
 use Faker\Provider\Base;
@@ -8,16 +9,15 @@ use Faker\Provider\Base;
  */
 class PayoneCountryCode extends Base
 {
-
     /**
      * @var array
      */
-    protected static $group = array(
+    protected static $group = [
         'DE',
         'AT',
         'CH',
         'NL',
-    );
+    ];
 
     /**
      * @return mixed

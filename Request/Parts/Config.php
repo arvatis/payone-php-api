@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Payone\Request\Parts;
-
 
 use Payone\Request\RequestDataContract;
 
@@ -16,6 +14,7 @@ class Config implements RequestDataContract
 
     /**
      * Config constructor.
+     *
      * @param $aid
      * @param $mid
      * @param $portalid
@@ -34,15 +33,13 @@ class Config implements RequestDataContract
     public function toArray()
     {
         return [
-            "aid" => $this->aid,
-            "mid" => $this->mid,//"your_merchant_id",
-            "portalid" => $this->portalid,
-            "key" => $this->key, // the key has to be hashed as md5
-            "mode" => $this->mode, // can be "live" for actual transactions
-            "api_version" => "3.10",
-            "encoding" => "UTF-8"
+            'aid' => $this->aid,
+            'mid' => $this->mid, //"your_merchant_id",
+            'portalid' => $this->portalid,
+            'key' => $this->key, // the key has to be hashed as md5
+            'mode' => $this->mode, // can be "live" for actual transactions
+            'api_version' => '3.10',
+            'encoding' => 'UTF-8',
         ];
-
     }
-
 }

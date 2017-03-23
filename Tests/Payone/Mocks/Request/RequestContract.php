@@ -1,9 +1,9 @@
 <?php
+
 namespace Tests\Payone\Mock\Request;
 
 /**
  * Interface RequestContract
- * @package Tests\Payone\Mock\Request
  */
 interface RequestContract
 {

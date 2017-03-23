@@ -1,12 +1,9 @@
 <?php
 
-
 namespace Payone\Response;
-
 
 class ResponseAbstract
 {
-
     /**
      * @return array
      */

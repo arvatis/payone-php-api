@@ -1,15 +1,12 @@
 <?php
 
-
 namespace Payone\Request\Parts;
-
 
 use Payone\Request\RequestDataContract;
 use Tests\Payone\Mock\Request\DataAbstract;
 
 class ShippingAddress extends DataAbstract implements RequestDataContract
 {
-
     private $firstname;
     private $lastname;
     private $street;
@@ -20,6 +17,7 @@ class ShippingAddress extends DataAbstract implements RequestDataContract
 
     /**
      * ShippingAddress constructor.
+     *
      * @param $firstname
      * @param $lastname
      * @param $street
@@ -30,6 +28,7 @@ class ShippingAddress extends DataAbstract implements RequestDataContract
      */
     public function __construct($firstname, $lastname, $street, $addressaddition, $zip, $city, $country)
     {
+        parent::__construct();
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->street = $street;
@@ -42,12 +41,12 @@ class ShippingAddress extends DataAbstract implements RequestDataContract
     public function toArray()
     {
         return [
-            "shipping_firstname" => $this->firstname,
-            "shipping_lastname" => $this->lastname,
-            "shipping_street" => $this->street,
-            "shipping_zip" => $this->zip,
-            "shipping_city" => $this->city,
-            "shipping_country" => $this->country,
+            'shipping_firstname' => $this->firstname,
+            'shipping_lastname' => $this->lastname,
+            'shipping_street' => $this->street,
+            'shipping_zip' => $this->zip,
+            'shipping_city' => $this->city,
+            'shipping_country' => $this->country,
         ];
     }
 }

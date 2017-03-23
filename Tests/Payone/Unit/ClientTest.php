@@ -10,7 +10,6 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use Payone\Api\Client as ApiClient;
 use Payone\Api\PostApi;
-
 use Payone\Request\RequestFactory;
 use Payone\Request\Types;
 use Payone\Response\Status;
@@ -19,26 +18,17 @@ use Tests\Payone\Mock\RequestMockFactory;
 
 /**
  * Class ClientTest
- *
- * @package Payone\Tests\Unit\Api
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
-    /** @var  PostApi */
+    /** @var PostApi */
     private $client;
 
-
-    /**
-     * @return void
-     */
     public function setUp()
     {
         $this->client = new PostApi(new ApiClient());
     }
 
-    /**
-     * @return void
-     */
     public function testBasicRequestSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
@@ -49,9 +39,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::REDIRECT, $response->getStatus());
     }
 
-    /**
-     * @return void
-     */
     public function testPrePaymentPreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
@@ -62,9 +49,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
-    /**
-     * @return void
-     */
     public function testCODPreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
@@ -76,9 +60,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
-    /**
-     * @return void
-     */
     public function testInvoicePreAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
@@ -89,10 +70,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
-
-    /**
-     * @return void
-     */
     public function testPreauthAndCapture()
     {
         $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
@@ -103,7 +80,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         //sleep(3);
 
         print_r($preAuthRequestData);
-
 
         $order = [];
         $order['orderId'] = 'order-123657';
@@ -137,11 +113,10 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testClientErrorResponses()
     {
-
         $mock = new MockHandler([
             new Response(404, []),
             new Response(500, []),
-            new RequestException("Error Communicating with Server", new Request('POST', 'test'))
+            new RequestException('Error Communicating with Server', new Request('POST', 'test')),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -153,8 +128,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertArraySubset(
             [
                 'success' => false,
-                'errorMessage' =>
-                    'Client error: `POST https://api.pay1.de/post-gateway/` resulted in a `404 Not Found` response:'
+                'errorMessage' => 'Client error: `POST https://api.pay1.de/post-gateway/` resulted in a `404 Not Found` response:'
                     . PHP_EOL . PHP_EOL,
                 'status' => '',
                 'transactionID' => '',
@@ -169,8 +143,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertArraySubset(
             [
                 'success' => false,
-                'errorMessage' =>
-                    'Server error: `POST https://api.pay1.de/post-gateway/` resulted in a `500 Internal Server Error` response:'
+                'errorMessage' => 'Server error: `POST https://api.pay1.de/post-gateway/` resulted in a `500 Internal Server Error` response:'
                     . PHP_EOL . PHP_EOL,
                 'status' => '',
                 'transactionID' => '',
@@ -195,10 +168,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-
-    /**
-     * @return void
-     */
     public function testPrePaymentAuthSuccessfullyPlaced()
     {
         $this->markTestSkipped('Requests to external APIs are slow.');
@@ -210,12 +179,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
-    /**
-     * @return void
-     */
     public function testCODAuthSuccessfullyPlaced()
     {
-
         $this->markTestSkipped('Requests to external APIs are slow.');
 
         $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::AUTHORIZATION);
@@ -227,12 +192,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
-    /**
-     * @return void
-     */
     public function testInvoiceAuthSuccessfullyPlaced()
     {
-
         $this->markTestSkipped('Requests to external APIs are slow.');
 
         $request = RequestMockFactory::getRequestData('Invoice', Types::AUTHORIZATION);
@@ -242,5 +203,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(9, strlen($response->getTransactionID()));
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
-
 }

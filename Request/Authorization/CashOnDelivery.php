@@ -1,12 +1,11 @@
 <?php
 
-
 namespace Payone\Request\Authorization;
 
+use Payone\Request\AuthorizationGeneric;
 use Payone\Request\ClearingTypes;
 use Payone\Request\Parts\Config;
 use Payone\Request\Parts\Customer;
-use Payone\Request\AuthorizationGeneric;
 use Payone\Request\RequestDataContract;
 use Payone\Request\Types;
 
@@ -20,7 +19,6 @@ class CashOnDelivery implements RequestDataContract
      * @var AuthorizationGeneric
      */
     private $request;
-
 
     /**
      * @param Config $config
@@ -37,11 +35,10 @@ class CashOnDelivery implements RequestDataContract
             Types::AUTHORIZATION,
             ClearingTypes::COD,
             $orderId,
-            (int)$amount,
+            (int) $amount,
             $currency
         );
         $this->shippingprovider = $shippingprovider;
-
     }
 
     /**
@@ -51,6 +48,7 @@ class CashOnDelivery implements RequestDataContract
     {
         $data = $this->request->toArray();
         $data['shippingprovider'] = $this->shippingprovider;
+
         return $data;
     }
 }
