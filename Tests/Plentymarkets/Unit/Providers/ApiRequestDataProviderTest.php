@@ -9,7 +9,7 @@ use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Basket\Models\Basket;
 use Plenty\Modules\Item\Item\Contracts\ItemRepositoryContract;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
-use Plenty\Modules\Order\Shipping\Information\Contracts\ShippingInformationRepositoryContract;
+use Plenty\Modules\Order\Shipping\ServiceProvider\Contracts\ShippingServiceProviderRepositoryContract;
 
 /**
  * Class PaymentHelperTest
@@ -28,7 +28,7 @@ class ApiRequestDataProviderTest extends \PHPUnit_Framework_TestCase
             $this->createMock(SessionStorageService::class),
             $this->createMock(ItemRepositoryContract::class),
             $this->createMock(CountryRepositoryContract::class),
-            $this->createMock(ShippingInformationRepositoryContract::class)
+            $this->createMock(ShippingServiceProviderRepositoryContract::class)
         );
     }
 
