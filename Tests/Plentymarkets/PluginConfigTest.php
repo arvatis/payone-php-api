@@ -2,7 +2,6 @@
 
 namespace Payone\Tests\Unit;
 
-
 class PluginConfigTest extends \PHPUnit_Framework_TestCase
 {
     private $pluginConfig;
@@ -22,7 +21,6 @@ class PluginConfigTest extends \PHPUnit_Framework_TestCase
         if (!$this->pluginConfig) {
             throw new \Exception('Plugin config can not be parsed.');
         }
-
     }
 
     public function testRequiredFieldsPresent()
@@ -42,6 +40,6 @@ class PluginConfigTest extends \PHPUnit_Framework_TestCase
 
     public function testRequiredFieldsTypes()
     {
-        $this->assertArrayHasKey(is_float($this->pluginConfig['price']);
+        $this->assertTrue(is_float($this->pluginConfig['price']));
     }
 }
