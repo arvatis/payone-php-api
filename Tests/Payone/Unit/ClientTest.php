@@ -74,6 +74,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
         $response = $this->client->doRequest($preAuthRequestData);
+        print_r($response->toArray());
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());
 
