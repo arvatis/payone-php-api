@@ -7,7 +7,7 @@ class ResponseAbstract
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $result = [];
 

@@ -15,7 +15,7 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
      *
      * @param string $message
      */
-    public function __construct($message)
+    public function __construct(string $message)
     {
         $this->message = $message;
     }
@@ -23,7 +23,7 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
     /**
      * @return bool
      */
-    public function getSuccess()
+    public function getSuccess(): bool
     {
         return false;
     }
@@ -31,7 +31,7 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
     /**
      * @return string
      */
-    public function getErrorMessage()
+    public function getErrorMessage(): string
     {
         return $this->message;
     }
@@ -39,7 +39,7 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
     /**
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return '';
     }
@@ -47,7 +47,7 @@ class ClientErrorResponse extends ResponseAbstract implements ResponseContract
     /**
      * @return string
      */
-    public function getTransactionID()
+    public function getTransactionID(): string
     {
         return '';
     }
