@@ -22,7 +22,6 @@ class Customer implements RequestDataContract
     /**
      * Customer constructor.
      *
-     * @param $salutation
      * @param $title
      * @param $firstname
      * @param $lastname
@@ -35,7 +34,6 @@ class Customer implements RequestDataContract
      * @param $ip
      */
     public function __construct(
-        $salutation,
         $title,
         $firstname,
         $lastname,
@@ -47,7 +45,7 @@ class Customer implements RequestDataContract
         $gender,
         $ip
     ) {
-        $this->salutation = $salutation;
+        $this->salutation = $gender == 'm' ? 'Herr' : 'Frau';
         $this->title = $title;
         $this->firstname = $firstname;
         $this->lastname = $lastname;

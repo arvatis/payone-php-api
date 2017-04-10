@@ -72,6 +72,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testPreauthAndCapture()
     {
+        $this->markTestSkipped('Requests to external APIs are slow.');
+
         $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
         $response = $this->client->doRequest($preAuthRequestData);
         print_r($response->toArray());

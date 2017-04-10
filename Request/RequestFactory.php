@@ -44,7 +44,6 @@ class RequestFactory
                 );
                 $customerData = $data['customer'];
                 $customer = new Customer(
-                    $customerData['salutation'],
                     $customerData['title'],
                     $customerData['firstname'],
                     $customerData['lastname'],
