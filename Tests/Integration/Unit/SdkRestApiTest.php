@@ -147,7 +147,7 @@ JSON;
         $response = require_once 'resources/lib/doAuth.php';
 
         //print_r($response);
-        self::assertSame('Uknown request type authorization for  payment method.', $response['errorMessage']);
+        self::assertSame('SdkRestApi error: Uknown request type authorization for  payment method.', $response['errorMessage']);
     }
 
     public function testdoPreAuth()
@@ -155,7 +155,7 @@ JSON;
         $response = require_once 'resources/lib/doPreAuth.php';
 
         //print_r($response);
-        self::assertSame('Uknown request type preauthorization for  payment method.', $response['errorMessage']);
+        self::assertSame('SdkRestApi error: Uknown request type preauthorization for  payment method.', $response['errorMessage']);
     }
 
 }

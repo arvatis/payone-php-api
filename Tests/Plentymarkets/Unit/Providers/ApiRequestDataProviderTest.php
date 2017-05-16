@@ -7,7 +7,6 @@ use Payone\Providers\ApiRequestDataProvider;
 use Plenty\Modules\Account\Address\Contracts\AddressRepositoryContract;
 use Plenty\Modules\Account\Contact\Contracts\ContactRepositoryContract;
 use Plenty\Modules\Basket\Models\Basket;
-use Plenty\Modules\Frontend\Services\AccountService;
 use Plenty\Modules\Frontend\Session\Storage\Contracts\FrontendSessionStorageFactoryContract;
 use Plenty\Modules\Item\Item\Contracts\ItemRepositoryContract;
 use Plenty\Modules\Order\Shipping\Countries\Contracts\CountryRepositoryContract;
@@ -30,7 +29,6 @@ class ApiRequestDataProviderTest extends \PHPUnit_Framework_TestCase
             self::createMock(ItemRepositoryContract::class),
             self::createMock(CountryRepositoryContract::class),
             self::createMock(ShippingServiceProviderRepositoryContract::class),
-            self::createMock(AccountService::class),
             self::createMock(ContactRepositoryContract::class),
             self::createMock(FrontendSessionStorageFactoryContract::class)
         );
