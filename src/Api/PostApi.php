@@ -7,7 +7,6 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Payone\Response\ClientErrorResponse;
 use Payone\Response\GenericResponse;
-use Payone\Response\ResponseAbstract;
 use Payone\Response\ResponseContract;
 
 /**
