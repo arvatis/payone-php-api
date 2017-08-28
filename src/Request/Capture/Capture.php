@@ -1,10 +1,12 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+namespace ArvPayoneApi\Request\Capture;
 
 use ArvPayoneApi\Request\Parts\Config;
+use ArvPayoneApi\Request\RequestDataAbstract;
+use ArvPayoneApi\Request\RequestDataContract;
 
-class Capture implements RequestDataContract, \JsonSerializable
+class Capture extends RequestDataAbstract implements RequestDataContract, \JsonSerializable
 {
     private $txid;
     private $amount;

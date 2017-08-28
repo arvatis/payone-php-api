@@ -1,6 +1,6 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+namespace ArvPayoneApi\Request\Capture;
 
 class CaptureModes
 {

@@ -4,11 +4,12 @@ namespace ArvPayoneApi\Request;
 
 use ArvPayoneApi\Mocks\Config;
 use ArvPayoneApi\Mocks\RequestMockFactory;
+use ArvPayoneApi\Request\PreAuthorization\RequestFactory;
 
 /**
- * Class RequestFactoryTest
+ * Class CODTest
  */
-class RequestFactoryTest extends \PHPUnit_Framework_TestCase
+class CODTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
 
@@ -70,66 +71,14 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $this->data = $data;
     }
 
-    public function testPreAuthInvoiceSameAsMock()
-    {
-        $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'Invoice', false, $this->data);
-        self::assertEquals(
-            $requestMockData,
-            $requestData->jsonSerialize(),
-            'Differences: ' . PHP_EOL . print_r(
-                array_diff($requestMockData, $requestData->jsonSerialize()) +
-                array_diff($requestData->jsonSerialize() , $requestMockData ),
-                true)
-        );
-    }
-
     public function testPreAuthCODSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('CashOnDelivery', Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'CashOnDelivery', false, $this->data);
+        $requestData = RequestFactory::create('CashOnDelivery', false, $this->data);
         self::assertEquals(
             $requestMockData,
             $requestData->jsonSerialize(),
             'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->jsonSerialize()), true)
-        );
-    }
-
-    public function testPreAuthPrePaymentSameAsMock()
-    {
-        $requestMockData = RequestMockFactory::getRequestData('PrePayment', Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'PrePayment', false, $this->data)->jsonSerialize();
-
-        self::assertEquals(
-            $requestMockData,
-            $requestData,
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
-        );
-    }
-
-    public function testCaptureInvoiceSameAsMock()
-    {
-        $order = [];
-        $order['orderId'] = 'order-123657';
-        $order['amount'] = 10000;
-        $order['currency'] = 'EUR';
-        $context = Config::getConfig()['api_context'];
-        $context['capturemode'] = 'completed';
-        $context['sequencenumber'] = 1;
-        $context['txid'] = 'preAuthId';
-        $context['mode'] = 'test';
-
-        $data = [];
-        $data['context'] = $context;
-        $data['order'] = $order;
-
-        $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::CAPTURE, true);
-        $requestData = RequestFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'], $data)->jsonSerialize();
-
-        self::assertEquals(
-            $requestMockData,
-            $requestData,
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
         );
     }
 }
