@@ -29,30 +29,33 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->client = new PostApi(new ApiClient());
     }
 
+    /**
+     * @group online
+     */
     public function testBasicRequestSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('Sofort', 'authorization'));
 
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::REDIRECT, $response->getStatus());
     }
 
+    /**
+     * @group online
+     */
     public function testPrePaymentPreAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', 'preauthorization'));
         print_r($response);
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
+    /**
+     * @group online
+     */
     public function testCODPreAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $request = RequestMockFactory::getRequestData('CashOnDelivery', 'preauthorization');
         $response = $this->client->doRequest($request);
         print_r($request);
@@ -60,20 +63,22 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
+    /**
+     * @group online
+     */
     public function testInvoicePreAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
         print_r($response);
         $this->assertTrue($response->getSuccess());
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
+    /**
+     * @group online
+     */
     public function testPreauthAndCapture()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
         $response = $this->client->doRequest($preAuthRequestData);
         print_r($response->toArray());
@@ -171,10 +176,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * @group online
+     */
     public function testPrePaymentAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', Types::AUTHORIZATION));
         print_r($response);
         $this->assertTrue($response->getSuccess());
@@ -182,10 +188,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus());
     }
 
+    /**
+     * @group online
+     */
     public function testCODAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::AUTHORIZATION);
         $response = $this->client->doRequest($request);
         //print_r($request);
@@ -195,10 +202,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
+    /**
+     * @group online
+     */
     public function testInvoiceAuthSuccessfullyPlaced()
     {
-        $this->markTestSkipped('Requests to external APIs are slow.');
-
         $request = RequestMockFactory::getRequestData('Invoice', Types::AUTHORIZATION);
         $response = $this->client->doRequest($request);
         print_r($response);
