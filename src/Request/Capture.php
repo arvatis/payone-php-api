@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request;
 
 use ArvPayoneApi\Request\Parts\Config;
 
-class Capture implements RequestDataContract
+class Capture implements RequestDataContract, \JsonSerializable
 {
     private $txid;
     private $amount;
@@ -35,7 +35,7 @@ class Capture implements RequestDataContract
         $this->sequencenumber = $sequencenumber;
     }
 
-    public function toArray()
+    public function jsonSerialize()
     {
         $data = [
             'request' => Types::CAPTURE,
@@ -48,6 +48,6 @@ class Capture implements RequestDataContract
             $data['sequencenumber'] = $this->sequencenumber;
         }
 
-        return array_merge($this->config->toArray(), $data);
+        return array_merge($this->config->jsonSerialize(), $data);
     }
 }

@@ -2,21 +2,22 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
-use ArvPayoneApi\Request\AuthorizationGeneric;
 use ArvPayoneApi\Request\ClearingTypes;
+use ArvPayoneApi\Request\GenericRequest;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\RequestDataAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
 /**
  * Class CashOnDelivery
  */
-class CashOnDelivery implements RequestDataContract
+class CashOnDelivery extends RequestDataAbstract implements RequestDataContract, \JsonSerializable
 {
     private $shippingprovider;
     /**
-     * @var AuthorizationGeneric
+     * @var GenericRequest
      */
     private $request;
 
@@ -29,7 +30,7 @@ class CashOnDelivery implements RequestDataContract
      */
     public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider)
     {
-        $this->request = new AuthorizationGeneric(
+        $this->request = new GenericRequest(
             $config,
             $customer,
             Types::AUTHORIZATION,
@@ -42,13 +43,19 @@ class CashOnDelivery implements RequestDataContract
     }
 
     /**
+     * Getter for Shippingprovider
+     * @return mixed
+     */
+    public function getShippingprovider()
+    {
+        return $this->shippingprovider;
+    }
+
+    /**
      * @return array
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        $data = $this->request->toArray();
-        $data['shippingprovider'] = $this->shippingprovider;
-
-        return $data;
+        return $this->request->jsonSerialize() + parent::jsonSerialize();
     }
 }

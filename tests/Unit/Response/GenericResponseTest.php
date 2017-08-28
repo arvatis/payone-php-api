@@ -10,16 +10,16 @@ class GenericResponseTest extends \PHPUnit_Framework_TestCase
     public function testResponseContainsBasicData()
     {
         $response = new GenericResponse('');
-        $this->assertArraySubset(
+        self::assertArraySubset(
             [
                 'success' => false,
                 'errorMessage' => 'Payone returned an error: empty response',
                 'transactionID' => '',
                 'status' => '',
             ],
-            $response->toArray(),
+            $response->jsonSerialize(),
             true,
-            'response was: ' . print_r($response->toArray(), true)
+            'response was: ' . print_r($response->jsonSerialize(), true)
         );
     }
 
@@ -35,7 +35,7 @@ param7=
 TEXT;
 
         $response = new GenericResponse($responseBody);
-        $this->assertSame(
+        self::assertSame(
             [
                 'param1' => '1',
                 'param2' => '2',
@@ -45,8 +45,8 @@ TEXT;
             ],
             $response->getResponseData()
         );
-        $this->assertSame('', $response->getStatus());
-        $this->assertSame('', $response->getTransactionID());
+        self::assertSame('', $response->getStatus());
+        self::assertSame('', $response->getTransactionID());
     }
 
     public function testTransactionDataRetrieval()
@@ -57,9 +57,9 @@ TEXT;
 
         $response = new GenericResponse($responseBody);
 
-        $this->assertSame('213736587', $response->getTransactionID());
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame('', $response->getErrorMessage());
-        $this->assertSame('APPROVED', $response->getStatus());
+        self::assertSame('213736587', $response->getTransactionID());
+        self::assertTrue($response->getSuccess());
+        self::assertSame('', $response->getErrorMessage());
+        self::assertSame('APPROVED', $response->getStatus());
     }
 }

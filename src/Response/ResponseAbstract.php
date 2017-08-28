@@ -7,7 +7,7 @@ class ResponseAbstract
     /**
      * @return array
      */
-    public function toArray(): array
+    public function jsonSerialize(): array
     {
         $result = [];
 

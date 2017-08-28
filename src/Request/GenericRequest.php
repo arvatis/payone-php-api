@@ -6,9 +6,9 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 
 /**
- * Class AuthorizationGeneric
+ * Class GenericRequest
  */
-class AuthorizationGeneric implements RequestDataContract
+class GenericRequest extends RequestDataAbstract implements RequestDataContract, \JsonSerializable
 {
     /**
      * @var string
@@ -44,11 +44,11 @@ class AuthorizationGeneric implements RequestDataContract
     /**
      * @param Config $config
      * @param Customer $customer
-     * @param $request
      * @param $clearingtype
      * @param $reference
      * @param $amount
      * @param $currency
+     * @internal param $request
      */
     public function __construct(
         Config $config,
@@ -69,18 +69,63 @@ class AuthorizationGeneric implements RequestDataContract
     }
 
     /**
-     * @return array
+     * Getter for Reference
+     * @return string
      */
-    public function toArray()
+    public function getReference(): string
     {
-        $data = [
-            'request' => $this->request, // create account receivable
-            'clearingtype' => $this->clearingtype, // prepayment
-            'reference' => $this->reference, // a unique reference, e.g. order number
-            'amount' => $this->amount, // amount in smallest currency unit, i.e. cents
-            'currency' => $this->currency,
-        ];
+        return $this->reference;
+    }
 
-        return array_merge($this->config->toArray(), $this->customer->toArray(), $data);
+    /**
+     * Getter for Amount
+     * @return string
+     */
+    public function getAmount(): string
+    {
+        return $this->amount;
+    }
+
+    /**
+     * Getter for Currency
+     * @return string
+     */
+    public function getCurrency(): string
+    {
+        return $this->currency;
+    }
+
+    /**
+     * Getter for Config
+     * @return Config
+     */
+    public function getConfig(): Config
+    {
+        return $this->config;
+    }
+
+    /**
+     * Getter for Customer
+     * @return Customer
+     */
+    public function getCustomer(): Customer
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRequest(): string
+    {
+        return $this->request;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClearingtype(): string
+    {
+        return $this->clearingtype;
     }
 }

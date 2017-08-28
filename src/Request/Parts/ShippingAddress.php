@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class ShippingAddress implements RequestDataContract
+class ShippingAddress implements RequestDataContract, \JsonSerializable
 {
     private $firstname;
     private $lastname;
@@ -36,7 +36,7 @@ class ShippingAddress implements RequestDataContract
         $this->country = $country;
     }
 
-    public function toArray()
+    public function jsonSerialize()
     {
         return [
             'shipping_firstname' => $this->firstname,

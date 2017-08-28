@@ -2,20 +2,21 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
-use ArvPayoneApi\Request\AuthorizationGeneric;
 use ArvPayoneApi\Request\ClearingTypes;
+use ArvPayoneApi\Request\GenericRequest;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\RequestDataAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
 /**
  * Class PrePayment
  */
-class PrePayment implements RequestDataContract
+class PrePayment extends RequestDataAbstract implements RequestDataContract, \JsonSerializable
 {
     /**
-     * @var AuthorizationGeneric
+     * @var GenericRequest
      */
     private $request;
 
@@ -29,7 +30,7 @@ class PrePayment implements RequestDataContract
     {
         $this->config = $config;
         $this->customer = $customer;
-        $this->request = new AuthorizationGeneric(
+        $this->request = new GenericRequest(
             $config,
             $customer,
             Types::AUTHORIZATION,
@@ -43,8 +44,8 @@ class PrePayment implements RequestDataContract
     /**
      * @return array
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return $this->request->toArray();
+        return $this->request->jsonSerialize() + parent::jsonSerialize();
     }
 }

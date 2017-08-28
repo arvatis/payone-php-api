@@ -7,5 +7,5 @@ interface RequestDataContract
     /**
      * @return array
      */
-    public function toArray();
+    public function jsonSerialize();
 }

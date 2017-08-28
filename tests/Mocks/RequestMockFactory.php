@@ -40,10 +40,14 @@ class RequestMockFactory
             unset($data['reference']);
         }
         if ($returnStaticData) {
-            return array_merge($data, $mockData->getPersonalDataStatic());
+            $data = array_merge($data, $mockData->getPersonalDataStatic());
+            asort($data);
+            return $data;
         }
 
-        return array_merge($data, $mockData->getRequestData());
+        $data = array_merge($data, $mockData->getRequestData());
+        asort($data);
+        return $data;
     }
 
     /**

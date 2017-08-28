@@ -36,8 +36,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('Sofort', 'authorization'));
 
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(Status::REDIRECT, $response->getStatus());
+        self::assertTrue($response->getSuccess());
+        self::assertSame(Status::REDIRECT, $response->getStatus());
     }
 
     /**
@@ -47,8 +47,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', 'preauthorization'));
         print_r($response);
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
+        self::assertSame(Status::APPROVED, $response->getStatus());
     }
 
     /**
@@ -58,9 +58,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $request = RequestMockFactory::getRequestData('CashOnDelivery', 'preauthorization');
         $response = $this->client->doRequest($request);
-        print_r($request);
-        $this->assertTrue($response->getSuccess(), $response->getErrorMessage());
-        $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+        self::assertTrue($response->getSuccess(), $response->getErrorMessage());
+        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
     /**
@@ -69,9 +68,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testInvoicePreAuthSuccessfullyPlaced()
     {
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
-        print_r($response);
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
+        self::assertSame(Status::APPROVED, $response->getStatus());
     }
 
     /**
@@ -81,13 +79,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
         $response = $this->client->doRequest($preAuthRequestData);
-        print_r($response->toArray());
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(Status::APPROVED, $response->getStatus());
-
-        //sleep(3);
-
-        print_r($preAuthRequestData);
+        self::assertTrue($response->getSuccess());
+        self::assertSame(Status::APPROVED, $response->getStatus());
 
         $order = [];
         $order['orderId'] = 'order-123657';
@@ -110,10 +103,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             $captureRequestData
         );
 
-        $response = $this->client->doRequest($request->toArray());
-        print_r($response);
-        $this->assertSame(Status::APPROVED, $response->getStatus());
-        $this->assertTrue($response->getSuccess());
+        $response = $this->client->doRequest($request->jsonSerialize());
+        self::assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
     }
 
     /**
@@ -133,7 +125,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $api = new PostApi($client);
         $response = $api->doRequest([]);
 
-        $this->assertArraySubset(
+        self::assertArraySubset(
             [
                 'success' => false,
                 'errorMessage' => 'Client error: `POST https://api.pay1.de/post-gateway/` resulted in a `404 Not Found` response:'
@@ -141,14 +133,14 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'status' => '',
                 'transactionID' => '',
             ],
-            $response->toArray(),
+            $response->jsonSerialize(),
             true,
-            'response was: ' . print_r($response->toArray(), true)
+            'response was: ' . print_r($response->jsonSerialize(), true)
         );
 
         $response = $api->doRequest([]);
 
-        $this->assertArraySubset(
+        self::assertArraySubset(
             [
                 'success' => false,
                 'errorMessage' => 'Server error: `POST https://api.pay1.de/post-gateway/` resulted in a `500 Internal Server Error` response:'
@@ -156,23 +148,23 @@ class ClientTest extends \PHPUnit_Framework_TestCase
                 'status' => '',
                 'transactionID' => '',
             ],
-            $response->toArray(),
+            $response->jsonSerialize(),
             true,
-            'response was: ' . print_r($response->toArray(), true)
+            'response was: ' . print_r($response->jsonSerialize(), true)
         );
 
         $response = $api->doRequest([]);
 
-        $this->assertArraySubset(
+        self::assertArraySubset(
             [
                 'success' => false,
                 'errorMessage' => 'Error Communicating with Server',
                 'status' => '',
                 'transactionID' => '',
             ],
-            $response->toArray(),
+            $response->jsonSerialize(),
             true,
-            'response was: ' . print_r($response->toArray(), true)
+            'response was: ' . print_r($response->jsonSerialize(), true)
         );
     }
 
@@ -182,10 +174,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function testPrePaymentAuthSuccessfullyPlaced()
     {
         $response = $this->client->doRequest(RequestMockFactory::getRequestData('PrePayment', Types::AUTHORIZATION));
-        print_r($response);
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(9, strlen($response->getTransactionID()));
-        $this->assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
+        self::assertSame(9, strlen($response->getTransactionID()));
+        self::assertSame(Status::APPROVED, $response->getStatus());
     }
 
     /**
@@ -195,11 +186,9 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::AUTHORIZATION);
         $response = $this->client->doRequest($request);
-        //print_r($request);
-        print_r($response);
-        $this->assertTrue($response->getSuccess(), $response->getErrorMessage());
-        $this->assertSame(9, strlen($response->getTransactionID()));
-        $this->assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+        self::assertTrue($response->getSuccess(), $response->getErrorMessage());
+        self::assertSame(9, strlen($response->getTransactionID()));
+        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
     }
 
     /**
@@ -209,9 +198,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $request = RequestMockFactory::getRequestData('Invoice', Types::AUTHORIZATION);
         $response = $this->client->doRequest($request);
-        print_r($response);
-        $this->assertTrue($response->getSuccess());
-        $this->assertSame(9, strlen($response->getTransactionID()));
-        $this->assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
+        self::assertSame(9, strlen($response->getTransactionID()));
+        self::assertSame(Status::APPROVED, $response->getStatus());
     }
 }

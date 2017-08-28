@@ -36,5 +36,5 @@ interface ResponseContract
     /**
      * @return array
      */
-    public function toArray(): array;
+    public function jsonSerialize(): array;
 }

@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class Customer implements RequestDataContract
+class Customer implements RequestDataContract, \JsonSerializable
 {
     private $salutation;
     private $title;
@@ -58,7 +58,7 @@ class Customer implements RequestDataContract
         $this->ip = $ip;
     }
 
-    public function toArray()
+    public function jsonSerialize()
     {
         return array_merge(
             [
@@ -67,7 +67,7 @@ class Customer implements RequestDataContract
                 'firstname' => $this->firstname,
                 'lastname' => $this->lastname,
             ],
-            $this->address->toArray(),
+            $this->address->jsonSerialize(),
             [
                 'email' => $this->email,
                 'telephonenumber' => $this->telephonenumber,

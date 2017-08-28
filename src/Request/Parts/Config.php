@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class Config implements RequestDataContract
+class Config implements RequestDataContract, \JsonSerializable
 {
     private $aid;
     private $mid;
@@ -30,7 +30,7 @@ class Config implements RequestDataContract
         $this->mode = $mode;
     }
 
-    public function toArray()
+    public function jsonSerialize()
     {
         return [
             'aid' => $this->aid,

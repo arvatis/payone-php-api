@@ -74,10 +74,13 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::PREAUTHORIZATION, true);
         $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'Invoice', false, $this->data);
-        $this->assertSame(
+        self::assertEquals(
             $requestMockData,
-            $requestData->toArray(),
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->toArray()), true)
+            $requestData->jsonSerialize(),
+            'Differences: ' . PHP_EOL . print_r(
+                array_diff($requestMockData, $requestData->jsonSerialize()) +
+                array_diff($requestData->jsonSerialize() , $requestMockData ),
+                true)
         );
     }
 
@@ -85,19 +88,19 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $requestMockData = RequestMockFactory::getRequestData('CashOnDelivery', Types::PREAUTHORIZATION, true);
         $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'CashOnDelivery', false, $this->data);
-        $this->assertSame(
+        self::assertEquals(
             $requestMockData,
-            $requestData->toArray(),
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->toArray()), true)
+            $requestData->jsonSerialize(),
+            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->jsonSerialize()), true)
         );
     }
 
     public function testPreAuthPrePaymentSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData('PrePayment', Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'PrePayment', false, $this->data)->toArray();
+        $requestData = RequestFactory::create(Types::PREAUTHORIZATION, 'PrePayment', false, $this->data)->jsonSerialize();
 
-        $this->assertSame(
+        self::assertEquals(
             $requestMockData,
             $requestData,
             'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
@@ -121,9 +124,9 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $data['order'] = $order;
 
         $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::CAPTURE, true);
-        $requestData = RequestFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'], $data)->toArray();
+        $requestData = RequestFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'], $data)->jsonSerialize();
 
-        $this->assertEquals(
+        self::assertEquals(
             $requestMockData,
             $requestData,
             'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)

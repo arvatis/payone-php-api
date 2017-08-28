@@ -4,10 +4,10 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class CartItem implements RequestDataContract
+class CartItem implements RequestDataContract, \JsonSerializable
 {
-    public function toArray()
+    public function jsonSerialize()
     {
-        // TODO: Implement toArray() method.
+        // TODO: Implement jsonSerialize() method.
     }
 }
