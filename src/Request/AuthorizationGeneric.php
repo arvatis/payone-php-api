@@ -1,9 +1,9 @@
 <?php
 
-namespace Payone\Request;
+namespace ArvPayoneApi\Request;
 
-use Payone\Request\Parts\Config;
-use Payone\Request\Parts\Customer;
+use ArvPayoneApi\Request\Parts\Config;
+use ArvPayoneApi\Request\Parts\Customer;
 
 /**
  * Class AuthorizationGeneric

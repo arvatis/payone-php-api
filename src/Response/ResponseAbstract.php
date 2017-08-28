@@ -1,6 +1,6 @@
 <?php
 
-namespace Payone\Response;
+namespace ArvPayoneApi\Response;
 
 class ResponseAbstract
 {

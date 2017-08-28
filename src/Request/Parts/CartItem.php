@@ -1,8 +1,8 @@
 <?php
 
-namespace Payone\Request\Parts;
+namespace ArvPayoneApi\Request\Parts;
 
-use Payone\Request\RequestDataContract;
+use ArvPayoneApi\Request\RequestDataContract;
 
 class CartItem implements RequestDataContract
 {

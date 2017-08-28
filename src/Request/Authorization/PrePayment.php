@@ -1,13 +1,13 @@
 <?php
 
-namespace Payone\Request\Authorization;
+namespace ArvPayoneApi\Request\Authorization;
 
-use Payone\Request\AuthorizationGeneric;
-use Payone\Request\ClearingTypes;
-use Payone\Request\Parts\Config;
-use Payone\Request\Parts\Customer;
-use Payone\Request\RequestDataContract;
-use Payone\Request\Types;
+use ArvPayoneApi\Request\AuthorizationGeneric;
+use ArvPayoneApi\Request\ClearingTypes;
+use ArvPayoneApi\Request\Parts\Config;
+use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\RequestDataContract;
+use ArvPayoneApi\Request\Types;
 
 /**
  * Class PrePayment

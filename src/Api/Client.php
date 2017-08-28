@@ -1,11 +1,9 @@
 <?php
 
-namespace Payone\Api;
+namespace ArvPayoneApi\Api;
 
 /**
  * Class Client
- *
- * @package Payone\Api
  */
 class Client implements ClientContract
 {
@@ -27,6 +25,14 @@ class Client implements ClientContract
     protected $headers;
 
     /**
+     * Client constructor.
+     */
+    public function __construct()
+    {
+        $this->client = new \GuzzleHttp\Client();
+    }
+
+    /**
      * @return \GuzzleHttp\Client
      */
     public function getClient(): \GuzzleHttp\Client
@@ -36,11 +42,13 @@ class Client implements ClientContract
 
     /**
      * @param \GuzzleHttp\Client $client
+     *
      * @return Client
      */
     public function setClient(\GuzzleHttp\Client $client): Client
     {
         $this->client = $client;
+
         return $this;
     }
 
@@ -54,11 +62,13 @@ class Client implements ClientContract
 
     /**
      * @param string $httpMethod
+     *
      * @return Client
      */
     public function setHttpMethod(string $httpMethod): Client
     {
         $this->httpMethod = $httpMethod;
+
         return $this;
     }
 
@@ -72,24 +82,19 @@ class Client implements ClientContract
 
     /**
      * @param mixed $url
+     *
      * @return Client
      */
     public function setEndpointUrl($url)
     {
         $this->url = $url;
+
         return $this;
     }
 
     /**
-     * Client constructor.
-     */
-    public function __construct()
-    {
-        $this->client = new \GuzzleHttp\Client();
-    }
-
-    /**
      * @param array $data
+     *
      * @return string
      */
     public function doRequest(array $data)
@@ -103,11 +108,12 @@ class Client implements ClientContract
             ]
         );
 
-        return (string)$res->getBody();
+        return (string) $res->getBody();
     }
 
     /**
      * @param $method
+     *
      * @return $this
      */
     public function setMethod($method)

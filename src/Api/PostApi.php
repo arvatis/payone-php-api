@@ -1,18 +1,16 @@
 <?php
 
-namespace Payone\Api;
+namespace ArvPayoneApi\Api;
 
+use ArvPayoneApi\Response\ClientErrorResponse;
+use ArvPayoneApi\Response\GenericResponse;
+use ArvPayoneApi\Response\ResponseContract;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use Payone\Response\ClientErrorResponse;
-use Payone\Response\GenericResponse;
-use Payone\Response\ResponseContract;
 
 /**
  * Class XmlApi
- *
- * @package Payone\Api
  */
 class PostApi
 {
@@ -55,28 +53,33 @@ class PostApi
 
     /**
      * @param ClientContract $client
+     *
      * @return PostApi
      */
     public function setClient(ClientContract $client): PostApi
     {
         $this->client = $client;
+
         return $this;
     }
 
     /**
      * @param array $data
+     *
      * @return ResponseContract
      */
     public function doRequest(array $data)
     {
         try {
             $responseBody = $this->client->doRequest($data);
+
             return new GenericResponse($responseBody);
         } catch (ClientException $e) {
         } catch (ServerException $e) {
         } catch (BadResponseException $e) {
         } catch (\Exception $e) {
         }
+
         return new ClientErrorResponse($e->getMessage());
     }
 

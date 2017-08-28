@@ -1,8 +1,8 @@
 <?php
 
-namespace Payone\Request;
+namespace ArvPayoneApi\Request;
 
-use Payone\Request\Parts\Config;
+use ArvPayoneApi\Request\Parts\Config;
 
 class Capture implements RequestDataContract
 {

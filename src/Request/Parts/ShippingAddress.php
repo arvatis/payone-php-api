@@ -1,11 +1,10 @@
 <?php
 
-namespace Payone\Request\Parts;
+namespace ArvPayoneApi\Request\Parts;
 
-use Payone\Request\RequestDataContract;
-use Tests\Payone\Mock\Request\DataAbstract;
+use ArvPayoneApi\Request\RequestDataContract;
 
-class ShippingAddress extends DataAbstract implements RequestDataContract
+class ShippingAddress implements RequestDataContract
 {
     private $firstname;
     private $lastname;
@@ -28,7 +27,6 @@ class ShippingAddress extends DataAbstract implements RequestDataContract
      */
     public function __construct($firstname, $lastname, $street, $addressaddition, $zip, $city, $country)
     {
-        parent::__construct();
         $this->firstname = $firstname;
         $this->lastname = $lastname;
         $this->street = $street;

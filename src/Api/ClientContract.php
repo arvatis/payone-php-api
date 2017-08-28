@@ -1,6 +1,6 @@
 <?php
 
-namespace Payone\Api;
+namespace ArvPayoneApi\Api;
 
 /**
  * Interface ClientContract

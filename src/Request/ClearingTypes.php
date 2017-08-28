@@ -1,6 +1,6 @@
 <?php
 
-namespace Payone\Request;
+namespace ArvPayoneApi\Request;
 
 class ClearingTypes
 {

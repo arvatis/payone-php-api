@@ -1,11 +1,9 @@
 <?php
 
-namespace Payone\Response;
+namespace ArvPayoneApi\Response;
 
 /**
  * Class XmlApiResponse
- *
- * @package Payone\Api
  */
 class GenericResponse extends ResponseAbstract implements ResponseContract
 {
@@ -31,7 +29,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      */
     public function getSuccess(): bool
     {
-        if (!$this->responseData || $this->getStatus() == "ERROR") {
+        if (!$this->responseData || $this->getStatus() == 'ERROR') {
             return false;
         }
 
@@ -40,6 +38,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
 
     /**
      * Get full error description from response
+     *
      * @return string
      */
     public function getErrorMessage(): string
@@ -53,11 +52,12 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
             $response = print_r($this->responseData, true);
         }
 
-        return "Payone returned an error: " . $response;
+        return 'Payone returned an error: ' . $response;
     }
 
     /**
      * Get the transaction id
+     *
      * @return string
      */
     public function getTransactionID(): string
@@ -65,31 +65,17 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
         if (!isset($this->responseData['txid'])) {
             return '';
         }
-        return (string)$this->responseData['txid'];
+
+        return (string) $this->responseData['txid'];
     }
 
     /**
      * Getter for ResponseData
+     *
      * @return array
      */
     public function getResponseData(): array
     {
-        return $this->responseData;
-    }
-
-    /**
-     * @param string $response
-     * @return array
-     */
-    private function parseResponse(string $response)
-    {
-        $separator = "\n\t";
-        $line = strtok($response, $separator);
-
-        while ($line !== false) {
-            $this->parseLine($line);
-            $line = strtok($separator);
-        }
         return $this->responseData;
     }
 
@@ -101,22 +87,38 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
         if (!isset($this->responseData['status'])) {
             return '';
         }
-        return (string)$this->responseData['status'];
+
+        return (string) $this->responseData['status'];
+    }
+
+    /**
+     * @param string $response
+     *
+     * @return array
+     */
+    private function parseResponse(string $response)
+    {
+        $separator = "\n\t";
+        $line = strtok($response, $separator);
+
+        while ($line !== false) {
+            $this->parseLine($line);
+            $line = strtok($separator);
+        }
+
+        return $this->responseData;
     }
 
     /**
      * @param string $line
-     * @return void
      */
     private function parseLine($line)
     {
         if (!trim($line)) {
             return;
         }
-        list($key, $value) = explode("=", $line, 2);
+        list($key, $value) = explode('=', $line, 2);
 
         $this->responseData[trim($key)] = trim($value);
     }
-
-
 }
