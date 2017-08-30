@@ -1,19 +1,15 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+
+namespace ArvPayoneApi\Mocks\Request;
+
 
 use ArvPayoneApi\Mocks\Config;
 
-/**
- * Class SofortRequestTest
- */
-class SofortRequestTest extends \PHPUnit_Framework_TestCase
+class RequetGenerationData
 {
-    private $data;
-    private $paymentMethod = PaymentTypes::PAYONE_SOFORT;
 
-
-    public function setUp()
+    public static function getRequestData()
     {
         $order = [];
         $order['orderId'] = 'order-123657';
@@ -68,6 +64,6 @@ class SofortRequestTest extends \PHPUnit_Framework_TestCase
         $data['customer'] = $customer;
         $data['shippingProvider'] = $shippingProvider;
 
-        $this->data = $data;
+        return $data;
     }
 }

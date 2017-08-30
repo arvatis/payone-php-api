@@ -5,6 +5,7 @@ namespace ArvPayoneApi\Request\PreAuthorization;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
+use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
@@ -46,7 +47,7 @@ class RequestFactory implements RequestFactoryContract
         $order = $data['order'];
         $basket = $data['basket'];
         switch ($paymentMethod) {
-            case 'Invoice':
+            case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice(
                     $config,
                     $order['orderId'],
@@ -54,7 +55,7 @@ class RequestFactory implements RequestFactoryContract
                     $basket['currency'],
                     $customer
                 );
-            case 'PrePayment':
+            case PaymentTypes::PAYONE_PRE_PAYMENT:
                 return new PrePayment(
                     $config,
                     $order['orderId'],
@@ -62,7 +63,7 @@ class RequestFactory implements RequestFactoryContract
                     $basket['currency'],
                     $customer
                 );
-            case 'CashOnDelivery':
+            case PaymentTypes::PAYONE_CASH_ON_DELIVERY:
                 return new CashOnDelivery(
                     $config,
                     $order['orderId'],
@@ -73,6 +74,6 @@ class RequestFactory implements RequestFactoryContract
                 );
 
         }
-        throw new \Exception('Uknown request type ' . $requestType . ' for ' . $paymentMethod . ' payment method.');
+        throw new \Exception('Uknown payment method '. $paymentMethod);
     }
 }

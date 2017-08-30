@@ -31,6 +31,6 @@ class RequestFactory implements RequestFactoryContract
             $context['capturemode'],
             $context['sequencenumber']
         );
-        throw new \Exception('Uknown request type ' . $requestType . ' for ' . $paymentMethod . ' payment method.');
+        throw new \Exception('Uknown request payment metod ' . $paymentMethod);
     }
 }

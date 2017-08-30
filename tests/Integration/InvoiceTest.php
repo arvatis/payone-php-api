@@ -4,10 +4,12 @@ namespace ArvPayoneApi\Unit\Api;
 
 use ArvPayoneApi\Api\Client as ApiClient;
 use ArvPayoneApi\Api\PostApi;
-use ArvPayoneApi\Mocks\Config;
-use ArvPayoneApi\Mocks\RequestMockFactory;
-use ArvPayoneApi\Request\RequestFactoryContract;
-use ArvPayoneApi\Request\Types;
+use ArvPayoneApi\Helpers\TransactionHelper;
+use ArvPayoneApi\Mocks\Request\RequetGenerationData;
+use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
+use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
+use ArvPayoneApi\Request\PaymentTypes;
+use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
 use ArvPayoneApi\Response\Status;
 
 /**
@@ -15,69 +17,64 @@ use ArvPayoneApi\Response\Status;
  */
 class InvoiceTest extends \PHPUnit_Framework_TestCase
 {
+    private $paymentMethod;
     /** @var PostApi */
     private $client;
 
     public function setUp()
     {
         $this->client = new PostApi(new ApiClient());
+        $this->paymentMethod = PaymentTypes::PAYONE_INVOICE;
     }
 
     /**
      * @group online
      */
-    public function testInvoicePreAuthSuccessfullyPlaced()
+    public function testAuthSuccessfullyPlaced()
     {
-        $response = $this->client->doRequest(RequestMockFactory::getRequestData('Invoice', 'preauthorization'));
-        self::assertTrue($response->getSuccess());
-        self::assertSame(Status::APPROVED, $response->getStatus());
-    }
-
-    /**
-     * @group online
-     */
-    public function testInvoicePreauthAndCapture()
-    {
-        $preAuthRequestData = RequestMockFactory::getRequestData('Invoice', 'preauthorization');
-        $response = $this->client->doRequest($preAuthRequestData);
-        self::assertTrue($response->getSuccess());
-        self::assertSame(Status::APPROVED, $response->getStatus());
-
-        $order = [];
-        $order['orderId'] = 'order-123657';
-        $order['amount'] = 10000;
-        $order['currency'] = 'EUR';
-        $context = Config::getConfig()['api_context'];
-        $context['capturemode'] = 'completed';
-        $context['sequencenumber'] = 1;
-        $context['txid'] = 'preAuthId';
-        $context['mode'] = 'test';
-
-        $captureRequestData = [];
-        $captureRequestData['context'] = $context;
-        $captureRequestData['order'] = $order;
-
-        $request = RequestFactoryContract::create(
-            Types::CAPTURE,
-            'Invoice',
-            $response->getTransactionID(),
-            $captureRequestData
-        );
-
-        $response = $this->client->doRequest($request->jsonSerialize());
-        self::assertSame(Status::APPROVED, $response->getStatus());
-        self::assertTrue($response->getSuccess());
-    }
-
-    /**
-     * @group online
-     */
-    public function testInvoiceAuthSuccessfullyPlaced()
-    {
-        $request = RequestMockFactory::getRequestData('Invoice', Types::AUTHORIZATION);
+        $data = RequetGenerationData::getRequestData();
+        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = AuthFactory::create($this->paymentMethod, false, $data);
         $response = $this->client->doRequest($request);
         self::assertTrue($response->getSuccess());
         self::assertSame(9, strlen($response->getTransactionID()));
         self::assertSame(Status::APPROVED, $response->getStatus());
+    }
+
+    /**
+     * @group online
+     */
+    public function testPreAuthSuccessfullyPlaced()
+    {
+        $data = RequetGenerationData::getRequestData();
+        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = PreAuthFactory::create($this->paymentMethod, false, $data);
+        $response = $this->client->doRequest($request);
+        self::assertTrue($response->getSuccess());
+        self::assertSame(Status::APPROVED, $response->getStatus());
+
+        return $response;
+    }
+
+    /**
+     * @depends testPreAuthSuccessfullyPlaced
+     * @group online
+     */
+    public function testCapture($preAuth)
+    {
+        $data = RequetGenerationData::getRequestData();
+        $data['context']['capturemode'] = 'completed';
+        $data['context']['sequencenumber'] = 1;
+        $data['context']['txid'] = 'preAuthId';
+
+        $request = CaptureFactory::create(
+            'Invoice',
+            $preAuth->getTransactionID(),
+            $data
+        );
+
+        $response = $this->client->doRequest($request);
+        self::assertSame(Status::APPROVED, $response->getStatus());
+        self::assertTrue($response->getSuccess());
     }
 }

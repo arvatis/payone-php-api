@@ -14,6 +14,8 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
 
+    private $paymentMethod = PaymentTypes::PAYONE_INVOICE;
+
     public function setUp()
     {
         $order = [];
@@ -74,8 +76,9 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 
     public function testPreAuthInvoiceSameAsMock()
     {
-        $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::PREAUTHORIZATION, true);
-        $requestData = PreAuthFactory::create('Invoice', false, $this->data);
+        $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::PREAUTHORIZATION,
+            true);
+        $requestData = PreAuthFactory::create($this->paymentMethod, false, $this->data);
         self::assertEquals(
             $requestMockData,
             $requestData->jsonSerialize(),
@@ -102,8 +105,8 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $data['context'] = $context;
         $data['order'] = $order;
 
-        $requestMockData = RequestMockFactory::getRequestData('Invoice', Types::CAPTURE, true);
-        $requestData = CaptureFactory::create(Types::CAPTURE, 'Invoice', $requestMockData['txid'],
+        $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::CAPTURE, true);
+        $requestData = CaptureFactory::create($this->paymentMethod, $requestMockData['txid'],
             $data)->jsonSerialize();
 
         self::assertEquals(

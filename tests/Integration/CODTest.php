@@ -4,8 +4,11 @@ namespace ArvPayoneApi\Unit\Api;
 
 use ArvPayoneApi\Api\Client as ApiClient;
 use ArvPayoneApi\Api\PostApi;
-use ArvPayoneApi\Mocks\RequestMockFactory;
-use ArvPayoneApi\Request\Types;
+use ArvPayoneApi\Helpers\TransactionHelper;
+use ArvPayoneApi\Mocks\Request\RequetGenerationData;
+use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
+use ArvPayoneApi\Request\PaymentTypes;
+use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
 use ArvPayoneApi\Response\Status;
 
 /**
@@ -13,6 +16,7 @@ use ArvPayoneApi\Response\Status;
  */
 class CODTest extends \PHPUnit_Framework_TestCase
 {
+    private $paymentMethod = PaymentTypes::PAYONE_CASH_ON_DELIVERY;
     /** @var PostApi */
     private $client;
 
@@ -27,7 +31,9 @@ class CODTest extends \PHPUnit_Framework_TestCase
      */
     public function testCODPreAuthSuccessfullyPlaced()
     {
-        $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::PREAUTHORIZATION);
+        $data = RequetGenerationData::getRequestData();
+        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = PreAuthFactory::create($this->paymentMethod, false, $data);
         $response = $this->client->doRequest($request);
         self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
@@ -38,7 +44,9 @@ class CODTest extends \PHPUnit_Framework_TestCase
      */
     public function testCODAuthSuccessfullyPlaced()
     {
-        $request = RequestMockFactory::getRequestData('CashOnDelivery', Types::AUTHORIZATION);
+        $data = RequetGenerationData::getRequestData();
+        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = AuthFactory::create($this->paymentMethod, false, $data);
         $response = $this->client->doRequest($request);
         self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertSame(9, strlen($response->getTransactionID()));

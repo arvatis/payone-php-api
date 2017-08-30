@@ -3,16 +3,11 @@
 namespace ArvPayoneApi\Mocks;
 
 use ArvPayoneApi\Mocks\Request\RequestContract;
+use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\Types;
 
 class RequestMockFactory
 {
-    private static $allowedPayments = [
-        'Sofort',
-        'PrePayment',
-        'CashOnDelivery',
-        'Invoice',
-    ];
 
     /**
      * @param string $paymentMethod
@@ -56,7 +51,7 @@ class RequestMockFactory
      */
     private static function validate($paymentMethod, $request)
     {
-        if (!in_array($paymentMethod, self::$allowedPayments)) {
+        if (!in_array($paymentMethod, PaymentTypes::getPaymentTypes())) {
             throw new \InvalidArgumentException('Unknown payment method "' . $paymentMethod . '"');
         }
         if (!in_array($request, Types::getRequestTypes())) {

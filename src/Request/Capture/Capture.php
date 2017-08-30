@@ -5,6 +5,7 @@ namespace ArvPayoneApi\Request\Capture;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\RequestDataAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
+use ArvPayoneApi\Request\Types;
 
 class Capture extends RequestDataAbstract implements RequestDataContract, \JsonSerializable
 {

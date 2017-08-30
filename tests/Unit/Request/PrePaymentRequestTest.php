@@ -10,6 +10,7 @@ use ArvPayoneApi\Mocks\Config;
 class PrePaymentRequestTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
+    private $paymentMethod = PaymentTypes::PAYONE_PRE_PAYMENT;
 
     public function setUp()
     {

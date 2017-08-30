@@ -2,6 +2,7 @@
 
 namespace ArvPayoneApi\Api;
 
+use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Response\ClientErrorResponse;
 use ArvPayoneApi\Response\GenericResponse;
 use ArvPayoneApi\Response\ResponseContract;
@@ -68,10 +69,10 @@ class PostApi
      *
      * @return ResponseContract
      */
-    public function doRequest(array $data)
+    public function doRequest(RequestDataContract $data)
     {
         try {
-            $responseBody = $this->client->doRequest($data);
+            $responseBody = $this->client->doRequest($data->jsonSerialize());
 
             return new GenericResponse($responseBody);
         } catch (ClientException $e) {
