@@ -4,6 +4,7 @@ namespace ArvPayoneApi\Unit\Api;
 
 use ArvPayoneApi\Api\Client as ApiClient;
 use ArvPayoneApi\Api\PostApi;
+use ArvPayoneApi\Request\RequestDataContract;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -16,11 +17,14 @@ use GuzzleHttp\Psr7\Response;
  */
 class ClientTest extends \PHPUnit_Framework_TestCase
 {
+    private $requestMock;
     /** @var PostApi */
     private $client;
 
     public function setUp()
     {
+        $this->requestMock = self::createMock(RequestDataContract::class);
+        $this->requestMock->method('jsonSerialize')->willReturn([]);
         $this->client = new PostApi(new ApiClient());
     }
 
@@ -29,7 +33,8 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidRequest()
     {
-        $response = $this->client->doRequest([]);
+
+        $response = $this->client->doRequest($this->requestMock);
 
         self::assertContains('[errormessage] => Parameter {request} faulty or missing', $response->getErrorMessage());
     }
@@ -49,7 +54,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $client = new ApiClient();
         $client->setClient(new Client(['handler' => $handler]));
         $api = new PostApi($client);
-        $response = $api->doRequest([]);
+        $response = $api->doRequest($this->requestMock);
 
         self::assertArraySubset(
             [
@@ -64,7 +69,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'response was: ' . print_r($response->jsonSerialize(), true)
         );
 
-        $response = $api->doRequest([]);
+        $response = $api->doRequest($this->requestMock);
 
         self::assertArraySubset(
             [
@@ -79,7 +84,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'response was: ' . print_r($response->jsonSerialize(), true)
         );
 
-        $response = $api->doRequest([]);
+        $response = $api->doRequest($this->requestMock);
 
         self::assertArraySubset(
             [
