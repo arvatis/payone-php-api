@@ -7,6 +7,7 @@ class Types
     const PREAUTHORIZATION = 'preauthorization';
     const AUTHORIZATION = 'authorization';
     const CAPTURE = 'capture';
+    const REFUND = 'refund';
 
     /**
      * @return mixed

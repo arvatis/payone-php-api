@@ -1,80 +1,17 @@
 <?php
 
-namespace ArvPayoneApi\Unit\Api;
+namespace ArvPayoneApi\Integration;
 
-use ArvPayoneApi\Api\Client as ApiClient;
-use ArvPayoneApi\Api\PostApi;
-use ArvPayoneApi\Helpers\TransactionHelper;
-use ArvPayoneApi\Mocks\Request\RequetGenerationData;
-use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
-use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
 use ArvPayoneApi\Request\PaymentTypes;
-use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
-use ArvPayoneApi\Response\Status;
 
 /**
  * Class InvoiceTest
  */
-class InvoiceTest extends \PHPUnit_Framework_TestCase
+class InvoiceTest extends IntegrationTestAbstract
 {
-    private $paymentMethod;
-    /** @var PostApi */
-    private $client;
-
     public function setUp()
     {
-        $this->client = new PostApi(new ApiClient());
+        parent::setUp();
         $this->paymentMethod = PaymentTypes::PAYONE_INVOICE;
-    }
-
-    /**
-     * @group online
-     */
-    public function testAuthSuccessfullyPlaced()
-    {
-        $data = RequetGenerationData::getRequestData();
-        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = AuthFactory::create($this->paymentMethod, false, $data);
-        $response = $this->client->doRequest($request);
-        self::assertTrue($response->getSuccess());
-        self::assertSame(9, strlen($response->getTransactionID()));
-        self::assertSame(Status::APPROVED, $response->getStatus());
-    }
-
-    /**
-     * @group online
-     */
-    public function testPreAuthSuccessfullyPlaced()
-    {
-        $data = RequetGenerationData::getRequestData();
-        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = PreAuthFactory::create($this->paymentMethod, false, $data);
-        $response = $this->client->doRequest($request);
-        self::assertTrue($response->getSuccess());
-        self::assertSame(Status::APPROVED, $response->getStatus());
-
-        return $response;
-    }
-
-    /**
-     * @depends testPreAuthSuccessfullyPlaced
-     * @group online
-     */
-    public function testCapture($preAuth)
-    {
-        $data = RequetGenerationData::getRequestData();
-        $data['context']['capturemode'] = 'completed';
-        $data['context']['sequencenumber'] = 1;
-        $data['context']['txid'] = 'preAuthId';
-
-        $request = CaptureFactory::create(
-            'Invoice',
-            $preAuth->getTransactionID(),
-            $data
-        );
-
-        $response = $this->client->doRequest($request);
-        self::assertSame(Status::APPROVED, $response->getStatus());
-        self::assertTrue($response->getSuccess());
     }
 }

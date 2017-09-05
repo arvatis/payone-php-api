@@ -12,7 +12,6 @@ class SofortRequestTest extends \PHPUnit_Framework_TestCase
     private $data;
     private $paymentMethod = PaymentTypes::PAYONE_SOFORT;
 
-
     public function setUp()
     {
         $order = [];

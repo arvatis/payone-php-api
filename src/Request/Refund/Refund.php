@@ -1,16 +1,15 @@
 <?php
 
-namespace ArvPayoneApi\Request\Capture;
+namespace ArvPayoneApi\Request\Refund;
 
 use ArvPayoneApi\Request\GenericRequestAbstract;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
-class Capture extends GenericRequestAbstract implements RequestDataContract, \JsonSerializable
+class Refund extends GenericRequestAbstract implements RequestDataContract, \JsonSerializable
 {
     private $txid;
-    private $capturemode;
 
     /**
      * Capture constructor.
@@ -21,17 +20,16 @@ class Capture extends GenericRequestAbstract implements RequestDataContract, \Js
      * @param string $currency
      * @param string $capturemode
      */
-    public function __construct(Config $config, $txid, $amount, $currency, $capturemode, $sequencenumber = null)
+    public function __construct(Config $config, $txid, $amount, $currency, $sequencenumber = null)
     {
         parent::__construct(
             $config,
-            Types::CAPTURE,
-            $amount,
+            Types::REFUND,
+            -$amount,
             $currency,
             $sequencenumber
         );
         $this->txid = $txid;
-        $this->capturemode = $capturemode;
     }
 
     /**
@@ -42,15 +40,5 @@ class Capture extends GenericRequestAbstract implements RequestDataContract, \Js
     public function getTxid(): string
     {
         return $this->txid;
-    }
-
-    /**
-     * Getter for Capturemode
-     *
-     * @return string
-     */
-    public function getCapturemode(): string
-    {
-        return $this->capturemode;
     }
 }

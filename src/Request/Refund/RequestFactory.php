@@ -1,8 +1,7 @@
 <?php
 
-namespace ArvPayoneApi\Request\Capture;
+namespace ArvPayoneApi\Request\Refund;
 
-use ArvPayoneApi\Request\Capture;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
@@ -22,12 +21,11 @@ class RequestFactory implements RequestFactoryContract
 
         $order = $data['order'];
 
-        return new Capture\Capture(
+        return new Refund(
             $config,
             $referenceId,
             $order['amount'],
             $order['currency'],
-            $context['capturemode'],
             $context['sequencenumber']
         );
     }

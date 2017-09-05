@@ -8,7 +8,7 @@ namespace ArvPayoneApi\Request;
 class PaymentTypes
 {
     const PAYONE_INVOICE = 'Invoice';
-    const PAYONE_PRE_PAYMENT= 'PrePayment';
+    const PAYONE_PRE_PAYMENT = 'PrePayment';
     const PAYONE_CASH_ON_DELIVERY = 'CashOnDelivery';
     const PAYONE_SOFORT = 'Sofort';
 

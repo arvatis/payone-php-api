@@ -8,7 +8,6 @@ use ArvPayoneApi\Request\Types;
 
 class RequestMockFactory
 {
-
     /**
      * @param string $paymentMethod
      * @param string $request PreCheck
@@ -37,11 +36,13 @@ class RequestMockFactory
         if ($returnStaticData) {
             $data = array_merge($data, $mockData->getPersonalDataStatic());
             asort($data);
+
             return $data;
         }
 
         $data = array_merge($data, $mockData->getRequestData());
         asort($data);
+
         return $data;
     }
 

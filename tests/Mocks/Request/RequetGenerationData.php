@@ -1,14 +1,11 @@
 <?php
 
-
 namespace ArvPayoneApi\Mocks\Request;
-
 
 use ArvPayoneApi\Mocks\Config;
 
 class RequetGenerationData
 {
-
     public static function getRequestData()
     {
         $order = [];

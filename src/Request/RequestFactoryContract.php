@@ -15,6 +15,4 @@ interface RequestFactoryContract
      * @return RequestDataContract
      */
     public static function create($paymentMethod, $referenceId = false, $data = []): RequestDataContract;
-
-
 }

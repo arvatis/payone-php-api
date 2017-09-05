@@ -69,6 +69,4 @@ class PrePaymentRequestTest extends \PHPUnit_Framework_TestCase
 
         $this->data = $data;
     }
-
-
 }

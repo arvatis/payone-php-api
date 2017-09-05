@@ -33,7 +33,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidRequest()
     {
-
         $response = $this->client->doRequest($this->requestMock);
 
         self::assertContains('[errormessage] => Parameter {request} faulty or missing', $response->getErrorMessage());
@@ -98,5 +97,4 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'response was: ' . print_r($response->jsonSerialize(), true)
         );
     }
-
 }

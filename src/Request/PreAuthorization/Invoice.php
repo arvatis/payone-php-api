@@ -3,23 +3,17 @@
 namespace ArvPayoneApi\Request\PreAuthorization;
 
 use ArvPayoneApi\Request\ClearingTypes;
-use ArvPayoneApi\Request\GenericRequest;
+use ArvPayoneApi\Request\GenericAuthorizationAbstract;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
-use ArvPayoneApi\Request\RequestDataAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
 /**
  * Class Invoice
  */
-class Invoice  extends RequestDataAbstract implements RequestDataContract
+class Invoice extends GenericAuthorizationAbstract implements RequestDataContract
 {
-    /**
-     * @var \ArvPayoneApi\Request\GenericRequest
-     */
-    private $request;
-
     /**
      * @param Config $config
      * @param $orderId
@@ -28,7 +22,7 @@ class Invoice  extends RequestDataAbstract implements RequestDataContract
      */
     public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer)
     {
-        $this->request = new GenericRequest(
+        parent::__construct(
             $config,
             $customer,
             Types::PREAUTHORIZATION,
@@ -37,13 +31,5 @@ class Invoice  extends RequestDataAbstract implements RequestDataContract
             (int) $amount,
             $currency
         );
-    }
-
-    /**
-     * @return array
-     */
-    public function jsonSerialize()
-    {
-        return $this->request->jsonSerialize() + parent::jsonSerialize();
     }
 }

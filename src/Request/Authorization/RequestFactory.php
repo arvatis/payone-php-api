@@ -14,7 +14,6 @@ use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
 {
-
     public static function create($paymentMethod, $referenceId = false, $data = []): RequestDataContract
     {
         $context = $data['context'];
