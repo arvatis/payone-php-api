@@ -34,4 +34,7 @@
         <log type="junit" target="build/php/test-results.xml"/>
     </logging>
 
+    <php>
+        <includePath>./</includePath>
+    </php>
 </phpunit>

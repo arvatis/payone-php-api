@@ -87,7 +87,7 @@ class PostApi
     /**
      * @return string
      */
-    protected function getEndPointUrl(): string
+    protected function getEndPointUrl()
     {
         return $this::PAYONE_SERVER_API_URL;
     }

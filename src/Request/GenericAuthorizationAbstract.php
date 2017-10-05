@@ -64,7 +64,7 @@ class GenericAuthorizationAbstract extends GenericRequestAbstract implements Req
      *
      * @return string
      */
-    public function getClearingtype(): string
+    public function getClearingtype()
     {
         return $this->clearingtype;
     }

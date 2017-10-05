@@ -72,6 +72,6 @@ class RequestFactory implements RequestFactoryContract
                     $data['shippingProvider']['name']
                 );
         }
-        throw new \Exception('Uknown payment method ' . $paymentMethod);
+        throw new \Exception('Unimplemented payment method ' . $paymentMethod);
     }
 }

@@ -37,7 +37,7 @@ class Refund extends GenericRequestAbstract implements RequestDataContract, \Jso
      *
      * @return string
      */
-    public function getTxid(): string
+    public function getTxid()
     {
         return $this->txid;
     }

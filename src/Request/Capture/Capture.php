@@ -39,7 +39,7 @@ class Capture extends GenericRequestAbstract implements RequestDataContract, \Js
      *
      * @return string
      */
-    public function getTxid(): string
+    public function getTxid()
     {
         return $this->txid;
     }
@@ -49,7 +49,7 @@ class Capture extends GenericRequestAbstract implements RequestDataContract, \Js
      *
      * @return string
      */
-    public function getCapturemode(): string
+    public function getCapturemode()
     {
         return $this->capturemode;
     }

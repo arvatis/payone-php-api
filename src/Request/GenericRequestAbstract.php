@@ -67,7 +67,7 @@ class GenericRequestAbstract implements RequestDataContract, \JsonSerializable
      *
      * @return int
      */
-    public function getAmount(): int
+    public function getAmount()
     {
         return $this->amount;
     }
@@ -77,7 +77,7 @@ class GenericRequestAbstract implements RequestDataContract, \JsonSerializable
      *
      * @return string
      */
-    public function getCurrency(): string
+    public function getCurrency()
     {
         return $this->currency;
     }
@@ -95,7 +95,7 @@ class GenericRequestAbstract implements RequestDataContract, \JsonSerializable
     /**
      * @return string
      */
-    public function getRequest(): string
+    public function getRequest()
     {
         return $this->request;
     }

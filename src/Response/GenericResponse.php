@@ -27,7 +27,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @return bool
      */
-    public function getSuccess(): bool
+    public function getSuccess()
     {
         if (!$this->responseData || $this->getStatus() == 'ERROR') {
             return false;
@@ -41,7 +41,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @return string
      */
-    public function getErrorMessage(): string
+    public function getErrorMessage()
     {
         if ($this->getSuccess()) {
             return '';
@@ -60,7 +60,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @return string
      */
-    public function getTransactionID(): string
+    public function getTransactionID()
     {
         if (!isset($this->responseData['txid'])) {
             return '';
@@ -74,7 +74,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @return array
      */
-    public function getResponseData(): array
+    public function getResponseData()
     {
         return $this->responseData;
     }
@@ -82,7 +82,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
     /**
      * @return string
      */
-    public function getStatus(): string
+    public function getStatus()
     {
         if (!isset($this->responseData['status'])) {
             return '';

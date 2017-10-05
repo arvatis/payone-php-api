@@ -12,29 +12,29 @@ interface ResponseContract
      *
      * @return bool
      */
-    public function getSuccess(): bool;
+    public function getSuccess();
 
     /**
      * Get full error description from response
      *
      * @return string
      */
-    public function getErrorMessage(): string;
+    public function getErrorMessage();
 
     /**
      * @return string
      */
-    public function getStatus(): string;
+    public function getStatus();
 
     /**
      * Get the transaction id
      *
      * @return string
      */
-    public function getTransactionID(): string;
+    public function getTransactionID();
 
     /**
      * @return array
      */
-    public function jsonSerialize(): array;
+    public function jsonSerialize();
 }
