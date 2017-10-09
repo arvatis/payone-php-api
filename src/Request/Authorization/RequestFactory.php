@@ -54,7 +54,7 @@ class RequestFactory implements RequestFactoryContract
             $customerData['ip']
         );
         $basket = $data['basket'];
-        $reference = $data['order']['orderId'] ?
+        $reference = isset($data['order']['orderId']) && $data['order']['orderId'] ?
             'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
