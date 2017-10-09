@@ -7,6 +7,7 @@ use ArvPayoneApi\Api\PostApi;
 use ArvPayoneApi\Helpers\TransactionHelper;
 use ArvPayoneApi\Mocks\Request\RequetGenerationData;
 use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
+use ArvPayoneApi\Request\Capture\CaptureModes;
 use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
 use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
 use ArvPayoneApi\Request\Refund\RequestFactory as RefundFactory;
@@ -63,7 +64,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function testCapturing(GenericResponse $preAuth)
     {
         $data = RequetGenerationData::getRequestData();
-        $data['context']['capturemode'] = 'completed';
+        $data['context']['capturemode'] = CaptureModes::COMPLETED;
         $data['context']['sequencenumber'] = 1;
         $data['context']['txid'] = $preAuth->getTransactionID();
 

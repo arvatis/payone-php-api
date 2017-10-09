@@ -20,7 +20,7 @@ class PrePayment extends GenericAuthorizationAbstract implements RequestDataCont
      * @param int $amount Total amount (in smallest currency unit! e.g. cent)
      * @param $currency
      */
-    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer)
+    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer)
     {
         parent::__construct(
             $config,
