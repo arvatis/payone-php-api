@@ -19,7 +19,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $order = [];
-        $order['orderId'] = 'order-123657';
+        $order['orderId'] = '123657';
         $order['amount'] = 10000;
         $order['currency'] = 'EUR';
 
@@ -92,7 +92,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
     public function testCaptureInvoiceSameAsMock()
     {
         $order = [];
-        $order['orderId'] = 'order-123657';
+        $order['orderId'] = '123657';
         $order['amount'] = 10000;
         $order['currency'] = 'EUR';
         $context = Config::getConfig()['api_context'];

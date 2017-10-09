@@ -15,7 +15,7 @@ class SofortRequestTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $order = [];
-        $order['orderId'] = 'order-123657';
+        $order['orderId'] = '123657';
         $order['amount'] = 10000;
         $order['currency'] = 'EUR';
 

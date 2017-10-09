@@ -53,13 +53,14 @@ class RequestFactory implements RequestFactoryContract
             $customerData['gender'],
             $customerData['ip']
         );
-        $order = $data['order'];
         $basket = $data['basket'];
+        $reference = $data['order']['orderId'] ?
+            'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice(
                     $config,
-                    $order['orderId'],
+                    $reference,
                     $basket['basketAmount'],
                     $basket['currency'],
                     $customer
@@ -67,7 +68,7 @@ class RequestFactory implements RequestFactoryContract
             case PaymentTypes::PAYONE_PRE_PAYMENT:
                 return new PrePayment(
                     $config,
-                    $order['orderId'],
+                    $reference,
                     $basket['basketAmount'],
                     $basket['currency'],
                     $customer
@@ -75,7 +76,7 @@ class RequestFactory implements RequestFactoryContract
             case PaymentTypes::PAYONE_CASH_ON_DELIVERY:
                 return new CashOnDelivery(
                     $config,
-                    $order['orderId'],
+                    $reference,
                     $basket['basketAmount'],
                     $basket['currency'],
                     $customer,
