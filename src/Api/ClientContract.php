@@ -12,7 +12,7 @@ interface ClientContract
      *
      * @return string
      */
-    public function doRequest(array $data);
+    public function doRequest($data);
 
     /**
      * @param string $method

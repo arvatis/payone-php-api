@@ -6,12 +6,18 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 use ArvPayoneApi\Request\PaymentTypes;
-use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
 {
-    public static function create($paymentMethod, $referenceId = false, $data = []): RequestDataContract
+    /**
+     * @param string $paymentMethod
+     * @param bool $referenceId
+     * @param array $data
+     * @return CashOnDelivery|Invoice|PrePayment
+     * @throws \Exception
+     */
+    public static function create($paymentMethod, $referenceId = false, $data = [])
     {
         $context = $data['context'];
         $config = new Config(

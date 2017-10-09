@@ -4,12 +4,11 @@ namespace ArvPayoneApi\Request\Capture;
 
 use ArvPayoneApi\Request\Capture;
 use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
 {
-    public static function create($paymentMethod, $referenceId = false, $data = []): RequestDataContract
+    public static function create($paymentMethod, $referenceId = false, $data = [])
     {
         $context = $data['context'];
         $config = new Config(

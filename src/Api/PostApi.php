@@ -57,7 +57,7 @@ class PostApi
      *
      * @return PostApi
      */
-    public function setClient(ClientContract $client): PostApi
+    public function setClient(ClientContract $client)
     {
         $this->client = $client;
 

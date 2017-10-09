@@ -35,7 +35,7 @@ class Client implements ClientContract
     /**
      * @return \GuzzleHttp\Client
      */
-    public function getClient(): \GuzzleHttp\Client
+    public function getClient()
     {
         return $this->client;
     }
@@ -45,7 +45,7 @@ class Client implements ClientContract
      *
      * @return Client
      */
-    public function setClient(\GuzzleHttp\Client $client): Client
+    public function setClient(\GuzzleHttp\Client $client)
     {
         $this->client = $client;
 
@@ -65,7 +65,7 @@ class Client implements ClientContract
      *
      * @return Client
      */
-    public function setHttpMethod(string $httpMethod): Client
+    public function setHttpMethod($httpMethod)
     {
         $this->httpMethod = $httpMethod;
 

@@ -96,7 +96,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @return array
      */
-    private function parseResponse(string $response)
+    private function parseResponse($response)
     {
         $separator = "\n\t";
         $line = strtok($response, $separator);
