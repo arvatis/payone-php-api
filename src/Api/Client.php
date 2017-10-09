@@ -97,7 +97,7 @@ class Client implements ClientContract
      *
      * @return string
      */
-    public function doRequest(array $data)
+    public function doRequest($data)
     {
         $res = $this->client->request(
             $this->getHttpMethod(),
