@@ -17,7 +17,7 @@ class GenericResponse extends ResponseAbstract implements ResponseContract
      *
      * @param string $responseString
      */
-    public function __construct(string $responseString)
+    public function __construct($responseString)
     {
         $this->responseData = $this->parseResponse($responseString);
     }
