@@ -5,7 +5,7 @@ namespace ArvPayoneApi\Response;
 /**
  * Class ClientErrorResponse
  */
-class ClientErrorResponse extends ResponseAbstract implements ResponseContract
+class ClientErrorResponse extends ResponseDataAbstract implements ResponseContract
 {
     /** @var string */
     private $message;

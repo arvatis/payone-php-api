@@ -4,8 +4,8 @@ namespace ArvPayoneApi\Api;
 
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Response\ClientErrorResponse;
-use ArvPayoneApi\Response\GenericResponse;
 use ArvPayoneApi\Response\ResponseContract;
+use ArvPayoneApi\Response\ResponseFactory;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
@@ -74,7 +74,7 @@ class PostApi
         try {
             $responseBody = $this->client->doRequest($data->jsonSerialize());
 
-            return new GenericResponse($responseBody);
+            return ResponseFactory::create($responseBody);
         } catch (ClientException $e) {
         } catch (ServerException $e) {
         } catch (BadResponseException $e) {

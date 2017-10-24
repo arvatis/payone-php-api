@@ -2,7 +2,7 @@
 
 namespace ArvPayoneApi\Response;
 
-class ResponseAbstract
+class ResponseDataAbstract
 {
     /**
      * @return array
@@ -16,7 +16,12 @@ class ResponseAbstract
             if (substr($method->name, 0, 3) == 'get') {
                 $propertyName = strtolower(substr($method->name, 3, 1)) . substr($method->name, 4);
 
-                $result[$propertyName] = $method->invoke($this);
+                $value = $method->invoke($this);
+                if (method_exists($value, 'jsonSerialize')
+                    && is_callable([$value, 'jsonSerialize'])) {
+                    $value = $value->jsonSerialize();
+                }
+                $result[$propertyName] = $value;
             }
         }
 

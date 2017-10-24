@@ -9,7 +9,7 @@ class GenericResponseTest extends \PHPUnit_Framework_TestCase
 {
     public function testResponseContainsBasicData()
     {
-        $response = new GenericResponse('');
+        $response = ResponseFactory::create('');
         self::assertArraySubset(
             [
                 'success' => false,
@@ -34,7 +34,7 @@ param5=5&param6=6
 param7=
 TEXT;
 
-        $response = new GenericResponse($responseBody);
+        $response = ResponseFactory::create($responseBody);
         self::assertSame(
             [
                 'param1' => '1',
@@ -55,7 +55,7 @@ TEXT;
             . 'Mocks' . DIRECTORY_SEPARATOR . 'Response' . DIRECTORY_SEPARATOR . 'Invoice' . DIRECTORY_SEPARATOR .
             'Authorization.php';
 
-        $response = new GenericResponse($responseBody);
+        $response = ResponseFactory::create($responseBody);
 
         self::assertSame('213736587', $response->getTransactionID());
         self::assertTrue($response->getSuccess());

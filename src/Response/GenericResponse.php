@@ -5,7 +5,7 @@ namespace ArvPayoneApi\Response;
 /**
  * Class XmlApiResponse
  */
-class GenericResponse extends ResponseAbstract implements ResponseContract
+class GenericResponse extends ResponseDataAbstract implements ResponseContract
 {
     /**
      * @var array

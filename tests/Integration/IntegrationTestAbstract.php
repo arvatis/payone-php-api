@@ -16,8 +16,14 @@ use ArvPayoneApi\Response\Status;
 
 abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var string
+     */
     protected $paymentMethod;
-    /** @var PostApi */
+
+    /**
+     * @var PostApi
+     */
     protected $client;
 
     public function setUp()
@@ -83,7 +89,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testCapture
+     * @depends testCapturing
      * @group online
      */
     public function testRefundAfterCapture(GenericResponse $capture)
@@ -126,5 +132,4 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
         self::assertTrue($response->getSuccess());
     }
-
 }

@@ -49,7 +49,7 @@ class GenericRequestAbstract implements RequestDataContract, \JsonSerializable
     ) {
         $this->config = $config;
         $this->request = $request;
-        $this->amount = (int)$amount;
+        $this->amount = (int) $amount;
         $this->currency = $currency;
         $this->sequencenumber = $sequencenumber;
     }

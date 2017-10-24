@@ -14,8 +14,10 @@ class RequestFactory implements RequestFactoryContract
      * @param string $paymentMethod
      * @param bool $referenceId
      * @param array $data
-     * @return CashOnDelivery|Invoice|PrePayment
+     *
      * @throws \Exception
+     *
+     * @return CashOnDelivery|Invoice|PrePayment
      */
     public static function create($paymentMethod, $referenceId = false, $data = [])
     {
