@@ -2,6 +2,8 @@
 
 namespace ArvPayoneApi\Response;
 
+use ArvPayoneApi\Lib\Version;
+
 /**
  * Class XmlApiResponse
  */
@@ -66,7 +68,7 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
             return '';
         }
 
-        return (string) $this->responseData['txid'];
+        return (string)$this->responseData['txid'];
     }
 
     /**
@@ -88,7 +90,15 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
             return '';
         }
 
-        return (string) $this->responseData['status'];
+        return (string)$this->responseData['status'];
+    }
+
+    /**
+     * @return string
+     */
+    public function getLibVersion()
+    {
+        return Version::getVersion();
     }
 
     /**
