@@ -2,7 +2,6 @@
 
 namespace ArvPayoneApi\Response;
 
-
 class ResponseFactory
 {
     /**

@@ -6,9 +6,6 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 use ArvPayoneApi\Request\PaymentTypes;
-use ArvPayoneApi\Request\PreAuthorization\CashOnDelivery;
-use ArvPayoneApi\Request\PreAuthorization\Invoice;
-use ArvPayoneApi\Request\PreAuthorization\PrePayment;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 

@@ -68,7 +68,7 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
             return '';
         }
 
-        return (string)$this->responseData['txid'];
+        return (string) $this->responseData['txid'];
     }
 
     /**
@@ -90,7 +90,7 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
             return '';
         }
 
-        return (string)$this->responseData['status'];
+        return (string) $this->responseData['status'];
     }
 
     /**
