@@ -8,6 +8,7 @@ class Types
     const AUTHORIZATION = 'authorization';
     const CAPTURE = 'capture';
     const REFUND = 'refund';
+    const DEBIT = 'debit';
 
     /**
      * @return mixed
