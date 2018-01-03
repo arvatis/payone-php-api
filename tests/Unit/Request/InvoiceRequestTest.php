@@ -16,6 +16,11 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
 
     private $paymentMethod = PaymentTypes::PAYONE_INVOICE;
 
+    /**
+     * @var ArraySerializer
+     */
+    private $serializer;
+
     public function setUp()
     {
         $order = [];
@@ -39,7 +44,7 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $address['town'] = 'Kiel';
         $address['postalCode'] = '24118';
         $address['firstname'] = 'Paul';
-        $address['lastname'] = 'Neverpayer';
+        $address['lastname'] = 'Payer';
         $address['street'] = 'Fraunhoferstraße';
         $address['houseNumber'] = '2-4';
         $address['addressaddition'] = 'EG';
@@ -49,8 +54,8 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $customer['salutation'] = 'Herr';
         $customer['title'] = 'Dr.';
         $customer['firstname'] = 'Paul';
-        $customer['lastname'] = 'Neverpayer';
-        $customer['email'] = 'paul.neverpayer@payone.de';
+        $customer['lastname'] = 'Payer';
+        $customer['email'] = 'paul.Payer@payone.de';
         $customer['telephonenumber'] = '043125968500';
         $customer['birthday'] = '1970-02-04';
         $customer['language'] = 'de';
@@ -63,6 +68,13 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $shippingProvider = [];
         $shippingProvider['name'] = 'DHL';
 
+        $systemInfo = [
+            'vendor' => 'arvatis media GmbH',
+            'version' => 7,
+            'module' => 'plentymarkets 7 Payone plugin',
+            'module_version' => 1
+        ];
+
         $data['basket'] = $basket;
         $data['basketItems'][] = $basketItem;
         $data['shippingAddress'] = $address;
@@ -70,21 +82,25 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $data['order'] = $order;
         $data['customer'] = $customer;
         $data['shippingProvider'] = $shippingProvider;
+        $data['systemInfo'] = $systemInfo;
 
         $this->data = $data;
+        
+        $this->serializer = new ArraySerializer();
     }
 
     public function testPreAuthInvoiceSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::PREAUTHORIZATION,
             true);
-        $requestData = PreAuthFactory::create($this->paymentMethod, false, $this->data);
+        $request = PreAuthFactory::create($this->paymentMethod, false, $this->data);
+        $requestData = $this->serializer->serialize($request);
         self::assertEquals(
             $requestMockData,
-            $requestData->jsonSerialize(),
+            $requestData,
             'Differences: ' . PHP_EOL . print_r(
-                array_diff($requestMockData, $requestData->jsonSerialize()) +
-                array_diff($requestData->jsonSerialize(), $requestMockData),
+                array_diff($requestMockData, $requestData) +
+                array_diff($requestData, $requestMockData),
                 true)
         );
     }
@@ -100,14 +116,22 @@ class RequestFactoryTest extends \PHPUnit_Framework_TestCase
         $context['sequencenumber'] = 1;
         $context['txid'] = 'preAuthId';
         $context['mode'] = 'test';
+        $systemInfo = [
+            'vendor' => 'arvatis media GmbH',
+            'version' => '7',
+            'module' => 'plentymarkets 7 Payone plugin',
+            'module_version' => '1'
+        ];
 
         $data = [];
         $data['context'] = $context;
         $data['order'] = $order;
+        $data['systemInfo'] = $systemInfo;
 
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::CAPTURE, true);
-        $requestData = CaptureFactory::create($this->paymentMethod, $requestMockData['txid'],
-            $data)->jsonSerialize();
+        $request = CaptureFactory::create($this->paymentMethod, $requestMockData['txid'],
+            $data);
+        $requestData = $this->serializer->serialize($request);
 
         self::assertEquals(
             $requestMockData,

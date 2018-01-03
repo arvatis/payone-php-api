@@ -29,7 +29,7 @@ class RequetGenerationData
         $address['town'] = 'Kiel';
         $address['postalCode'] = '24118';
         $address['firstname'] = 'Paul';
-        $address['lastname'] = 'Neverpayer';
+        $address['lastname'] = 'Payer';
         $address['street'] = 'Fraunhoferstraße';
         $address['houseNumber'] = '2-4';
         $address['addressaddition'] = 'EG';
@@ -39,8 +39,8 @@ class RequetGenerationData
         $customer['salutation'] = 'Herr';
         $customer['title'] = 'Dr.';
         $customer['firstname'] = 'Paul';
-        $customer['lastname'] = 'Neverpayer';
-        $customer['email'] = 'paul.neverpayer@payone.de';
+        $customer['lastname'] = 'Payer';
+        $customer['email'] = 'paul.Payer@payone.de';
         $customer['telephonenumber'] = '043125968500';
         $customer['birthday'] = '1970-02-04';
         $customer['language'] = 'de';
@@ -53,6 +53,13 @@ class RequetGenerationData
         $shippingProvider = [];
         $shippingProvider['name'] = 'DHL';
 
+        $systemInfo = [
+            'vendor' => 'arvatis media GmbH',
+            'version' => '7',
+            'module' => 'plentymarkets 7 Payone plugin',
+            'module_version' => '1'
+        ];
+
         $data['basket'] = $basket;
         $data['basketItems'][] = $basketItem;
         $data['shippingAddress'] = $address;
@@ -60,6 +67,7 @@ class RequetGenerationData
         $data['order'] = $order;
         $data['customer'] = $customer;
         $data['shippingProvider'] = $shippingProvider;
+        $data['systemInfo'] = $systemInfo;
 
         return $data;
     }

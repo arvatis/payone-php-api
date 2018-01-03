@@ -14,19 +14,26 @@ class CODTest extends \PHPUnit_Framework_TestCase
     private $data;
     private $paymentMethod = PaymentTypes::PAYONE_CASH_ON_DELIVERY;
 
+    /**
+     * @var ArraySerializer
+     */
+    private $serializer;
+
     public function setUp()
     {
         $this->data = RequetGenerationData::getRequestData();
+        $this->serializer = new ArraySerializer();
     }
 
     public function testPreAuthCODSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::PREAUTHORIZATION, true);
-        $requestData = RequestFactory::create($this->paymentMethod, false, $this->data);
+        $request = RequestFactory::create($this->paymentMethod, false, $this->data);
+        $requestData = $this->serializer->serialize($request);
         self::assertEquals(
             $requestMockData,
-            $requestData->jsonSerialize(),
-            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData->jsonSerialize()), true)
+            $requestData,
+            'Differences: ' . PHP_EOL . print_r(array_diff($requestMockData, $requestData), true)
         );
     }
 }

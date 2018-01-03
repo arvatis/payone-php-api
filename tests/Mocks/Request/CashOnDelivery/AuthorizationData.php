@@ -2,6 +2,7 @@
 
 namespace ArvPayoneApi\Mocks\Request\CashOnDelivery;
 
+use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Mocks\Request\DataAbstract;
 use ArvPayoneApi\Mocks\Request\RequestContract;
 
@@ -22,6 +23,10 @@ class AuthorizationData extends DataAbstract implements RequestContract
             'amount' => 10000, // amount in smallest currency unit, i.e. cents
             'currency' => 'EUR',
             'shippingprovider' => 'DHL',
+            'integrator_name' => 'arvatis media GmbH',
+            'integrator_version' => Version::getVersion(),
+            'solution_name' => 'plentymarkets 7 Payone plugin',
+            'solution_version' => '1'
         ];
     }
 }

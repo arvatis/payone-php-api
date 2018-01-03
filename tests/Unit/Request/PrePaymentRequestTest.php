@@ -35,7 +35,7 @@ class PrePaymentRequestTest extends \PHPUnit_Framework_TestCase
         $address['town'] = 'Kiel';
         $address['postalCode'] = '24118';
         $address['firstname'] = 'Paul';
-        $address['lastname'] = 'Neverpayer';
+        $address['lastname'] = 'Payer';
         $address['street'] = 'Fraunhoferstraße';
         $address['houseNumber'] = '2-4';
         $address['addressaddition'] = 'EG';
@@ -45,8 +45,8 @@ class PrePaymentRequestTest extends \PHPUnit_Framework_TestCase
         $customer['salutation'] = 'Herr';
         $customer['title'] = 'Dr.';
         $customer['firstname'] = 'Paul';
-        $customer['lastname'] = 'Neverpayer';
-        $customer['email'] = 'paul.neverpayer@payone.de';
+        $customer['lastname'] = 'Payer';
+        $customer['email'] = 'paul.Payer@payone.de';
         $customer['telephonenumber'] = '043125968500';
         $customer['birthday'] = '1970-02-04';
         $customer['language'] = 'de';

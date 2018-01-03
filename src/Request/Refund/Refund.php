@@ -2,12 +2,13 @@
 
 namespace ArvPayoneApi\Request\Refund;
 
-use ArvPayoneApi\Request\GenericRequestAbstract;
 use ArvPayoneApi\Request\Parts\Config;
+use ArvPayoneApi\Request\Parts\SystemInfo;
+use ArvPayoneApi\Request\RequestAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
-class Refund extends GenericRequestAbstract implements RequestDataContract, \JsonSerializable
+class Refund extends RequestAbstract implements RequestDataContract
 {
     private $txid;
 
@@ -20,13 +21,14 @@ class Refund extends GenericRequestAbstract implements RequestDataContract, \Jso
      * @param string $currency
      * @param string $capturemode
      */
-    public function __construct(Config $config, $txid, $amount, $currency, $sequencenumber = null)
+    public function __construct(Config $config, $txid, $amount, $currency, SystemInfo $info, $sequencenumber = null)
     {
         parent::__construct(
             $config,
             Types::REFUND,
             -$amount,
             $currency,
+            $info,
             $sequencenumber
         );
         $this->txid = $txid;

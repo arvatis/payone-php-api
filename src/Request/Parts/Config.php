@@ -4,13 +4,15 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class Config implements RequestDataContract, \JsonSerializable
+class Config implements RequestDataContract
 {
     private $aid;
     private $mid;
     private $portalid;
     private $key;
     private $mode;
+    private $apiVersion = '3.10';
+    private $encoding = 'UTF-8';
 
     /**
      * Config constructor.
@@ -30,16 +32,73 @@ class Config implements RequestDataContract, \JsonSerializable
         $this->mode = $mode;
     }
 
-    public function jsonSerialize()
+    /**
+     * Getter for Aid
+     *
+     * @return mixed
+     */
+    public function getAid()
     {
-        return [
-            'aid' => $this->aid,
-            'mid' => $this->mid, //"your_merchant_id",
-            'portalid' => $this->portalid,
-            'key' => $this->key, // the key has to be hashed as md5
-            'mode' => $this->mode, // can be "live" for actual transactions
-            'api_version' => '3.10',
-            'encoding' => 'UTF-8',
-        ];
+        return $this->aid;
+    }
+
+    /**
+     * Getter for Mid
+     *
+     * @return mixed
+     */
+    public function getMid()
+    {
+        return $this->mid;
+    }
+
+    /**
+     * Getter for Portalid
+     *
+     * @return mixed
+     */
+    public function getPortalid()
+    {
+        return $this->portalid;
+    }
+
+    /**
+     * Getter for Key
+     *
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->key;
+    }
+
+    /**
+     * Getter for Mode
+     *
+     * @return string
+     */
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    /**
+     * Getter for Encoding
+     *
+     * @return string
+     */
+    public function getEncoding()
+    {
+        return $this->encoding;
+    }
+
+    /**
+     * Getter for ApiVersion
+     *
+     * @return string
+     */
+    public function getApiVersion()
+    {
+        return $this->apiVersion;
     }
 }

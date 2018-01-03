@@ -2,9 +2,11 @@
 
 namespace ArvPayoneApi\Request\PreAuthorization;
 
+use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
+use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
@@ -54,6 +56,14 @@ class RequestFactory implements RequestFactoryContract
         $basket = $data['basket'];
         $reference = isset($data['order']['orderId']) && $data['order']['orderId'] ?
             'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
+        $systemInfoData = $data['systemInfo'];
+        $systemInfo = new SystemInfo(
+            $systemInfoData['vendor'],
+            Version::getVersion(),
+            $systemInfoData['module'],
+            $systemInfoData['module_version']
+        );
+
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice(
@@ -61,7 +71,8 @@ class RequestFactory implements RequestFactoryContract
                     $reference,
                     $basket['basketAmount'],
                     $basket['currency'],
-                    $customer
+                    $customer,
+                    $systemInfo
                 );
             case PaymentTypes::PAYONE_PRE_PAYMENT:
                 return new PrePayment(
@@ -69,7 +80,8 @@ class RequestFactory implements RequestFactoryContract
                     $reference,
                     $basket['basketAmount'],
                     $basket['currency'],
-                    $customer
+                    $customer,
+                    $systemInfo
                 );
             case PaymentTypes::PAYONE_CASH_ON_DELIVERY:
                 return new CashOnDelivery(
@@ -78,7 +90,8 @@ class RequestFactory implements RequestFactoryContract
                     $basket['basketAmount'],
                     $basket['currency'],
                     $customer,
-                    $data['shippingProvider']['name']
+                    $data['shippingProvider']['name'],
+                    $systemInfo
                 );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);

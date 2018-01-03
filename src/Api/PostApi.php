@@ -3,15 +3,13 @@
 namespace ArvPayoneApi\Api;
 
 use ArvPayoneApi\Request\RequestDataContract;
+use ArvPayoneApi\Request\SerializerInterface;
 use ArvPayoneApi\Response\ClientErrorResponse;
 use ArvPayoneApi\Response\ResponseContract;
 use ArvPayoneApi\Response\ResponseFactory;
-use GuzzleHttp\Exception\BadResponseException;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ServerException;
 
 /**
- * Class XmlApi
+ * Class PostApi
  */
 class PostApi
 {
@@ -24,21 +22,18 @@ class PostApi
      * @var  ClientContract
      */
     protected $client;
-    /**
-     * @var bool
-     */
-    protected $testMode;
+    private $serializer;
 
     /**
-     * XmlApi constructor.
+     * PostApi constructor.
      *
      * @param ClientContract $client
-     * @param bool $testMode
+     * @param SerializerInterface $serializer
      */
-    public function __construct(ClientContract $client, $testMode = true)
+    public function __construct(ClientContract $client, SerializerInterface $serializer)
     {
         $this->client = $client;
-        $this->testMode = $testMode;
+        $this->serializer = $serializer;
         $client->setEndpointUrl($this->getEndPointUrl());
         $client->setMethod('POST');
         $client->addHeader('Content-Type', 'application/x-www-form-urlencoded; charset=utf-8');
@@ -72,12 +67,9 @@ class PostApi
     public function doRequest(RequestDataContract $data)
     {
         try {
-            $responseBody = $this->client->doRequest($data->jsonSerialize());
+            $responseBody = $this->client->doRequest($this->serializer->serialize($data));
 
             return ResponseFactory::create($responseBody);
-        } catch (ClientException $e) {
-        } catch (ServerException $e) {
-        } catch (BadResponseException $e) {
         } catch (\Exception $e) {
         }
 

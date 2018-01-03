@@ -5,6 +5,7 @@ namespace ArvPayoneApi\Unit\Api;
 use ArvPayoneApi\Api\Client as ApiClient;
 use ArvPayoneApi\Api\PostApi;
 use ArvPayoneApi\Request\RequestDataContract;
+use ArvPayoneApi\Request\SerializerFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
@@ -24,8 +25,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->requestMock = self::createMock(RequestDataContract::class);
-        $this->requestMock->method('jsonSerialize')->willReturn([]);
-        $this->client = new PostApi(new ApiClient());
+        $this->client = new PostApi(new ApiClient(),        SerializerFactory::createArraySerializer());
     }
 
     /**
@@ -52,7 +52,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $handler = HandlerStack::create($mock);
         $client = new ApiClient();
         $client->setClient(new Client(['handler' => $handler]));
-        $api = new PostApi($client);
+        $api = new PostApi($client,         SerializerFactory::createArraySerializer());
         $response = $api->doRequest($this->requestMock);
 
         self::assertArraySubset(

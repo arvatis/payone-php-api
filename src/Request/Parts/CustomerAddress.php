@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class CustomerAddress implements RequestDataContract, \JsonSerializable
+class CustomerAddress implements RequestDataContract
 {
     private $street;
     private $addressaddition;
@@ -30,14 +30,53 @@ class CustomerAddress implements RequestDataContract, \JsonSerializable
         $this->country = $country;
     }
 
-    public function jsonSerialize()
+    /**
+     * Getter for Street
+     *
+     * @return mixed
+     */
+    public function getStreet()
     {
-        return [
-            'street' => $this->street,
-            'addressaddition' => $this->addressaddition,
-            'zip' => $this->zip,
-            'city' => $this->city,
-            'country' => $this->country,
-        ];
+        return $this->street;
+    }
+
+    /**
+     * Getter for Addressaddition
+     *
+     * @return mixed
+     */
+    public function getAddressaddition()
+    {
+        return $this->addressaddition;
+    }
+
+    /**
+     * Getter for Zip
+     *
+     * @return mixed
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Getter for City
+     *
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Getter for Country
+     *
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

@@ -2,18 +2,22 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
+use ArvPayoneApi\Request\AuthorizationAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
-use ArvPayoneApi\Request\GenericAuthorizationAbstract;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
 /**
  * Class CashOnDelivery
  */
-class CashOnDelivery extends GenericAuthorizationAbstract implements RequestDataContract, \JsonSerializable
+class CashOnDelivery extends AuthorizationAbstract implements RequestDataContract
 {
+    /**
+     * @var string
+     */
     private $shippingprovider;
 
     /**
@@ -23,13 +27,14 @@ class CashOnDelivery extends GenericAuthorizationAbstract implements RequestData
      * @param $currency
      * @param $shippingprovider
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider)
+    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider, SystemInfo $info)
     {
         parent::__construct(
             $config,
             $customer,
             Types::AUTHORIZATION,
             ClearingTypes::COD,
+            $info,
             $orderId,
             (int) $amount,
             $currency

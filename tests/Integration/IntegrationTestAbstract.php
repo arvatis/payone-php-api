@@ -11,6 +11,7 @@ use ArvPayoneApi\Request\Capture\CaptureModes;
 use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
 use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
 use ArvPayoneApi\Request\Refund\RequestFactory as RefundFactory;
+use ArvPayoneApi\Request\SerializerFactory;
 use ArvPayoneApi\Response\GenericResponse;
 use ArvPayoneApi\Response\Status;
 
@@ -29,7 +30,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = new PostApi(new ApiClient());
+        $this->client = new PostApi(new ApiClient(),        SerializerFactory::createArraySerializer());
     }
 
     /**

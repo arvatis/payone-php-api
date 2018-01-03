@@ -2,6 +2,7 @@
 
 namespace ArvPayoneApi\Mocks\Request\Sofort;
 
+use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Mocks\Request\DataAbstract;
 use ArvPayoneApi\Mocks\Request\RequestContract;
 
@@ -31,6 +32,10 @@ class AuthorizationData extends DataAbstract implements RequestContract
             'successurl' => 'https://yourshop.de/payment/success?reference=your_unique_reference',
             'errorurl' => 'https://yourshop.de/payment/error?reference=your_unique_reference',
             'backurl' => 'https://yourshop.de/payment/back?reference=your_unique_reference',
+            'integrator_name' => 'arvatis media GmbH',
+            'integrator_version' => Version::getVersion(),
+            'solution_name' => 'plentymarkets 7 Payone plugin',
+            'solution_version' => '1'
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class ShippingAddress implements RequestDataContract, \JsonSerializable
+class ShippingAddress implements RequestDataContract
 {
     private $firstname;
     private $lastname;
@@ -36,15 +36,73 @@ class ShippingAddress implements RequestDataContract, \JsonSerializable
         $this->country = $country;
     }
 
-    public function jsonSerialize()
+    /**
+     * Getter for Firstname
+     *
+     * @return mixed
+     */
+    public function getFirstname()
     {
-        return [
-            'shipping_firstname' => $this->firstname,
-            'shipping_lastname' => $this->lastname,
-            'shipping_street' => $this->street,
-            'shipping_zip' => $this->zip,
-            'shipping_city' => $this->city,
-            'shipping_country' => $this->country,
-        ];
+        return $this->firstname;
+    }
+
+    /**
+     * Getter for Lastname
+     *
+     * @return mixed
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Getter for Street
+     *
+     * @return mixed
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Getter for Addressaddition
+     *
+     * @return mixed
+     */
+    public function getAddressaddition()
+    {
+        return $this->addressaddition;
+    }
+
+    /**
+     * Getter for Zip
+     *
+     * @return mixed
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Getter for City
+     *
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Getter for Country
+     *
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

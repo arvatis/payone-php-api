@@ -4,11 +4,12 @@ namespace ArvPayoneApi\Request;
 
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\Parts\SystemInfo;
 
 /**
  * Class GenericAuthorization
  */
-class GenericAuthorizationAbstract extends GenericRequestAbstract implements RequestDataContract, \JsonSerializable
+abstract class AuthorizationAbstract extends RequestAbstract implements RequestDataContract
 {
     /**
      * @var string
@@ -36,6 +37,7 @@ class GenericAuthorizationAbstract extends GenericRequestAbstract implements Req
         Customer $customer,
         $request,
         $clearingtype,
+        SystemInfo $info,
         $reference,
         $amount,
         $currency
@@ -44,7 +46,8 @@ class GenericAuthorizationAbstract extends GenericRequestAbstract implements Req
             $config,
             $request,
             $amount,
-            $currency
+            $currency,
+            $info
         );
         $this->customer = $customer;
         $this->clearingtype = $clearingtype;

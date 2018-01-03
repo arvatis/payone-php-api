@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Request\Parts;
 
 use ArvPayoneApi\Request\RequestDataContract;
 
-class Customer implements RequestDataContract, \JsonSerializable
+class Customer implements RequestDataContract
 {
     private $salutation;
     private $title;
@@ -58,24 +58,113 @@ class Customer implements RequestDataContract, \JsonSerializable
         $this->ip = $ip;
     }
 
-    public function jsonSerialize()
+    /**
+     * Getter for Salutation
+     *
+     * @return string
+     */
+    public function getSalutation()
     {
-        return array_merge(
-            [
-                'salutation' => $this->salutation,
-                'title' => $this->title,
-                'firstname' => $this->firstname,
-                'lastname' => $this->lastname,
-            ],
-            $this->address->jsonSerialize(),
-            [
-                'email' => $this->email,
-                'telephonenumber' => $this->telephonenumber,
-                'birthday' => str_replace('-', '', $this->birthday),
-                'language' => $this->language,
-                'gender' => $this->gender,
-                'ip' => $this->ip,
-            ]
-        );
+        return $this->salutation;
+    }
+
+    /**
+     * Getter for Title
+     *
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Getter for Firstname
+     *
+     * @return mixed
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Getter for Lastname
+     *
+     * @return mixed
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Getter for Address
+     *
+     * @return CustomerAddress
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Getter for Email
+     *
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Getter for Telephonenumber
+     *
+     * @return mixed
+     */
+    public function getTelephonenumber()
+    {
+        return $this->telephonenumber;
+    }
+
+    /**
+     * Getter for Birthday
+     *
+     * @return string
+     */
+    public function getBirthday()
+    {
+        return str_replace('-', '', $this->birthday);
+    }
+
+    /**
+     * Getter for Language
+     *
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    /**
+     * Getter for Gender
+     *
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Getter for Ip
+     *
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
     }
 }

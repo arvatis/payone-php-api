@@ -2,12 +2,13 @@
 
 namespace ArvPayoneApi\Request\Capture;
 
-use ArvPayoneApi\Request\GenericRequestAbstract;
 use ArvPayoneApi\Request\Parts\Config;
+use ArvPayoneApi\Request\Parts\SystemInfo;
+use ArvPayoneApi\Request\RequestAbstract;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
-class Capture extends GenericRequestAbstract implements RequestDataContract, \JsonSerializable
+class Capture extends RequestAbstract implements RequestDataContract
 {
     private $txid;
     private $capturemode;
@@ -21,13 +22,21 @@ class Capture extends GenericRequestAbstract implements RequestDataContract, \Js
      * @param string $currency
      * @param string $capturemode
      */
-    public function __construct(Config $config, $txid, $amount, $currency, $capturemode, $sequencenumber = null)
-    {
+    public function __construct(
+        Config $config,
+        $txid,
+        $amount,
+        $currency,
+        $capturemode,
+        SystemInfo $info,
+        $sequencenumber = null
+    ) {
         parent::__construct(
             $config,
             Types::CAPTURE,
             $amount,
             $currency,
+            $info,
             $sequencenumber
         );
         $this->txid = $txid;
