@@ -1,10 +1,13 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+namespace ArvPayoneApi\Unit\Request;
 
 use ArvPayoneApi\Mocks\Request\RequetGenerationData;
 use ArvPayoneApi\Mocks\RequestMockFactory;
+use ArvPayoneApi\Request\ArraySerializer;
+use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\PreAuthorization\RequestFactory;
+use ArvPayoneApi\Request\Types;
 
 /**
  * Class CODTest

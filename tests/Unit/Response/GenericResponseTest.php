@@ -1,6 +1,8 @@
 <?php
 
-namespace ArvPayoneApi\Response;
+namespace ArvPayoneApi\Unit\Response;
+
+use ArvPayoneApi\Response\ResponseFactory;
 
 /**
  * Class GenericResponseTest

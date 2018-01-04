@@ -1,8 +1,9 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+namespace ArvPayoneApi\Unit\Request;
 
 use ArvPayoneApi\Mocks\Config;
+use ArvPayoneApi\Request\PaymentTypes;
 
 /**
  * Class SofortRequestTest

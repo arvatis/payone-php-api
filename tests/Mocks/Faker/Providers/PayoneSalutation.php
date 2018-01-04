@@ -10,6 +10,13 @@ use Faker\Provider\Base;
 class PayoneSalutation extends Base
 {
     /**
+     * @var array
+     */
+    protected static $group = [
+
+    ];
+
+    /**
      * @return mixed
      */
     public function payoneCountryCode()

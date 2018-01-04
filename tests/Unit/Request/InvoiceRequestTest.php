@@ -1,16 +1,19 @@
 <?php
 
-namespace ArvPayoneApi\Request;
+namespace ArvPayoneApi\Unit\Request;
 
 use ArvPayoneApi\Mocks\Config;
 use ArvPayoneApi\Mocks\RequestMockFactory;
+use ArvPayoneApi\Request\ArraySerializer;
 use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
+use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
+use ArvPayoneApi\Request\Types;
 
 /**
- * Class RequestFactoryTest
+ * Class InvoiceRequestTest
  */
-class RequestFactoryTest extends \PHPUnit_Framework_TestCase
+class InvoiceRequestTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
 
