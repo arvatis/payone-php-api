@@ -30,7 +30,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->client = new PostApi(new ApiClient(),        SerializerFactory::createArraySerializer());
+        $this->client = new PostApi(new ApiClient(), SerializerFactory::createArraySerializer());
     }
 
     /**

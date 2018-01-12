@@ -10,6 +10,13 @@ use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
 {
+    /**
+     * @param string $paymentMethod
+     * @param bool $referenceId
+     * @param array $data
+     *
+     * @return \ArvPayoneApi\Request\Capture\Capture|\ArvPayoneApi\Request\RequestDataContract
+     */
     public static function create($paymentMethod, $referenceId = false, $data = [])
     {
         $context = $data['context'];

@@ -13,7 +13,6 @@ class PayoneSalutation extends Base
      * @var array
      */
     protected static $group = [
-
     ];
 
     /**

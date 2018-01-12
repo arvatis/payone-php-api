@@ -17,10 +17,12 @@ class Capture extends RequestAbstract implements RequestDataContract
      * Capture constructor.
      *
      * @param Config $config
-     * @param string $txid
-     * @param string $amount
-     * @param string $currency
-     * @param string $capturemode
+     * @param $txid
+     * @param $amount
+     * @param $currency
+     * @param $capturemode
+     * @param SystemInfo $info
+     * @param null $sequencenumber
      */
     public function __construct(
         Config $config,

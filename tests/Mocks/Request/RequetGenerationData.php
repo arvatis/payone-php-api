@@ -57,7 +57,7 @@ class RequetGenerationData
             'vendor' => 'arvatis media GmbH',
             'version' => '7',
             'module' => 'plentymarkets 7 Payone plugin',
-            'module_version' => '1'
+            'module_version' => '1',
         ];
 
         $data['basket'] = $basket;

@@ -6,6 +6,7 @@ use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
+use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestDataContract;
@@ -65,6 +66,7 @@ class RequestFactory implements RequestFactoryContract
             $systemInfoData['module'],
             $systemInfoData['module_version']
         );
+        //TODO: refactor
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice(
@@ -94,6 +96,20 @@ class RequestFactory implements RequestFactoryContract
                     $data['shippingProvider']['name'],
                     $systemInfo
                 );
+            case PaymentTypes::PAYONE_CREDITCARD:
+                $redirectData = $data['redirect'];
+                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+
+                return new Creditcard(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $urls,
+                    $data['pseudocardpan']
+                    );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
     }

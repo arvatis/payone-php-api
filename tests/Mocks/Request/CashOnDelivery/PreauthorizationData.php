@@ -26,7 +26,7 @@ class PreauthorizationData extends DataAbstract implements RequestContract
             'integrator_name' => 'arvatis media GmbH',
             'integrator_version' => Version::getVersion(),
             'solution_name' => 'plentymarkets 7 Payone plugin',
-            'solution_version' => '1'
+            'solution_version' => '1',
         ];
     }
 }

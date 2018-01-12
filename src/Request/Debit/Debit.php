@@ -13,13 +13,14 @@ class Debit extends RequestAbstract implements RequestDataContract
     private $txid;
 
     /**
-     * Capture constructor.
+     * Debit constructor.
      *
      * @param Config $config
-     * @param string $txid
-     * @param string $amount
-     * @param string $currency
-     * @param string $capturemode
+     * @param $txid
+     * @param $amount
+     * @param $currency
+     * @param SystemInfo $info
+     * @param null $sequencenumber
      */
     public function __construct(Config $config, $txid, $amount, $currency, SystemInfo $info, $sequencenumber = null)
     {

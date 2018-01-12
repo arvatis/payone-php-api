@@ -25,7 +25,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->requestMock = self::createMock(RequestDataContract::class);
-        $this->client = new PostApi(new ApiClient(),        SerializerFactory::createArraySerializer());
+        $this->client = new PostApi(new ApiClient(), SerializerFactory::createArraySerializer());
     }
 
     /**
@@ -52,7 +52,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $handler = HandlerStack::create($mock);
         $client = new ApiClient();
         $client->setClient(new Client(['handler' => $handler]));
-        $api = new PostApi($client,         SerializerFactory::createArraySerializer());
+        $api = new PostApi($client, SerializerFactory::createArraySerializer());
         $response = $api->doRequest($this->requestMock);
 
         self::assertArraySubset(

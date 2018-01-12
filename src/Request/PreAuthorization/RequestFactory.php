@@ -6,6 +6,7 @@ use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
+use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestFactoryContract;
@@ -19,7 +20,7 @@ class RequestFactory implements RequestFactoryContract
      *
      * @throws \Exception
      *
-     * @return CashOnDelivery|Invoice|PrePayment
+     * @return CashOnDelivery|Invoice|PrePayment|Creditcard
      */
     public static function create($paymentMethod, $referenceId = false, $data = [])
     {
@@ -92,6 +93,20 @@ class RequestFactory implements RequestFactoryContract
                     $customer,
                     $data['shippingProvider']['name'],
                     $systemInfo
+                );
+            case PaymentTypes::PAYONE_CREDITCARD:
+                $redirectData = $data['redirect'];
+                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+
+                return new Creditcard(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $urls,
+                    $data['pseudocardpan']
                 );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);

@@ -12,7 +12,7 @@ class Client implements ClientContract
      */
     protected $url;
     /**
-     * @var  string
+     * @var \GuzzleHttp\Client
      */
     protected $client;
     /**
