@@ -11,7 +11,7 @@ class PaymentTypes
     const PAYONE_PRE_PAYMENT = 'PrePayment';
     const PAYONE_CASH_ON_DELIVERY = 'CashOnDelivery';
     const PAYONE_SOFORT = 'Sofort';
-    const PAYONE_CREDITCARD = 'Creditcard';
+    const PAYONE_CREDITCARD = 'Cc';
 
     /**
      * @return mixed

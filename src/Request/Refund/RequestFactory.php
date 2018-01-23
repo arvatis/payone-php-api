@@ -5,12 +5,11 @@ namespace ArvPayoneApi\Request\Refund;
 use ArvPayoneApi\Lib\Version;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
 {
-    public static function create($paymentMethod, $referenceId = false, $data = []): RequestDataContract
+    public static function create($paymentMethod, $data, $referenceId = null)
     {
         $context = $data['context'];
         $config = new Config(
@@ -33,7 +32,7 @@ class RequestFactory implements RequestFactoryContract
 
         return new Refund(
             $config,
-            $referenceId,
+            $data,
             $order['amount'],
             $order['currency'],
             $systemInfo,

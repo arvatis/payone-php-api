@@ -5,14 +5,11 @@ namespace ArvPayoneApi\Request;
 interface RequestFactoryContract
 {
     /**
-     * @param string $requestType
      * @param string $paymentMethod
-     * @param string|bool $referenceId Reference to previous request
      * @param array $data
      *
-     * @throws \Exception
-     *
+     * @param string|bool $referenceId Reference to previous request
      * @return RequestDataContract
      */
-    public static function create($paymentMethod, $referenceId = false, $data = []);
+    public static function create($paymentMethod, $data, $referenceId = null);
 }

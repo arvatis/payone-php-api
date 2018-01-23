@@ -15,14 +15,13 @@ class RequestFactory implements RequestFactoryContract
 {
     /**
      * @param string $paymentMethod
-     * @param bool $referenceId
      * @param array $data
      *
-     * @throws \Exception
-     *
+     * @param bool $referenceId
      * @return CashOnDelivery|Invoice|PrePayment|Creditcard
+     * @throws \Exception
      */
-    public static function create($paymentMethod, $referenceId = false, $data = [])
+    public static function create($paymentMethod, $data, $referenceId = null)
     {
         $context = $data['context'];
         $config = new Config(

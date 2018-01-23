@@ -31,7 +31,7 @@ class CODTest extends \PHPUnit_Framework_TestCase
     public function testPreAuthCODSameAsMock()
     {
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::PREAUTHORIZATION, true);
-        $request = RequestFactory::create($this->paymentMethod, false, $this->data);
+        $request = RequestFactory::create($this->paymentMethod, $this->data);
         $requestData = $this->serializer->serialize($request);
         self::assertEquals(
             $requestMockData,

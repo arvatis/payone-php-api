@@ -96,7 +96,7 @@ class InvoiceRequestTest extends \PHPUnit_Framework_TestCase
     {
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::PREAUTHORIZATION,
             true);
-        $request = PreAuthFactory::create($this->paymentMethod, false, $this->data);
+        $request = PreAuthFactory::create($this->paymentMethod, $this->data);
         $requestData = $this->serializer->serialize($request);
         self::assertEquals(
             $requestMockData,
@@ -132,8 +132,7 @@ class InvoiceRequestTest extends \PHPUnit_Framework_TestCase
         $data['systemInfo'] = $systemInfo;
 
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::CAPTURE, true);
-        $request = CaptureFactory::create($this->paymentMethod, $requestMockData['txid'],
-            $data);
+        $request = CaptureFactory::create($this->paymentMethod, $data, $requestMockData['txid']);
         $requestData = $this->serializer->serialize($request);
 
         self::assertEquals(

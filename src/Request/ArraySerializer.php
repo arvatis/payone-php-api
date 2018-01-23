@@ -19,7 +19,7 @@ class ArraySerializer implements SerializerInterface
                 $result += $this->serialize($value);
                 continue;
             }
-            if ($value) {
+            if ($value !== null && $value !== '') {
                 $result[$propName] = $value;
             }
         }

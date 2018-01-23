@@ -40,7 +40,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         $data = RequetGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = AuthFactory::create($this->paymentMethod, false, $data);
+        $request = AuthFactory::create($this->paymentMethod, $data);
         $response = $this->client->doRequest($request);
         self::assertTrue($response->getSuccess());
         self::assertSame(9, strlen($response->getTransactionID()));
@@ -56,7 +56,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         $data = RequetGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = PreAuthFactory::create($this->paymentMethod, false, $data);
+        $request = PreAuthFactory::create($this->paymentMethod, $data);
         $response = $this->client->doRequest($request);
         self::assertTrue($response->getSuccess());
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
@@ -76,9 +76,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['context']['txid'] = $preAuth->getTransactionID();
 
         $request = CaptureFactory::create(
-            $this->paymentMethod,
-            $preAuth->getTransactionID(),
-            $data
+            $this->paymentMethod, $data, $preAuth->getTransactionID()
         );
 
         $response = $this->client->doRequest($request);
@@ -100,9 +98,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(
-            $this->paymentMethod,
-            $capture->getTransactionID(),
-            $data
+            $this->paymentMethod, $data, $capture->getTransactionID()
         );
 
         $response = $this->client->doRequest($request);
@@ -123,9 +119,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(
-            $this->paymentMethod,
-            $auth->getTransactionID(),
-            $data
+            $this->paymentMethod, $data, $auth->getTransactionID()
         );
 
         $response = $this->client->doRequest($request);
