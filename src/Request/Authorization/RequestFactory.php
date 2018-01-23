@@ -95,7 +95,7 @@ class RequestFactory implements RequestFactoryContract
                     $data['shippingProvider']['name'],
                     $systemInfo
                 );
-            case PaymentTypes::PAYONE_CREDITCARD:
+            case PaymentTypes::PAYONE_CREDIT_CARD:
                 $redirectData = $data['redirect'];
                 $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
 
