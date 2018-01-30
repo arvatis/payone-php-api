@@ -19,12 +19,12 @@ class CashOnDelivery extends AuthorizationAbstract implements RequestDataContrac
 
     /**
      * @param Config $config
-     * @param $orderId
+     * @param string $orderId
      * @param int $amount Total amount (in smallest currency unit! e.g. cent)
-     * @param $currency
-     * @param $shippingprovider
+     * @param string $currency
+     * @param string $shippingprovider
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, $shippingprovider, SystemInfo $info)
+    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer, $shippingprovider, SystemInfo $info)
     {
         parent::__construct(
             $config,
@@ -33,7 +33,7 @@ class CashOnDelivery extends AuthorizationAbstract implements RequestDataContrac
             ClearingTypes::COD,
             $info,
             $orderId,
-            (int) $amount,
+            $amount,
             $currency
         );
         $this->shippingprovider = $shippingprovider;

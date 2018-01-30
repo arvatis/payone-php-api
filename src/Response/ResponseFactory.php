@@ -7,7 +7,7 @@ class ResponseFactory
     /**
      * @param string $responseData
      *
-     * @return ResponseContract|GenericResponse
+     * @return ResponseContract|GenericResponse|ResponseWithClearing
      */
     public static function create($responseData)
     {

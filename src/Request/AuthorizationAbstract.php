@@ -19,16 +19,16 @@ abstract class AuthorizationAbstract extends RequestAbstract implements RequestD
     /** @var Customer */
     private $customer;
 
-    /** @var null */
+    /** @var string|null */
     private $reference;
 
     /**
      * @param Config $config
      * @param Customer $customer
-     * @param $clearingtype
-     * @param $reference
-     * @param $amount
-     * @param $currency
+     * @param string $clearingtype
+     * @param string $reference
+     * @param int $amount
+     * @param string $currency
      *
      * @internal param $request
      */

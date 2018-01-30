@@ -29,9 +29,9 @@ class Creditcard extends AuthorizationAbstract implements RequestDataContract
      * Creditcard constructor.
      *
      * @param Config $config
-     * @param $orderId
-     * @param $amount
-     * @param $currency
+     * @param string $orderId
+     * @param int $amount
+     * @param string $currency
      * @param Customer $customer
      * @param SystemInfo $info
      * @param RedirectUrls $urls
@@ -40,7 +40,7 @@ class Creditcard extends AuthorizationAbstract implements RequestDataContract
     public function __construct(
         Config $config,
         $orderId,
-        $amount,
+        int $amount,
         $currency,
         Customer $customer,
         SystemInfo $info,
@@ -54,7 +54,7 @@ class Creditcard extends AuthorizationAbstract implements RequestDataContract
             ClearingTypes::CREDITCARD,
             $info,
             $orderId,
-            (int) $amount,
+            $amount,
             $currency
         );
         $this->pseudocardpan = $pseudocardPan;

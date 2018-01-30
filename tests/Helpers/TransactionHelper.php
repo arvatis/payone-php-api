@@ -8,7 +8,6 @@ namespace ArvPayoneApi\Helpers;
 class TransactionHelper
 {
     /**
-     * @param $method
      *
      * @return string
      */

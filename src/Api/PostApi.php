@@ -60,7 +60,7 @@ class PostApi
     }
 
     /**
-     * @param array $data
+     * @param RequestDataContract $data
      *
      * @return ResponseContract
      */

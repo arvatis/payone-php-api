@@ -1,6 +1,6 @@
 <?php
 
-namespace ArvPayoneApi\Unit\Request\ManagemandateTest;
+namespace ArvPayoneApi\Unit\Request\Managemandate;
 
 use ArvPayoneApi\Mocks\Request\RequestGenerationData;
 use ArvPayoneApi\Request\ArraySerializer;

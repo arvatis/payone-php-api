@@ -17,13 +17,13 @@ class ShippingAddress implements RequestDataContract
     /**
      * ShippingAddress constructor.
      *
-     * @param $firstname
-     * @param $lastname
-     * @param $street
-     * @param $addressaddition
-     * @param $zip
-     * @param $city
-     * @param $country
+     * @param string $firstname
+     * @param string $lastname
+     * @param string $street
+     * @param string $addressaddition
+     * @param string $zip
+     * @param string $city
+     * @param string $country
      */
     public function __construct($firstname, $lastname, $street, $addressaddition, $zip, $city, $country)
     {

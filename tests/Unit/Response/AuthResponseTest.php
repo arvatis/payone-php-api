@@ -2,13 +2,13 @@
 
 namespace ArvPayoneApi\Unit\Response;
 
+use ArvPayoneApi\Response\ResponseContract;
 use ArvPayoneApi\Response\ResponseFactory;
-use ArvPayoneApi\Response\ResponseWithClearing;
 
 class AuthResponseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var ResponseWithClearing
+     * @var ResponseContract
      */
     private $resource;
 

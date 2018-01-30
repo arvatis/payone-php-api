@@ -15,11 +15,11 @@ class CustomerAddress implements RequestDataContract
     /**
      * CustomerAddress constructor.
      *
-     * @param $street
-     * @param $addressaddition
-     * @param $zip
-     * @param $city
-     * @param $country
+     * @param string $street
+     * @param string $addressaddition
+     * @param string $zip
+     * @param string $city
+     * @param string $country
      */
     public function __construct($street, $addressaddition, $zip, $city, $country)
     {

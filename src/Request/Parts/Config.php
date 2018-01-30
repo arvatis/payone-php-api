@@ -17,10 +17,10 @@ class Config implements RequestDataContract
     /**
      * Config constructor.
      *
-     * @param $aid
-     * @param $mid
-     * @param $portalid
-     * @param $key
+     * @param string $aid
+     * @param string $mid
+     * @param string $portalid
+     * @param string $key
      * @param string $mode live|test
      */
     public function __construct($aid, $mid, $portalid, $key, $mode)

@@ -73,7 +73,7 @@ class Client implements ClientContract
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEndpointUrl()
     {
@@ -81,7 +81,7 @@ class Client implements ClientContract
     }
 
     /**
-     * @param mixed $url
+     * @param string $url
      *
      * @return Client
      */
@@ -112,7 +112,7 @@ class Client implements ClientContract
     }
 
     /**
-     * @param $method
+     * @param string $method
      *
      * @return $this
      */
@@ -124,8 +124,8 @@ class Client implements ClientContract
     }
 
     /**
-     * @param $key
-     * @param $value
+     * @param string $key
+     * @param string $value
      */
     public function addHeader($key, $value)
     {

@@ -16,11 +16,11 @@ class Refund extends RequestAbstract implements RequestDataContract
      * Refund constructor.
      *
      * @param Config $config
-     * @param $txid
-     * @param $amount
-     * @param $currency
+     * @param string $txid
+     * @param int $amount
+     * @param string $currency
      * @param SystemInfo $info
-     * @param null $sequencenumber
+     * @param null|string $sequencenumber
      */
     public function __construct(Config $config, $txid, $amount, $currency, SystemInfo $info, $sequencenumber = null)
     {

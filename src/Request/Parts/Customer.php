@@ -22,16 +22,16 @@ class Customer implements RequestDataContract
     /**
      * Customer constructor.
      *
-     * @param $title
-     * @param $firstname
-     * @param $lastname
+     * @param string $title
+     * @param string $firstname
+     * @param string $lastname
      * @param CustomerAddress $address
-     * @param $email
-     * @param $telephonenumber
+     * @param string $email
+     * @param string $telephonenumber
      * @param string $birthday Y-m-d
-     * @param $language
-     * @param $gender
-     * @param $ip
+     * @param string $language
+     * @param string $gender
+     * @param string $ip
      */
     public function __construct(
         $title,

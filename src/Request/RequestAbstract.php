@@ -16,7 +16,7 @@ abstract class RequestAbstract implements RequestDataContract
     private $request;
 
     /**
-     * @var string
+     * @var int
      */
     private $amount;
 
@@ -28,7 +28,7 @@ abstract class RequestAbstract implements RequestDataContract
     /** @var Config */
     private $config;
 
-    /** @var string */
+    /** @var string|null */
     private $sequencenumber;
     /**
      * @var SystemInfo
@@ -39,23 +39,23 @@ abstract class RequestAbstract implements RequestDataContract
      * RequestAbstract constructor.
      *
      * @param Config $config
-     * @param $request
-     * @param $amount
-     * @param $currency
-     * @param null $sequencenumber
+     * @param string $request
+     * @param int $amount
+     * @param string $currency
+     * @param string|null $sequencenumber
      * @param SystemInfo $info
      */
     public function __construct(
         Config $config,
         $request,
-        $amount,
+        int $amount,
         $currency,
         SystemInfo $info,
         $sequencenumber = null
     ) {
         $this->config = $config;
         $this->request = $request;
-        $this->amount = (int) $amount;
+        $this->amount = $amount;
         $this->currency = $currency;
         $this->sequencenumber = $sequencenumber;
         $this->info = $info;

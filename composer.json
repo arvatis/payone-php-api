@@ -16,8 +16,7 @@
     "guzzlehttp/guzzle": "6.2.3",
     "symfony/serializer": "3.2.7",
     "symfony/property-access": "3.2.7",
-    "doctrine/common": "2.7.2",
-    "monolog/monolog": "1.22.1"
+    "doctrine/common": "2.7.2"
   },
   "require-dev": {
     "fzaninotto/faker": "^1.6",

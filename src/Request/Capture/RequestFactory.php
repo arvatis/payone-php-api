@@ -13,7 +13,7 @@ class RequestFactory implements RequestFactoryContract
     /**
      * @param string $paymentMethod
      * @param array $data
-     * @param bool $referenceId
+     * @param string|null $referenceId
      *
      * @return \ArvPayoneApi\Request\Capture\Capture|\ArvPayoneApi\Request\RequestDataContract
      */

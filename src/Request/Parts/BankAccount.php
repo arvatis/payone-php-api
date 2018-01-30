@@ -25,9 +25,9 @@ class BankAccount implements RequestDataContract
     /**
      * BankAccount constructor.
      *
-     * @param $bankcountry
-     * @param $iban
-     * @param $bic
+     * @param string $bankcountry
+     * @param string $iban
+     * @param string $bic
      */
     public function __construct($bankcountry, $holder, $iban, $bic)
     {

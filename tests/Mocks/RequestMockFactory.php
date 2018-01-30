@@ -47,8 +47,8 @@ class RequestMockFactory
     }
 
     /**
-     * @param $paymentMethod
-     * @param $request
+     * @param string $paymentMethod
+     * @param string $request
      */
     private static function validate($paymentMethod, $request)
     {

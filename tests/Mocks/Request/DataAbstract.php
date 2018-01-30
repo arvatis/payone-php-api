@@ -17,7 +17,7 @@ abstract class DataAbstract
     private $gender;
 
     /**
-     * @var Faker\Generator
+     * @var Faker\Generator|Faker\Provider\Person
      */
     private $faker;
 

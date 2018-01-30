@@ -4,6 +4,13 @@ namespace ArvPayoneApi\Request;
 
 class ArraySerializer implements SerializerInterface
 {
+    /**
+     * @param object $object
+     *
+     * @throws \ReflectionException
+     *
+     * @return array
+     */
     public function serialize($object)
     {
         $oClass = new \ReflectionClass(get_class($object));
@@ -30,7 +37,7 @@ class ArraySerializer implements SerializerInterface
     }
 
     /**
-     * @param $string
+     * @param string $string
      *
      * @return string
      */

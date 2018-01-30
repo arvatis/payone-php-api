@@ -21,10 +21,10 @@ class SystemInfo implements RequestDataContract
     /**
      * SystemInfo constructor.
      *
-     * @param $integratorName
-     * @param $integratorVersion
-     * @param $solutionName
-     * @param $solutionVersion
+     * @param string $integratorName
+     * @param string $integratorVersion
+     * @param string $solutionName
+     * @param string $solutionVersion
      */
     public function __construct(
         $integratorName,

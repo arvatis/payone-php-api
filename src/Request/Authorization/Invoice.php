@@ -16,12 +16,16 @@ use ArvPayoneApi\Request\Types;
 class Invoice extends AuthorizationAbstract implements RequestDataContract
 {
     /**
+     * Invoice constructor.
+     *
      * @param Config $config
-     * @param $orderId
-     * @param int $amount Total amount (in smallest currency unit! e.g. cent)
-     * @param $currency
+     * @param string $orderId
+     * @param int $amount
+     * @param string $currency
+     * @param Customer $customer
+     * @param SystemInfo $info
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, SystemInfo $info)
+    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer, SystemInfo $info)
     {
         parent::__construct(
             $config,
@@ -30,7 +34,7 @@ class Invoice extends AuthorizationAbstract implements RequestDataContract
             ClearingTypes::REC,
             $info,
             $orderId,
-            (int) $amount,
+            $amount,
             $currency
         );
     }

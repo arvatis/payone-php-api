@@ -34,7 +34,7 @@ class ManageMandate implements RequestDataContract
      * ManageMandate constructor.
      *
      * @param Config $config
-     * @param $currency
+     * @param string $currency
      * @param Customer $customer
      * @param SystemInfo $info
      * @param BankAccount $bankAccount

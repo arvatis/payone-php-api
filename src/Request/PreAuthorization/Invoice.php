@@ -17,11 +17,11 @@ class Invoice extends AuthorizationAbstract implements RequestDataContract
 {
     /**
      * @param Config $config
-     * @param $orderId
+     * @param string$orderId
      * @param int $amount Total amount (in smallest currency unit! e.g. cent)
-     * @param $currency
+     * @param string $currency
      */
-    public function __construct(Config $config, $orderId, $amount, $currency, Customer $customer, SystemInfo $info)
+    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer, SystemInfo $info)
     {
         parent::__construct(
             $config,
@@ -30,7 +30,7 @@ class Invoice extends AuthorizationAbstract implements RequestDataContract
             ClearingTypes::REC,
             $info,
             $orderId,
-            (int) $amount,
+            $amount,
             $currency
         );
     }

@@ -2,6 +2,7 @@
 
 namespace ArvPayoneApi\Unit\Response;
 
+use ArvPayoneApi\Response\GenericResponse;
 use ArvPayoneApi\Response\ResponseFactory;
 
 /**
@@ -36,6 +37,7 @@ param5=5&param6=6
 param7=
 TEXT;
 
+        /** @var GenericResponse $response */
         $response = ResponseFactory::create($responseBody);
         self::assertSame(
             [
