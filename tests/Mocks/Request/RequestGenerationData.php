@@ -4,7 +4,7 @@ namespace ArvPayoneApi\Mocks\Request;
 
 use ArvPayoneApi\Mocks\Config;
 
-class RequetGenerationData
+class RequestGenerationData
 {
     public static function getRequestData()
     {
@@ -68,6 +68,12 @@ class RequetGenerationData
         $data['customer'] = $customer;
         $data['shippingProvider'] = $shippingProvider;
         $data['systemInfo'] = $systemInfo;
+        $data['bankAccount'] = [
+            'holder' => 'Max Mustermann',
+            'country' => 'de',
+            'bic' => 'DE00123456782599100004',
+            'iban' => 'TESTTEST',
+        ];
 
         return $data;
     }

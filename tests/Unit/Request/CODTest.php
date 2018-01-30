@@ -2,7 +2,7 @@
 
 namespace ArvPayoneApi\Unit\Request;
 
-use ArvPayoneApi\Mocks\Request\RequetGenerationData;
+use ArvPayoneApi\Mocks\Request\RequestGenerationData;
 use ArvPayoneApi\Mocks\RequestMockFactory;
 use ArvPayoneApi\Request\ArraySerializer;
 use ArvPayoneApi\Request\PaymentTypes;
@@ -24,7 +24,7 @@ class CODTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->data = RequetGenerationData::getRequestData();
+        $this->data = RequestGenerationData::getRequestData();
         $this->serializer = new ArraySerializer();
     }
 

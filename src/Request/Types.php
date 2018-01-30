@@ -9,6 +9,7 @@ class Types
     const CAPTURE = 'capture';
     const REFUND = 'refund';
     const DEBIT = 'debit';
+    const MANAGEMANDATE = 'managemandate';
 
     /**
      * @return mixed

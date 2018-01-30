@@ -5,7 +5,7 @@ namespace ArvPayoneApi\Integration;
 use ArvPayoneApi\Api\Client as ApiClient;
 use ArvPayoneApi\Api\PostApi;
 use ArvPayoneApi\Helpers\TransactionHelper;
-use ArvPayoneApi\Mocks\Request\RequetGenerationData;
+use ArvPayoneApi\Mocks\Request\RequestGenerationData;
 use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
 use ArvPayoneApi\Request\Capture\CaptureModes;
 use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
@@ -38,7 +38,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testAuthSuccessfullyPlaced()
     {
-        $data = RequetGenerationData::getRequestData();
+        $data = RequestGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
         $request = AuthFactory::create($this->paymentMethod, $data);
         $response = $this->client->doRequest($request);
@@ -54,7 +54,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testPreAuthSuccessfullyPlaced()
     {
-        $data = RequetGenerationData::getRequestData();
+        $data = RequestGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
         $request = PreAuthFactory::create($this->paymentMethod, $data);
         $response = $this->client->doRequest($request);
@@ -70,7 +70,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testCapturing(GenericResponse $preAuth)
     {
-        $data = RequetGenerationData::getRequestData();
+        $data = RequestGenerationData::getRequestData();
         $data['context']['capturemode'] = CaptureModes::COMPLETED;
         $data['context']['sequencenumber'] = 1;
         $data['context']['txid'] = $preAuth->getTransactionID();
@@ -94,7 +94,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function testRefundAfterCapture(GenericResponse $capture)
     {
         sleep(3);
-        $data = RequetGenerationData::getRequestData();
+        $data = RequestGenerationData::getRequestData();
         $data['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(
@@ -115,7 +115,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         $this->markTestSkipped('Not available for async payments.');
         sleep(3);
-        $data = RequetGenerationData::getRequestData();
+        $data = RequestGenerationData::getRequestData();
         $data['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(

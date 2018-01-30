@@ -9,4 +9,5 @@ class Status
 {
     const REDIRECT = 'REDIRECT';
     const APPROVED = 'APPROVED';
+    const ERROR = 'ERROR';
 }

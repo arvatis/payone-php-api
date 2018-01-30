@@ -13,8 +13,8 @@ class RequestFactory implements RequestFactoryContract
     /**
      * @param string $paymentMethod
      * @param array $data
-     *
      * @param bool $referenceId
+     *
      * @return RequestDataContract
      */
     public static function create($paymentMethod, $data, $referenceId = null)
