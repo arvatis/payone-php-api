@@ -59,8 +59,9 @@ class ManageMandateRequestFactory implements RequestFactoryContract
         $bankAccount = new BankAccount(
             $bankAccountData['country'],
             $bankAccountData['holder'],
-            $bankAccountData['bic'],
-            $bankAccountData['iban']);
+            $bankAccountData['iban'],
+            $bankAccountData['bic']
+        );
 
         return new ManageMandate($config, $basket['currency'], $customer, $systemInfo, $bankAccount);
     }
