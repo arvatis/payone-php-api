@@ -8,7 +8,6 @@ namespace ArvPayoneApi\Helpers;
 class TransactionHelper
 {
     /**
-     *
      * @return string
      */
     public static function getUniqueTransactionId(): string

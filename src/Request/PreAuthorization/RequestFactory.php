@@ -7,8 +7,10 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
+use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
+use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
 
 class RequestFactory implements RequestFactoryContract
@@ -20,7 +22,7 @@ class RequestFactory implements RequestFactoryContract
      *
      * @throws \Exception
      *
-     * @return CashOnDelivery|Invoice|PrePayment|Creditcard
+     * @return RequestDataContract|CashOnDelivery|Invoice|PrePayment|Creditcard
      */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
@@ -64,7 +66,7 @@ class RequestFactory implements RequestFactoryContract
             $systemInfoData['module'],
             $systemInfoData['module_version']
         );
-
+        //TODO: refactor
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice(
@@ -108,6 +110,25 @@ class RequestFactory implements RequestFactoryContract
                     $urls,
                     $data['pseudocardpan']
                 );
+            case PaymentTypes::PAYONE_DIRECT_DEBIT:
+                $sepaMandateData = $data['sepaMandate'];
+                $sepaMandate = new SepaMandate(
+                    $sepaMandateData['identification'],
+                    $sepaMandateData['dateofsignature'],
+                    $sepaMandateData['iban'],
+                    $sepaMandateData['bic'],
+                    $sepaMandateData['bankcountry']
+                );
+
+                return new DirectDebit(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $sepaMandate
+                    );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
     }

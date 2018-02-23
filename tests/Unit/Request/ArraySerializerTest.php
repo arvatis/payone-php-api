@@ -1,13 +1,10 @@
 <?php
 
-
 namespace ArvPayoneApi\Unit\Request;
-
 
 use ArvPayoneApi\Mocks\Request\TestClass;
 use ArvPayoneApi\Request\ArraySerializer;
 use ArvPayoneApi\Request\SerializerFactory;
-
 
 class ArraySerializerTest extends \PHPUnit_Framework_TestCase
 {

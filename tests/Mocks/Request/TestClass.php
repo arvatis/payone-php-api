@@ -1,8 +1,6 @@
 <?php
 
-
 namespace ArvPayoneApi\Mocks\Request;
-
 
 class TestClass
 {
@@ -13,6 +11,7 @@ class TestClass
 
     /**
      * Getter for IntZero
+     *
      * @return int
      */
     public function getIntZero()
@@ -22,6 +21,7 @@ class TestClass
 
     /**
      * Getter for FloatZero
+     *
      * @return float
      */
     public function getFloatZero()
@@ -31,7 +31,6 @@ class TestClass
 
     /**
      * Getter for Null
-     * @return null
      */
     public function getNull()
     {
@@ -40,12 +39,11 @@ class TestClass
 
     /**
      * Getter for EmptyString
+     *
      * @return string
      */
     public function getEmptyString()
     {
         return $this->emptyString;
     }
-
-
 }

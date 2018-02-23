@@ -3,3 +3,6 @@ aid = ;your_account_id
 mid = ;your_merchant_id
 portalid =
 key =
+[test_data]
+real_bic =
+real_iban =

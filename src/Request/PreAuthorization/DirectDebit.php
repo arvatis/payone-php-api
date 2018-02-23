@@ -1,6 +1,6 @@
 <?php
 
-namespace ArvPayoneApi\Request\Authorization;
+namespace ArvPayoneApi\Request\PreAuthorization;
 
 use ArvPayoneApi\Request\AuthorizationAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
@@ -30,7 +30,6 @@ class DirectDebit extends AuthorizationAbstract implements RequestDataContract
      * @param string $currency
      * @param Customer $customer
      * @param SystemInfo $info
-     * @param SepaMandate $sepaMandate
      */
     public function __construct(
         Config $config,

@@ -30,5 +30,4 @@ class ManagemandateTest extends \PHPUnit_Framework_TestCase
         self::assertSame('Max', $requestData['firstname']);
         self::assertSame('Mustermann', $requestData['lastname']);
     }
-
 }

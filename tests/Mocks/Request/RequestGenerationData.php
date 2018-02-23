@@ -71,8 +71,16 @@ class RequestGenerationData
         $data['bankAccount'] = [
             'holder' => 'Max Mustermann',
             'country' => 'de',
-            'bic' => 'DE00123456782599100004',
-            'iban' => 'TESTTEST',
+            'bic' => 'TESTTEST',
+            'iban' => 'DE00123456782599100004',
+        ];
+        $data['sepaMandate'] = [
+            'creditorIdentifier' => 'DE98ZZZ09999999999',
+            'identification' => 'PO-TESTTEST',
+            'dateofsignature' => '20180206',
+            'bic' => 'TESTTEST',
+            'iban' => 'DE00123456782599100004',
+            'bankcountry' => 'de',
         ];
 
         return $data;

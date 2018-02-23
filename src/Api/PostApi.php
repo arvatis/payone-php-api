@@ -67,7 +67,8 @@ class PostApi
     public function doRequest(RequestDataContract $data)
     {
         try {
-            $responseBody = $this->client->doRequest($this->serializer->serialize($data));
+            $serializedData = $this->serializer->serialize($data);
+            $responseBody = $this->client->doRequest($serializedData);
 
             return ResponseFactory::create($responseBody);
         } catch (\Exception $e) {

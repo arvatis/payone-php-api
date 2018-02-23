@@ -7,6 +7,7 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
+use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestDataContract;
@@ -109,6 +110,25 @@ class RequestFactory implements RequestFactoryContract
                     $systemInfo,
                     $urls,
                     $data['pseudocardpan']
+                    );
+            case PaymentTypes::PAYONE_DIRECT_DEBIT:
+                $sepaMandateData = $data['sepaMandate'];
+                $sepaMandate = new SepaMandate(
+                    $sepaMandateData['identification'],
+                    $sepaMandateData['dateofsignature'],
+                    $sepaMandateData['iban'],
+                    $sepaMandateData['bic'],
+                    $sepaMandateData['bankcountry']
+                );
+
+                return new DirectDebit(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $sepaMandate
                     );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
