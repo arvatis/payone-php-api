@@ -1,7 +1,7 @@
 {
   "name": "arvatis/payone-php-api",
   "description": "Payone api developed for the plentymarkets Payone plugin",
-  "version": "0.6.8-alpha",
+  "version": "1.0.0-beta",
   "autoload": {
     "psr-4": {
       "ArvPayoneApi\\": "src/"
