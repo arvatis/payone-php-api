@@ -37,7 +37,7 @@ class RedirectUrls
      *
      * @return string
      */
-    public function getSuccess()
+    public function getSuccessurl()
     {
         return $this->success;
     }
@@ -47,7 +47,7 @@ class RedirectUrls
      *
      * @return string
      */
-    public function getError()
+    public function getErrorurl()
     {
         return $this->error;
     }
@@ -57,7 +57,7 @@ class RedirectUrls
      *
      * @return string
      */
-    public function getBack()
+    public function getBackurl()
     {
         return $this->back;
     }
