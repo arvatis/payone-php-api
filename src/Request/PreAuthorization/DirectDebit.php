@@ -43,7 +43,7 @@ class DirectDebit extends AuthorizationAbstract implements RequestDataContract
         parent::__construct(
             $config,
             $customer,
-            Types::AUTHORIZATION,
+            Types::PREAUTHORIZATION,
             ClearingTypes::DEBIT_PAYMENT,
             $info,
             $orderId,
