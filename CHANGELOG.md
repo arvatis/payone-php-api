@@ -2,9 +2,19 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Added
+
+* implemented request for PayPal payment method
+
+### Fixed
+* correctly pass txid in refund
+
+##[1.0.0-rc1]
 ### Fixed
 
-Use correct authorization type for debit payment preauthorization
+* Use correct authorization type for debit payment preauthorization
 
 ## [1.0.1-beta]
 ### Fixed

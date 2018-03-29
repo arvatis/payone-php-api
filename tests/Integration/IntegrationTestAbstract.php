@@ -7,8 +7,8 @@ use ArvPayoneApi\Api\PostApi;
 use ArvPayoneApi\Helpers\TransactionHelper;
 use ArvPayoneApi\Mocks\Request\RequestGenerationData;
 use ArvPayoneApi\Request\Authorization\RequestFactory as AuthFactory;
-use ArvPayoneApi\Request\Capture\CaptureModes;
 use ArvPayoneApi\Request\Capture\RequestFactory as CaptureFactory;
+use ArvPayoneApi\Request\Debit\RequestFactory as DebitFactory;
 use ArvPayoneApi\Request\PreAuthorization\RequestFactory as PreAuthFactory;
 use ArvPayoneApi\Request\Refund\RequestFactory as RefundFactory;
 use ArvPayoneApi\Request\SerializerFactory;
@@ -20,17 +20,17 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     /**
      * @var string
      */
-    protected $paymentMethod;
+    protected static $paymentMethod;
 
     /**
      * @var PostApi
      */
-    protected $client;
+    protected static $client;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
-        parent::setUp();
-        $this->client = new PostApi(new ApiClient(), SerializerFactory::createArraySerializer());
+        parent::setUpBeforeClass();
+        self::$client = new PostApi(new ApiClient(), SerializerFactory::createArraySerializer());
     }
 
     /**
@@ -40,11 +40,11 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         $data = RequestGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = AuthFactory::create($this->paymentMethod, $data);
-        $response = $this->client->doRequest($request);
+        $request = AuthFactory::create(self::$paymentMethod, $data);
+        $response = self::$client->doRequest($request);
         self::assertTrue($response->getSuccess());
         self::assertSame(9, strlen($response->getTransactionID()));
-        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+        self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
         return $response;
     }
@@ -56,10 +56,10 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         $data = RequestGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = PreAuthFactory::create($this->paymentMethod, $data);
-        $response = $this->client->doRequest($request);
+        $request = PreAuthFactory::create(self::$paymentMethod, $data);
+        $response = self::$client->doRequest($request);
         self::assertTrue($response->getSuccess());
-        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+        self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
         return $response;
     }
@@ -71,17 +71,17 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function testCapturing(GenericResponse $preAuth)
     {
         $data = RequestGenerationData::getRequestData();
-        $data['context']['capturemode'] = CaptureModes::COMPLETED;
         $data['context']['sequencenumber'] = 1;
         $data['context']['txid'] = $preAuth->getTransactionID();
 
-        $request = CaptureFactory::create(
-            $this->paymentMethod, $data, $preAuth->getTransactionID()
+        $request = CaptureFactory::create(self::$paymentMethod, $data, $preAuth->getTransactionID());
+
+        $response = self::$client->doRequest($request);
+
+        self::assertFalse(
+            Status::ERROR == $response->getStatus(),
+            $response->getErrorMessage() . 'PreAuth request id: ' . $preAuth->getTransactionID()
         );
-
-        $response = $this->client->doRequest($request);
-
-        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
         self::assertTrue($response->getSuccess());
 
         return $response;
@@ -98,12 +98,15 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(
-            $this->paymentMethod, $data, $capture->getTransactionID()
+            self::$paymentMethod, $data, $capture->getTransactionID()
         );
 
-        $response = $this->client->doRequest($request);
+        $response = self::$client->doRequest($request);
 
-        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
+        self::assertFalse(
+            Status::ERROR == $response->getStatus(),
+            $response->getErrorMessage() . 'Capture request id: ' . $capture->getTransactionID()
+        );
         self::assertTrue($response->getSuccess());
     }
 
@@ -111,20 +114,20 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      * @depends testAuthSuccessfullyPlaced
      * @group online
      */
-    public function testRefundAfterAuth(GenericResponse $auth)
+    public function testDebitAfterAuth(GenericResponse $auth)
     {
-        $this->markTestSkipped('Not available for async payments.');
         sleep(3);
         $data = RequestGenerationData::getRequestData();
-        $data['context']['sequencenumber'] = 2;
+        $data['context']['sequencenumber'] = -1;// -1 should never happen. It is necessary as no payone callbacks are
 
-        $request = RefundFactory::create(
-            $this->paymentMethod, $data, $auth->getTransactionID()
+        $request = DebitFactory::create(self::$paymentMethod, $data, $auth->getTransactionID());
+
+        $response = self::$client->doRequest($request);
+
+        self::assertFalse(
+            Status::ERROR == $response->getStatus(),
+            $response->getErrorMessage() . 'Auth request id: ' . $auth->getTransactionID()
         );
-
-        $response = $this->client->doRequest($request);
-
-        self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
         self::assertTrue($response->getSuccess());
     }
 }

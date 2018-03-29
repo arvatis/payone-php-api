@@ -13,6 +13,7 @@ class PaymentTypes
     const PAYONE_SOFORT = 'Sofort';
     const PAYONE_CREDIT_CARD = 'CreditCard';
     const PAYONE_DIRECT_DEBIT = 'DirectDebit';
+    const PAYONE_PAY_PAL = 'PayPal';
 
     /**
      * @return mixed

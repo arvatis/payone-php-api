@@ -49,6 +49,7 @@ class RequestGenerationData
 
         $context = Config::getConfig()['api_context'];
         $context['mode'] = 'test';
+        $context['capturemode'] = '';
 
         $shippingProvider = [];
         $shippingProvider['name'] = 'DHL';
@@ -81,6 +82,12 @@ class RequestGenerationData
             'bic' => 'TESTTEST',
             'iban' => 'DE00123456782599100004',
             'bankcountry' => 'de',
+        ];
+
+        $data['redirect'] = [
+            "success" => "https://example.de/payment/success?reference=your_unique_reference",
+            "error" => "https://example.de/payment/error?reference=your_unique_reference",
+            "back" => "https://example.de/payment/back?reference=your_unique_reference",
         ];
 
         return $data;

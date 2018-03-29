@@ -17,17 +17,17 @@ use ArvPayoneApi\Response\Status;
  */
 class DirectDebitTest extends IntegrationTestAbstract
 {
-    private $realIban;
+    private static $realIban;
 
-    private $realBic;
+    private static $realBic;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
-        parent::setUp();
-        $this->paymentMethod = PaymentTypes::PAYONE_DIRECT_DEBIT;
+        parent::setUpBeforeClass();
+        self::$paymentMethod = PaymentTypes::PAYONE_DIRECT_DEBIT;
         $config = Config::getConfig();
-        $this->realBic = $config['test_data']['real_bic'];
-        $this->realIban = $config['test_data']['real_iban'];
+        self::$realBic = $config['test_data']['real_bic'];
+        self::$realIban = $config['test_data']['real_iban'];
     }
 
     /**
@@ -39,12 +39,12 @@ class DirectDebitTest extends IntegrationTestAbstract
     {
         $data = RequestGenerationData::getRequestData();
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $data['sepaMandate']['bic'] = $this->realBic;
-        $data['sepaMandate']['iban'] = $this->realIban;
+        $data['sepaMandate']['bic'] = self::$realBic;
+        $data['sepaMandate']['iban'] = self::$realIban;
         $data['bankAccount']['bic'] = $data['sepaMandate']['bic'];
         $data['bankAccount']['iban'] = $data['sepaMandate']['iban'];
         $request = ManageMandateRequestFactory::create(PaymentTypes::PAYONE_DIRECT_DEBIT, $data);
-        $response = $this->client->doRequest($request);
+        $response = self::$client->doRequest($request);
         self::assertTrue($response->getSuccess());
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
         $responseData = $response->jsonSerialize();
@@ -68,7 +68,7 @@ class DirectDebitTest extends IntegrationTestAbstract
         $data['customer']['language'] = 'en';
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
         $request = ManageMandateRequestFactory::create(PaymentTypes::PAYONE_DIRECT_DEBIT, $data);
-        $response = $this->client->doRequest($request);
+        $response = self::$client->doRequest($request);
         self::assertTrue(!$response->getSuccess());
         self::assertSame(Status::ERROR, $response->getStatus(), $response->getErrorMessage());
 
@@ -87,15 +87,15 @@ class DirectDebitTest extends IntegrationTestAbstract
             'creditorIdentifier' => $responseData['responseData']['creditor_identifier'],
             'identification' => $responseData['responseData']['mandate_identification'],
             'dateofsignature' => date('Ymd'),
-            'iban' => $this->realIban,
-            'bic' => $this->realBic,
+            'iban' => self::$realIban,
+            'bic' => self::$realBic,
             'bankcountry' => 'de',
         ];
         $data['bankAccount']['bic'] = $sepaMandateData['bic'];
         $data['bankAccount']['iban'] = $sepaMandateData['iban'];
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = AuthFactory::create($this->paymentMethod, ['sepaMandate' => $sepaMandateData] + $data);
-        $response = $this->client->doRequest($request);
+        $request = AuthFactory::create(self::$paymentMethod, ['sepaMandate' => $sepaMandateData] + $data);
+        $response = self::$client->doRequest($request);
         self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertSame(9, strlen($response->getTransactionID()));
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
@@ -115,15 +115,15 @@ class DirectDebitTest extends IntegrationTestAbstract
             'creditorIdentifier' => $responseData['responseData']['creditor_identifier'],
             'identification' => $responseData['responseData']['mandate_identification'],
             'dateofsignature' => date('Ymd'),
-            'iban' => $this->realIban,
-            'bic' => $this->realBic,
+            'iban' => self::$realIban,
+            'bic' => self::$realBic,
             'bankcountry' => 'de',
         ];
         $data['bankAccount']['bic'] = $sepaMandateData['bic'];
         $data['bankAccount']['iban'] = $sepaMandateData['iban'];
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = PreAuthFactory::create($this->paymentMethod, ['sepaMandate' => $sepaMandateData] + $data);
-        $response = $this->client->doRequest($request);
+        $request = PreAuthFactory::create(self::$paymentMethod, ['sepaMandate' => $sepaMandateData] + $data);
+        $response = self::$client->doRequest($request);
         self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertSame(Status::APPROVED, $response->getStatus(), $response->getErrorMessage());
 

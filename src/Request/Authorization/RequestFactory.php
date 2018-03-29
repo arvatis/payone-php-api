@@ -130,6 +130,19 @@ class RequestFactory implements RequestFactoryContract
                     $systemInfo,
                     $sepaMandate
                     );
+            case PaymentTypes::PAYONE_PAY_PAL:
+                $redirectData = $data['redirect'];
+                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+
+                return new PayPal(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $urls
+                );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
     }
