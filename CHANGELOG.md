@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+* implemented request for paydirect payment method
 * implemented request for PayPal payment method
 
 ### Fixed
