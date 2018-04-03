@@ -6,6 +6,8 @@ use ArvPayoneApi\Request\AuthorizationAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\Parts\RedirectUrls;
+use ArvPayoneApi\Request\Parts\ShippingAddress;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
@@ -20,6 +22,14 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
      * @var string
      */
     private $wallettype = self::WALLET_TYPE;
+    /**
+     * @var RedirectUrls
+     */
+    private $urls;
+    /**
+     * @var ShippingAddress
+     */
+    private $shippingAddress;
 
     /**
      * Paydirect constructor.
@@ -30,9 +40,19 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
      * @param string $currency
      * @param Customer $customer
      * @param SystemInfo $info
+     * @param RedirectUrls $urls
+     * @param ShippingAddress $shippingAddress
      */
-    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer, SystemInfo $info)
-    {
+    public function __construct(
+        Config $config,
+        $orderId,
+        int $amount,
+        $currency,
+        Customer $customer,
+        SystemInfo $info,
+        RedirectUrls $urls,
+        ShippingAddress $shippingAddress
+    ) {
         parent::__construct(
             $config,
             $customer,
@@ -43,6 +63,17 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
             $amount,
             $currency
         );
+        $this->urls = $urls;
+        $this->shippingAddress = $shippingAddress;
+    }
+
+    /**
+     * Getter for Urls
+     * @return RedirectUrls
+     */
+    public function getUrls()
+    {
+        return $this->urls;
     }
 
     /**
@@ -54,4 +85,14 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
     {
         return $this->wallettype;
     }
+
+    /**
+     * Getter for ShippingAddress
+     * @return ShippingAddress
+     */
+    public function getShippingAddress()
+    {
+        return $this->shippingAddress;
+    }
+
 }

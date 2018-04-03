@@ -23,6 +23,10 @@ abstract class AuthorizationAbstract extends RequestAbstract implements RequestD
     private $reference;
 
     /**
+     * @var AuthorizationAbstract
+     */
+    protected $authorization;
+    /**
      * @param Config $config
      * @param Customer $customer
      * @param string $clearingtype

@@ -42,7 +42,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
         $request = AuthFactory::create(self::$paymentMethod, $data);
         $response = self::$client->doRequest($request);
-        self::assertTrue($response->getSuccess());
+        self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertSame(9, strlen($response->getTransactionID()));
         self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
@@ -58,7 +58,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
         $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
         $request = PreAuthFactory::create(self::$paymentMethod, $data);
         $response = self::$client->doRequest($request);
-        self::assertTrue($response->getSuccess());
+        self::assertTrue($response->getSuccess(), $response->getErrorMessage());
         self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
         return $response;

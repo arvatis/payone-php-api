@@ -37,71 +37,57 @@ class ShippingAddress implements RequestDataContract
     }
 
     /**
-     * Getter for Firstname
-     *
      * @return mixed
      */
-    public function getFirstname()
+    public function getShippingFirstname()
     {
         return $this->firstname;
     }
 
     /**
-     * Getter for Lastname
-     *
      * @return mixed
      */
-    public function getLastname()
+    public function getShippingLastname()
     {
         return $this->lastname;
     }
 
     /**
-     * Getter for Street
-     *
      * @return mixed
      */
-    public function getStreet()
+    public function getShippingStreet()
     {
         return $this->street;
     }
 
     /**
-     * Getter for Addressaddition
-     *
      * @return mixed
      */
-    public function getAddressaddition()
+    public function getShippingAddressaddition()
     {
         return $this->addressaddition;
     }
 
     /**
-     * Getter for Zip
-     *
      * @return mixed
      */
-    public function getZip()
+    public function getShippingZip()
     {
         return $this->zip;
     }
 
     /**
-     * Getter for City
-     *
      * @return mixed
      */
-    public function getCity()
+    public function getShippingCity()
     {
         return $this->city;
     }
 
     /**
-     * Getter for Country
-     *
      * @return mixed
      */
-    public function getCountry()
+    public function getShippingCountry()
     {
         return $this->country;
     }
