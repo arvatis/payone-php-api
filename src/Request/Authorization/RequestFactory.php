@@ -79,7 +79,7 @@ class RequestFactory implements RequestFactoryContract
                     $customerAddressData['country']
                 );
 
-                return new Paydirect(
+                return new Paydirekt(
                     $genericAuthRequest,
                     self::createUrls($data['redirect']),
                     $shippingAddress

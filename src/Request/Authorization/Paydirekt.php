@@ -9,9 +9,9 @@ use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\ShippingAddress;
 
 /**
- * Class Paydirect
+ * Class Paydirekt
  */
-class Paydirect extends AuthorizationRequestAbstract
+class Paydirekt extends AuthorizationRequestAbstract
 {
     const WALLET_TYPE = 'PDT';
 
@@ -31,7 +31,7 @@ class Paydirect extends AuthorizationRequestAbstract
     private $shippingAddress;
 
     /**
-     * Paydirect constructor.
+     * Paydirekt constructor.
      *
      * @param GenericAuthorizationRequest $authorizationRequest
      * @param string $clearingtype

@@ -7,7 +7,7 @@ use ArvPayoneApi\Request\ClearingTypes;
 use ArvPayoneApi\Request\GenericAuthorizationRequest;
 
 /**
- * Class Invoice
+ * Class InvoiceSecure
  */
 class InvoiceSecure extends AuthorizationRequestAbstract
 {
