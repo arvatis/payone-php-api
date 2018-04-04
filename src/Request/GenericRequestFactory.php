@@ -1,9 +1,8 @@
 <?php
 
-namespace ArvPayoneApi\Request\Authorization;
+namespace ArvPayoneApi\Request;
 
 use ArvPayoneApi\Lib\Version;
-use ArvPayoneApi\Request\GenericRequest;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 
