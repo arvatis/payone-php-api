@@ -13,7 +13,7 @@ class PaydirectTest extends IntegrationTestAbstract
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$paymentMethod = PaymentTypes::PAYONE_PAYDIRECT;
+        self::$paymentMethod = PaymentTypes::PAYONE_PAYDIREKT;
     }
 
     /**

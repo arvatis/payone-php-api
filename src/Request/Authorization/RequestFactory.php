@@ -67,7 +67,7 @@ class RequestFactory implements RequestFactoryContract
                     self::createUrls($data['redirect'])
                 );
 
-            case PaymentTypes::PAYONE_PAYDIRECT:
+            case PaymentTypes::PAYONE_PAYDIREKT:
                 $customerAddressData = $data['shippingAddress'];
                 $shippingAddress = new ShippingAddress(
                     $customerAddressData['firstname'],
