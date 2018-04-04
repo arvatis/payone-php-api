@@ -3,6 +3,7 @@
 namespace ArvPayoneApi\Request\Authorization;
 
 use ArvPayoneApi\Request\AuthorizationRequestAbstract;
+use ArvPayoneApi\Request\GenericAuthRequestFactory;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\ShippingAddress;

@@ -1,8 +1,8 @@
 <?php
 
-namespace ArvPayoneApi\Request\Authorization;
+namespace ArvPayoneApi\Request;
 
-use ArvPayoneApi\Request\GenericAuthorizationRequest;
+use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 
