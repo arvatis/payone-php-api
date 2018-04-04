@@ -26,6 +26,7 @@ class Debit
 
     /**
      * Getter for Request
+     *
      * @return GenericRequest
      */
     public function getRequest()

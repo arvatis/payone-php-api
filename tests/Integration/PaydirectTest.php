@@ -33,4 +33,26 @@ class PaydirectTest extends IntegrationTestAbstract
     {
         $this->markTestSkipped('Will fail with "Desired status change not possible for this payment process" as Payone callbacks will not be processed.');
     }
+
+    /**
+     * @group online
+     */
+    public function testAuthSuccessfullyPlaced()
+    {
+        $response = parent::testAuthSuccessfullyPlaced();
+        self::assertSame($response->getStatus(), 'REDIRECT');
+
+        return $response;
+    }
+
+    /**
+     * @group online
+     */
+    public function testPreAuthSuccessfullyPlaced()
+    {
+        $response = parent::testPreAuthSuccessfullyPlaced();
+        self::assertSame($response->getStatus(), 'REDIRECT');
+
+        return $response;
+    }
 }

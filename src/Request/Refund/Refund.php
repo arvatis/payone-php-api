@@ -20,13 +20,13 @@ class Refund
      */
     public function __construct(GenericRequest $request, $txid)
     {
-
         $this->txid = $txid;
         $this->request = $request;
     }
 
     /**
      * Getter for Request
+     *
      * @return GenericRequest
      */
     public function getRequest()

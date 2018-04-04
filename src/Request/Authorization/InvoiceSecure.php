@@ -28,6 +28,7 @@ class InvoiceSecure extends AuthorizationRequestAbstract
 
     /**
      * Getter for Subclearingtype
+     *
      * @return string
      */
     public function getSubclearingtype()

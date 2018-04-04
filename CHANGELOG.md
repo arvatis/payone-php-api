@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+* add sofort payment method
 * add secure invoice payment method
 * refactor request and response generation
 * implemented request for paydirect payment method

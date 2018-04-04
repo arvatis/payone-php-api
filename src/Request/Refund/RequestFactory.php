@@ -12,6 +12,7 @@ class RequestFactory implements RequestFactoryContract
      * @param string $paymentMethod
      * @param array $data
      * @param null $referenceId
+     *
      * @return Refund|\ArvPayoneApi\Request\RequestDataContract
      */
     public static function create($paymentMethod, $data, $referenceId = null)

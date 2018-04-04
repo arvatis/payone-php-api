@@ -4,6 +4,7 @@ namespace ArvPayoneApi\Request\Authorization;
 
 use ArvPayoneApi\Request\AuthorizationRequestAbstract;
 use ArvPayoneApi\Request\GenericAuthRequestFactory;
+use ArvPayoneApi\Request\Parts\BankAccount;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\ShippingAddress;
@@ -65,6 +66,20 @@ class RequestFactory implements RequestFactoryContract
                 return new PayPal(
                     $genericAuthRequest,
                     self::createUrls($data['redirect'])
+                );
+            case PaymentTypes::PAYONE_SOFORT:
+                $bankAccountData = $data['bankAccount'];
+                $bankAccount = new BankAccount(
+                    $bankAccountData['country'],
+                    $bankAccountData['holder'],
+                    $bankAccountData['iban'],
+                    $bankAccountData['bic']
+                );
+
+                return new Sofort(
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
+                    $bankAccount
                 );
 
             case PaymentTypes::PAYONE_PAYDIREKT:

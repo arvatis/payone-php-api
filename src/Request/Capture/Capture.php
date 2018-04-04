@@ -15,6 +15,7 @@ class Capture
 
     /**
      * Capture constructor.
+     *
      * @param GenericRequest $request
      * @param $txid
      * @param $capturemode
@@ -51,6 +52,7 @@ class Capture
 
     /**
      * Getter for Request
+     *
      * @return GenericRequest
      */
     public function getRequest()
