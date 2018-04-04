@@ -2,7 +2,7 @@
 
 namespace ArvPayoneApi\Request\Debit;
 
-use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
+use ArvPayoneApi\Request\GenericRequestFactory;
 use ArvPayoneApi\Request\RequestFactoryContract;
 use ArvPayoneApi\Request\Types;
 

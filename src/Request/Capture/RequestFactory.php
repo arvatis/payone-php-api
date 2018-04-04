@@ -2,7 +2,7 @@
 
 namespace ArvPayoneApi\Request\Capture;
 
-use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
+use ArvPayoneApi\Request\GenericRequestFactory;
 use ArvPayoneApi\Request\RequestFactoryContract;
 use ArvPayoneApi\Request\Types;
 
