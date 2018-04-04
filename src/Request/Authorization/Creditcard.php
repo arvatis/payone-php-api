@@ -2,20 +2,21 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
-use ArvPayoneApi\Request\AuthorizationAbstract;
+use ArvPayoneApi\Request\AuthorizationRequestAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\Customer;
+use ArvPayoneApi\Request\GenericAuthorizationRequest;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
-use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestDataContract;
-use ArvPayoneApi\Request\Types;
 
 /**
  * Class Creditcard
  */
-class Creditcard extends AuthorizationAbstract implements RequestDataContract
+class Creditcard extends AuthorizationRequestAbstract
 {
+    /**
+     * @var string
+     */
+    protected $clearingtype = ClearingTypes::CREDITCARD;
+
     /**
      * @var string
      */
@@ -28,35 +29,16 @@ class Creditcard extends AuthorizationAbstract implements RequestDataContract
     /**
      * Creditcard constructor.
      *
-     * @param Config $config
-     * @param string $orderId
-     * @param int $amount
-     * @param string $currency
-     * @param Customer $customer
-     * @param SystemInfo $info
+     * @param GenericAuthorizationRequest $authorizationRequest
      * @param RedirectUrls $urls
-     * @param string $pseudocardPan
+     * @param $pseudocardPan
      */
     public function __construct(
-        Config $config,
-        $orderId,
-        int $amount,
-        $currency,
-        Customer $customer,
-        SystemInfo $info,
+        GenericAuthorizationRequest $authorizationRequest,
         RedirectUrls $urls,
         $pseudocardPan
     ) {
-        parent::__construct(
-            $config,
-            $customer,
-            Types::AUTHORIZATION,
-            ClearingTypes::CREDITCARD,
-            $info,
-            $orderId,
-            $amount,
-            $currency
-        );
+        $this->authorizationRequest = $authorizationRequest;
         $this->pseudocardpan = $pseudocardPan;
         $this->urls = $urls;
     }

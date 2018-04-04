@@ -2,49 +2,22 @@
 
 namespace ArvPayoneApi\Request\Debit;
 
-use ArvPayoneApi\Lib\Version;
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestDataContract;
+use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
 use ArvPayoneApi\Request\RequestFactoryContract;
+use ArvPayoneApi\Request\Types;
 
 class RequestFactory implements RequestFactoryContract
 {
     /**
      * @param string $paymentMethod
      * @param array $data
-     * @param string|null $referenceId
-     *
-     * @return RequestDataContract
+     * @param null $referenceId
+     * @return Debit|\ArvPayoneApi\Request\RequestDataContract
      */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
-        $context = $data['context'];
-        $config = new Config(
-            $context['aid'],
-            $context['mid'],
-            $context['portalid'],
-            $context['key'],
-            $context['mode']
-        );
+        $genericRequest = GenericRequestFactory::create(Types::DEBIT, $data);
 
-        $order = $data['order'];
-
-        $systemInfoData = $data['systemInfo'];
-        $systemInfo = new SystemInfo(
-            $systemInfoData['vendor'],
-            Version::getVersion(),
-            $systemInfoData['module'],
-            $systemInfoData['module_version']
-        );
-
-        return new Debit(
-            $config,
-            $referenceId,
-            $order['amount'],
-            $order['currency'],
-            $systemInfo,
-            $context['sequencenumber']
-        );
+        return new Debit($genericRequest, $referenceId);
     }
 }

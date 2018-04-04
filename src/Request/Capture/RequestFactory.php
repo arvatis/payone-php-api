@@ -2,11 +2,9 @@
 
 namespace ArvPayoneApi\Request\Capture;
 
-use ArvPayoneApi\Lib\Version;
-use ArvPayoneApi\Request\Capture;
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\SystemInfo;
+use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
 use ArvPayoneApi\Request\RequestFactoryContract;
+use ArvPayoneApi\Request\Types;
 
 class RequestFactory implements RequestFactoryContract
 {
@@ -19,33 +17,13 @@ class RequestFactory implements RequestFactoryContract
      */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
+        $genericRequest = GenericRequestFactory::create(Types::CAPTURE, $data);
         $context = $data['context'];
-        $config = new Config(
-            $context['aid'],
-            $context['mid'],
-            $context['portalid'],
-            $context['key'],
-            $context['mode']
-        );
 
-        $order = $data['order'];
-
-        $systemInfoData = $data['systemInfo'];
-        $systemInfo = new SystemInfo(
-            $systemInfoData['vendor'],
-            Version::getVersion(),
-            $systemInfoData['module'],
-            $systemInfoData['module_version']
-        );
-
-        return new Capture\Capture(
-            $config,
+        return new Capture(
+            $genericRequest,
             $referenceId,
-            $order['amount'],
-            $order['currency'],
-            $context['capturemode'],
-            $systemInfo,
-            $context['sequencenumber']
+            $context['capturemode']
         );
     }
 }

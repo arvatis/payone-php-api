@@ -118,7 +118,7 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     {
         sleep(3);
         $data = RequestGenerationData::getRequestData();
-        $data['context']['sequencenumber'] = -1;// -1 should never happen. It is necessary as no payone callbacks are
+        $data['context']['sequencenumber'] = -1; // -1 should never happen. It is necessary as no payone callbacks are
 
         $request = DebitFactory::create(self::$paymentMethod, $data, $auth->getTransactionID());
 

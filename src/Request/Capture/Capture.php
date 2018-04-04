@@ -2,45 +2,29 @@
 
 namespace ArvPayoneApi\Request\Capture;
 
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestAbstract;
-use ArvPayoneApi\Request\RequestDataContract;
-use ArvPayoneApi\Request\Types;
+use ArvPayoneApi\Request\GenericRequest;
 
-class Capture extends RequestAbstract implements RequestDataContract
+class Capture
 {
     private $txid;
     private $capturemode;
+    /**
+     * @var GenericRequest
+     */
+    private $request;
 
     /**
      * Capture constructor.
-     *
-     * @param Config $config
-     * @param string $txid
-     * @param int $amount
-     * @param string $currency
-     * @param string $capturemode
-     * @param SystemInfo $info
-     * @param string|null $sequencenumber
+     * @param GenericRequest $request
+     * @param $txid
+     * @param $capturemode
      */
     public function __construct(
-        Config $config,
+        GenericRequest $request,
         $txid,
-        $amount,
-        $currency,
-        $capturemode,
-        SystemInfo $info,
-        $sequencenumber = null
+        $capturemode
     ) {
-        parent::__construct(
-            $config,
-            Types::CAPTURE,
-            $amount,
-            $currency,
-            $info,
-            $sequencenumber
-        );
+        $this->request = $request;
         $this->txid = $txid;
         $this->capturemode = $capturemode;
     }
@@ -63,5 +47,14 @@ class Capture extends RequestAbstract implements RequestDataContract
     public function getCapturemode()
     {
         return $this->capturemode;
+    }
+
+    /**
+     * Getter for Request
+     * @return GenericRequest
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 }

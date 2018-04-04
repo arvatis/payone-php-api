@@ -2,9 +2,7 @@
 
 namespace ArvPayoneApi\Request\Parts;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
-class ShippingAddress implements RequestDataContract
+class ShippingAddress
 {
     private $firstname;
     private $lastname;

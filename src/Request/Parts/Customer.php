@@ -2,9 +2,7 @@
 
 namespace ArvPayoneApi\Request\Parts;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
-class Customer implements RequestDataContract
+class Customer
 {
     private $salutation;
     private $title;

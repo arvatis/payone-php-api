@@ -6,14 +6,14 @@ use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 
 /**
- * Class RequestAbstract
+ * Class GenericRequest
  */
-abstract class RequestAbstract implements RequestDataContract
+class GenericRequest implements RequestDataContract
 {
     /**
      * @var string
      */
-    private $request;
+    protected $request;
 
     /**
      * @var int
@@ -30,13 +30,14 @@ abstract class RequestAbstract implements RequestDataContract
 
     /** @var string|null */
     private $sequencenumber;
+
     /**
      * @var SystemInfo
      */
     private $info;
 
     /**
-     * RequestAbstract constructor.
+     * GenericRequest constructor.
      *
      * @param Config $config
      * @param string $request

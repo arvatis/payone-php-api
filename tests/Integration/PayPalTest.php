@@ -33,5 +33,4 @@ class PayPalTest extends IntegrationTestAbstract
     {
         $this->markTestSkipped('Will fail with "Desired status change not possible for this payment process" as Payone callbacks will not be processed.');
     }
-
 }
