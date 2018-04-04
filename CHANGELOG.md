@@ -6,7 +6,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* fefactor request and response generation
+* add secure invoice payment method
+* refactor request and response generation
 * implemented request for paydirect payment method
 * implemented request for PayPal payment method
 

@@ -30,6 +30,8 @@ class RequestFactory implements RequestFactoryContract
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice($genericAuthRequest);
+            case PaymentTypes::PAYONE_INVOICE_SECURE:
+                return new InvoiceSecure($genericAuthRequest);
             case PaymentTypes::PAYONE_PRE_PAYMENT:
                 return new PrePayment($genericAuthRequest);
             case PaymentTypes::PAYONE_CASH_ON_DELIVERY:

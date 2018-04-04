@@ -15,6 +15,7 @@ class PaymentTypes
     const PAYONE_DIRECT_DEBIT = 'DirectDebit';
     const PAYONE_PAY_PAL = 'PayPal';
     const PAYONE_PAYDIRECT = 'Paydirect';
+    const PAYONE_INVOICE_SECURE = 'InvoiceSecure';
 
     /**
      * @return mixed
