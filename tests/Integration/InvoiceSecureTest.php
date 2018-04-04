@@ -13,7 +13,7 @@ class InvoiceSecureTest extends IntegrationTestAbstract
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$paymentMethod = PaymentTypes::PAYONE_INVOICE;
+        self::$paymentMethod = PaymentTypes::PAYONE_INVOICE_SECURE;
     }
 
     /**
