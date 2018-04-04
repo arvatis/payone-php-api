@@ -2,7 +2,6 @@
 
 namespace ArvPayoneApi\Request;
 
-use ArvPayoneApi\Request\Authorization\GenericRequestFactory;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 
