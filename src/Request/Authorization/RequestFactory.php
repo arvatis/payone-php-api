@@ -81,6 +81,20 @@ class RequestFactory implements RequestFactoryContract
                     self::createUrls($data['redirect']),
                     $bankAccount
                 );
+            case PaymentTypes::PAYONE_ON_LINE_BANK_TRANSFER:
+                $bankAccountData = $data['bankAccount'];
+                $bankAccount = new BankAccount(
+                    $bankAccountData['country'],
+                    $bankAccountData['holder'],
+                    $bankAccountData['iban'],
+                    $bankAccountData['bic']
+                );
+
+                return new OnlineBankTransfer(
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
+                    $bankAccount
+                );
 
             case PaymentTypes::PAYONE_PAYDIREKT:
                 $customerAddressData = $data['shippingAddress'];
