@@ -12,9 +12,6 @@ class Version
      */
     public static function getVersion()
     {
-        $content = file_get_contents(__DIR__ . '/../../composer.json');
-        $content = json_decode($content, true);
-
-        return $content['version'] ?? '';
+        return 'v2.0.0';
     }
 }
