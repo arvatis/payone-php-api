@@ -16,6 +16,7 @@ class PaymentTypes
     const PAYONE_PAY_PAL = 'PayPal';
     const PAYONE_PAYDIREKT = 'Paydirekt';
     const PAYONE_INVOICE_SECURE = 'InvoiceSecure';
+    const PAYONE_ON_LINE_BANK_TRANSFER = 'OnlineBankTransfer';
 
     /**
      * @return mixed
