@@ -41,7 +41,7 @@ class GenericRequestFactory
             $basket['basketAmount'],
             $basket['currency'],
             $systemInfo,
-            $context['sequencenumber'] ?? ''
+            $context['sequencenumber'] ?? null
         );
     }
 }
