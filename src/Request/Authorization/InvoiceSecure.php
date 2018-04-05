@@ -11,9 +11,12 @@ use ArvPayoneApi\Request\GenericAuthorizationRequest;
  */
 class InvoiceSecure extends AuthorizationRequestAbstract
 {
+
+    const PAYONE_INVOICE_CLEARING_TYPE = 'POV';
+
     protected $clearingtype = ClearingTypes::REC;
 
-    protected $subclearingtype = ClearingTypes::POV;
+    protected $subclearingtype = self::PAYONE_INVOICE_CLEARING_TYPE;
 
     /**
      * Invoice constructor.

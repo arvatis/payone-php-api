@@ -12,5 +12,4 @@ class ClearingTypes
     const ONLINE_BANK_TRANSFER = 'sb';
     const WALLET = 'wlt';
     const FINANCING = 'fnc';
-    const POV = 'pov';
 }
