@@ -1,23 +1,22 @@
 <?php
 
-namespace ArvPayoneApi\Request\Authorization;
+namespace ArvPayoneApi\Request\PreAuthorization;
 
 use ArvPayoneApi\Request\AuthorizationAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
 use ArvPayoneApi\Request\Parts\Config;
 use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
-use ArvPayoneApi\Request\Parts\ShippingAddress;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\Types;
 
 /**
- * Class Paydirect
+ * Class PayPal
  */
-class Paydirect extends AuthorizationAbstract implements RequestDataContract
+class PayPal extends AuthorizationAbstract implements RequestDataContract
 {
-    const WALLET_TYPE = 'PDT';
+    const WALLET_TYPE = 'PPE';
     /**
      * @var string
      */
@@ -26,22 +25,16 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
      * @var RedirectUrls
      */
     private $urls;
-    /**
-     * @var ShippingAddress
-     */
-    private $shippingAddress;
 
     /**
-     * Paydirect constructor.
-     *
+     * PayPal constructor.
      * @param Config $config
-     * @param string $orderId
+     * @param $orderId
      * @param int $amount
-     * @param string $currency
+     * @param $currency
      * @param Customer $customer
      * @param SystemInfo $info
      * @param RedirectUrls $urls
-     * @param ShippingAddress $shippingAddress
      */
     public function __construct(
         Config $config,
@@ -50,13 +43,12 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
         $currency,
         Customer $customer,
         SystemInfo $info,
-        RedirectUrls $urls,
-        ShippingAddress $shippingAddress
+        RedirectUrls $urls
     ) {
         parent::__construct(
             $config,
             $customer,
-            Types::AUTHORIZATION,
+            Types::PREAUTHORIZATION,
             ClearingTypes::WALLET,
             $info,
             $orderId,
@@ -64,7 +56,6 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
             $currency
         );
         $this->urls = $urls;
-        $this->shippingAddress = $shippingAddress;
     }
 
     /**
@@ -85,14 +76,4 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
     {
         return $this->wallettype;
     }
-
-    /**
-     * Getter for ShippingAddress
-     * @return ShippingAddress
-     */
-    public function getShippingAddress()
-    {
-        return $this->shippingAddress;
-    }
-
 }

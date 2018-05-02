@@ -29,6 +29,5 @@ class DirectDebitTest extends \PHPUnit_Framework_TestCase
         $requestData = $this->serializer->serialize($request);
         self::assertSame('PO-TESTTEST', $requestData['mandate_identification']);
         self::assertSame('20180206', $requestData['mandate_dateofsignature']);
-        self::assertSame('DE98ZZZ09999999999', $requestData['creditor_identifier']);
     }
 }

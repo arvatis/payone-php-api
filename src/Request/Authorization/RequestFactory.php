@@ -8,6 +8,7 @@ use ArvPayoneApi\Request\Parts\Customer;
 use ArvPayoneApi\Request\Parts\CustomerAddress;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SepaMandate;
+use ArvPayoneApi\Request\Parts\ShippingAddress;
 use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestDataContract;
@@ -130,6 +131,42 @@ class RequestFactory implements RequestFactoryContract
                     $systemInfo,
                     $sepaMandate
                     );
+            case PaymentTypes::PAYONE_PAY_PAL:
+                $redirectData = $data['redirect'];
+                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+
+                return new PayPal(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $urls
+                );
+
+            case PaymentTypes::PAYONE_PAYDIRECT:
+                $redirectData = $data['redirect'];
+                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+                $shippingAddress = new ShippingAddress(
+                    $customerAddressData['firstname'],
+                    $customerAddressData['lastname'],
+                    $customerAddressData['street'],
+                    $customerAddressData['addressaddition'],
+                    $customerAddressData['postalCode'],
+                    $customerAddressData['town'],
+                    $customerAddressData['country']
+                );
+                return new Paydirect(
+                    $config,
+                    $reference,
+                    $basket['basketAmount'],
+                    $basket['currency'],
+                    $customer,
+                    $systemInfo,
+                    $urls,
+                    $shippingAddress
+                );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
     }

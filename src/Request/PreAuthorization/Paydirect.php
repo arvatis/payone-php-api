@@ -1,6 +1,6 @@
 <?php
 
-namespace ArvPayoneApi\Request\Authorization;
+namespace ArvPayoneApi\Request\PreAuthorization;
 
 use ArvPayoneApi\Request\AuthorizationAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
@@ -44,8 +44,7 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
      * @param ShippingAddress $shippingAddress
      */
     public function __construct(
-        Config $config,
-        $orderId,
+        Config $config, $orderId,
         int $amount,
         $currency,
         Customer $customer,
@@ -56,7 +55,7 @@ class Paydirect extends AuthorizationAbstract implements RequestDataContract
         parent::__construct(
             $config,
             $customer,
-            Types::AUTHORIZATION,
+            Types::PREAUTHORIZATION,
             ClearingTypes::WALLET,
             $info,
             $orderId,

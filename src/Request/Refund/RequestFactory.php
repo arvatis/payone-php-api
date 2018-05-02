@@ -32,7 +32,7 @@ class RequestFactory implements RequestFactoryContract
 
         return new Refund(
             $config,
-            $data,
+            $referenceId,
             $order['amount'],
             $order['currency'],
             $systemInfo,
