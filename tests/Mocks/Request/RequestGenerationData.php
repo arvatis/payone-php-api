@@ -85,9 +85,9 @@ class RequestGenerationData
         ];
 
         $data['redirect'] = [
-            "success" => "https://example.de/payment/success?reference=your_unique_reference",
-            "error" => "https://example.de/payment/error?reference=your_unique_reference",
-            "back" => "https://example.de/payment/back?reference=your_unique_reference",
+            'success' => 'https://example.de/payment/success?reference=your_unique_reference',
+            'error' => 'https://example.de/payment/error?reference=your_unique_reference',
+            'back' => 'https://example.de/payment/back?reference=your_unique_reference',
         ];
 
         return $data;

@@ -129,6 +129,7 @@ class InvoiceRequestTest extends \PHPUnit_Framework_TestCase
         $data = [];
         $data['context'] = $context;
         $data['order'] = $order;
+        $data['basket'] = ['basketAmount' => 10000, 'currency' => 'EUR'];
         $data['systemInfo'] = $systemInfo;
 
         $requestMockData = RequestMockFactory::getRequestData($this->paymentMethod, Types::CAPTURE, true);

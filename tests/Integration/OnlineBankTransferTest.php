@@ -6,14 +6,14 @@ use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Response\GenericResponse;
 
 /**
- * Class PayPalTest
+ * Class SofortTest
  */
-class PayPalTest extends IntegrationTestAbstract
+class OnlineBankTransferTest extends IntegrationTestAbstract
 {
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        self::$paymentMethod = PaymentTypes::PAYONE_PAY_PAL;
+        self::$paymentMethod = PaymentTypes::PAYONE_ON_LINE_BANK_TRANSFER;
     }
 
     /**

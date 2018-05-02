@@ -2,9 +2,7 @@
 
 namespace ArvPayoneApi\Request\Parts;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
-class BankAccount implements RequestDataContract
+class BankAccount
 {
     /**
      * @var string

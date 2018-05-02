@@ -2,20 +2,20 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
-use ArvPayoneApi\Lib\Version;
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\Customer;
-use ArvPayoneApi\Request\Parts\CustomerAddress;
+use ArvPayoneApi\Request\AuthorizationRequestAbstract;
+use ArvPayoneApi\Request\GenericAuthRequestFactory;
+use ArvPayoneApi\Request\Parts\BankAccount;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\ShippingAddress;
-use ArvPayoneApi\Request\Parts\SystemInfo;
 use ArvPayoneApi\Request\PaymentTypes;
-use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\RequestFactoryContract;
+use ArvPayoneApi\Request\Types;
 
 class RequestFactory implements RequestFactoryContract
 {
+    protected static $requestType = Types::AUTHORIZATION;
+
     /**
      * @param string $paymentMethod
      * @param array $data
@@ -23,95 +23,30 @@ class RequestFactory implements RequestFactoryContract
      *
      * @throws \Exception
      *
-     * @return RequestDataContract
+     * @return AuthorizationRequestAbstract
      */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
-        $context = $data['context'];
-        $config = new Config(
-            $context['aid'],
-            $context['mid'],
-            $context['portalid'],
-            $context['key'],
-            $context['mode']
-        );
-
-        $customerAddressData = $data['shippingAddress'];
-        $customerAddress = new CustomerAddress(
-            $customerAddressData['street'] . ' ' . $customerAddressData['houseNumber'],
-            $customerAddressData['addressaddition'],
-            $customerAddressData['postalCode'],
-            $customerAddressData['town'],
-            $customerAddressData['country']
-        );
-        $customerData = $data['customer'];
-        $customer = new Customer(
-            $customerData['title'],
-            $customerData['firstname'],
-            $customerData['lastname'],
-            $customerAddress,
-            $customerData['email'],
-            $customerData['telephonenumber'],
-            $customerData['birthday'],
-            $customerData['language'],
-            $customerData['gender'],
-            $customerData['ip']
-        );
-        $basket = $data['basket'];
-        $reference = isset($data['order']['orderId']) && $data['order']['orderId'] ?
-            'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
-
-        $systemInfoData = $data['systemInfo'];
-        $systemInfo = new SystemInfo(
-            $systemInfoData['vendor'],
-            Version::getVersion(),
-            $systemInfoData['module'],
-            $systemInfoData['module_version']
-        );
-        //TODO: refactor
+        $genericAuthRequest = GenericAuthRequestFactory::create(static::$requestType, $data);
         switch ($paymentMethod) {
             case PaymentTypes::PAYONE_INVOICE:
-                return new Invoice(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo
-                );
+                return new Invoice($genericAuthRequest);
+            case PaymentTypes::PAYONE_INVOICE_SECURE:
+                return new InvoiceSecure($genericAuthRequest);
             case PaymentTypes::PAYONE_PRE_PAYMENT:
-                return new PrePayment(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo
-                );
+                return new PrePayment($genericAuthRequest);
             case PaymentTypes::PAYONE_CASH_ON_DELIVERY:
                 return new CashOnDelivery(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $data['shippingProvider']['name'],
-                    $systemInfo
+                    $genericAuthRequest,
+                    $data['shippingProvider']['name']
                 );
             case PaymentTypes::PAYONE_CREDIT_CARD:
-                $redirectData = $data['redirect'];
-                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
 
                 return new Creditcard(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo,
-                    $urls,
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
                     $data['pseudocardpan']
-                    );
+                );
             case PaymentTypes::PAYONE_DIRECT_DEBIT:
                 $sepaMandateData = $data['sepaMandate'];
                 $sepaMandate = new SepaMandate(
@@ -123,31 +58,32 @@ class RequestFactory implements RequestFactoryContract
                 );
 
                 return new DirectDebit(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo,
+                    $genericAuthRequest,
                     $sepaMandate
-                    );
+                );
             case PaymentTypes::PAYONE_PAY_PAL:
-                $redirectData = $data['redirect'];
-                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
 
                 return new PayPal(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo,
-                    $urls
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect'])
+                );
+            case PaymentTypes::PAYONE_SOFORT:
+                $bankAccountData = $data['bankAccount'];
+                $bankAccount = new BankAccount(
+                    $bankAccountData['country'],
+                    $bankAccountData['holder'],
+                    $bankAccountData['iban'],
+                    $bankAccountData['bic']
                 );
 
-            case PaymentTypes::PAYONE_PAYDIRECT:
-                $redirectData = $data['redirect'];
-                $urls = new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
+                return new Sofort(
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
+                    $bankAccount
+                );
+
+            case PaymentTypes::PAYONE_PAYDIREKT:
+                $customerAddressData = $data['shippingAddress'];
                 $shippingAddress = new ShippingAddress(
                     $customerAddressData['firstname'],
                     $customerAddressData['lastname'],
@@ -157,17 +93,23 @@ class RequestFactory implements RequestFactoryContract
                     $customerAddressData['town'],
                     $customerAddressData['country']
                 );
-                return new Paydirect(
-                    $config,
-                    $reference,
-                    $basket['basketAmount'],
-                    $basket['currency'],
-                    $customer,
-                    $systemInfo,
-                    $urls,
+
+                return new Paydirekt(
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
                     $shippingAddress
                 );
         }
         throw new \Exception('Unimplemented payment method ' . $paymentMethod);
+    }
+
+    /**
+     * @param $redirectData
+     *
+     * @return RedirectUrls
+     */
+    private static function createUrls($redirectData)
+    {
+        return new RedirectUrls($redirectData['success'], $redirectData['error'], $redirectData['back']);
     }
 }

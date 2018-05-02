@@ -2,37 +2,36 @@
 
 namespace ArvPayoneApi\Request\Refund;
 
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestAbstract;
-use ArvPayoneApi\Request\RequestDataContract;
-use ArvPayoneApi\Request\Types;
+use ArvPayoneApi\Request\GenericRequest;
 
-class Refund extends RequestAbstract implements RequestDataContract
+class Refund
 {
     private $txid;
+    /**
+     * @var GenericRequest
+     */
+    private $request;
 
     /**
      * Refund constructor.
      *
-     * @param Config $config
+     * @param GenericRequest $request
      * @param string $txid
-     * @param int $amount
-     * @param string $currency
-     * @param SystemInfo $info
-     * @param null|string $sequencenumber
      */
-    public function __construct(Config $config, $txid, $amount, $currency, SystemInfo $info, $sequencenumber = null)
+    public function __construct(GenericRequest $request, $txid)
     {
-        parent::__construct(
-            $config,
-            Types::REFUND,
-            -$amount,
-            $currency,
-            $info,
-            $sequencenumber
-        );
         $this->txid = $txid;
+        $this->request = $request;
+    }
+
+    /**
+     * Getter for Request
+     *
+     * @return GenericRequest
+     */
+    public function getRequest()
+    {
+        return $this->request;
     }
 
     /**

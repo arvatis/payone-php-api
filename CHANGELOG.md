@@ -6,13 +6,22 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
+* add sofort payment method
+* add secure invoice payment method
+
+## [2.0.0]
+### Added
+* refactor request and response generation (basket now needs to be passed to all requests)
+
+## [1.2.0]
+### Added
 * implemented request for paydirect payment method
 * implemented request for PayPal payment method
 
 ### Fixed
 * correctly pass txid in refund
 
-##[1.0.0-rc1]
+## [1.0.0-rc1]
 ### Fixed
 
 * Use correct authorization type for debit payment preauthorization

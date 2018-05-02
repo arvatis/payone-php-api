@@ -12,6 +12,13 @@ use ArvPayoneApi\Request\RequestFactoryContract;
 
 class ManageMandateRequestFactory implements RequestFactoryContract
 {
+    /**
+     * @param string $paymentMethod
+     * @param array $data
+     * @param null $referenceId
+     *
+     * @return ManageMandate
+     */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
         $context = $data['context'];
@@ -45,8 +52,6 @@ class ManageMandateRequestFactory implements RequestFactoryContract
             $customerData['ip']
         );
         $basket = $data['basket'];
-        $reference = isset($data['order']['orderId']) && $data['order']['orderId'] ?
-            'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
 
         $systemInfoData = $data['systemInfo'];
         $systemInfo = new SystemInfo(

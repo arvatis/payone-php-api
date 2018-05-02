@@ -2,40 +2,24 @@
 
 namespace ArvPayoneApi\Request\Authorization;
 
-use ArvPayoneApi\Request\AuthorizationAbstract;
+use ArvPayoneApi\Request\AuthorizationRequestAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
-use ArvPayoneApi\Request\Parts\Config;
-use ArvPayoneApi\Request\Parts\Customer;
-use ArvPayoneApi\Request\Parts\SystemInfo;
-use ArvPayoneApi\Request\RequestDataContract;
-use ArvPayoneApi\Request\Types;
+use ArvPayoneApi\Request\GenericAuthorizationRequest;
 
 /**
  * Class PrePayment
  */
-class PrePayment extends AuthorizationAbstract implements RequestDataContract
+class PrePayment extends AuthorizationRequestAbstract
 {
+    protected $clearingtype = ClearingTypes::VOR;
+
     /**
-     * PrePayment constructor.
+     * Invoice constructor.
      *
-     * @param Config $config
-     * @param string $orderId
-     * @param int $amount
-     * @param string $currency
-     * @param Customer $customer
-     * @param SystemInfo $info
+     * @param GenericAuthorizationRequest $authorizationRequest
      */
-    public function __construct(Config $config, $orderId, int $amount, $currency, Customer $customer, SystemInfo $info)
+    public function __construct(GenericAuthorizationRequest $authorizationRequest)
     {
-        parent::__construct(
-            $config,
-            $customer,
-            Types::AUTHORIZATION,
-            ClearingTypes::VOR,
-            $info,
-            $orderId,
-           $amount,
-            $currency
-        );
+        $this->authorizationRequest = $authorizationRequest;
     }
 }

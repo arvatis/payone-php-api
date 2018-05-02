@@ -2,9 +2,7 @@
 
 namespace ArvPayoneApi\Request\Parts;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
-class Config implements RequestDataContract
+class Config
 {
     private $aid;
     private $mid;

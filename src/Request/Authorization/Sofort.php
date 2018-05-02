@@ -5,38 +5,43 @@ namespace ArvPayoneApi\Request\Authorization;
 use ArvPayoneApi\Request\AuthorizationRequestAbstract;
 use ArvPayoneApi\Request\ClearingTypes;
 use ArvPayoneApi\Request\GenericAuthorizationRequest;
+use ArvPayoneApi\Request\Parts\BankAccount;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 
 /**
- * Class PayPal
+ * Class Sofort
  */
-class PayPal extends AuthorizationRequestAbstract
+class Sofort extends AuthorizationRequestAbstract
 {
-    const WALLET_TYPE = 'PPE';
+    const SOFORT_BANK_TRANSFER_TYPE = 'PNT';
 
-    protected $clearingtype = ClearingTypes::WALLET;
-    /**
-     * @var string
-     */
-    private $wallettype = self::WALLET_TYPE;
+    protected $onlinebanktransfertype = self::SOFORT_BANK_TRANSFER_TYPE;
+    protected $clearingtype = ClearingTypes::ONLINE_BANK_TRANSFER;
 
     /**
      * @var RedirectUrls
      */
     private $urls;
+    /**
+     * @var BankAccount
+     */
+    private $bankAccount;
 
     /**
      * PayPal constructor.
      *
      * @param GenericAuthorizationRequest $authorizationRequest
      * @param RedirectUrls $urls
+     * @param BankAccount $bankAccount
      */
     public function __construct(
         GenericAuthorizationRequest $authorizationRequest,
-        RedirectUrls $urls
+        RedirectUrls $urls,
+        BankAccount $bankAccount
     ) {
         $this->authorizationRequest = $authorizationRequest;
         $this->urls = $urls;
+        $this->bankAccount = $bankAccount;
     }
 
     /**
@@ -50,12 +55,22 @@ class PayPal extends AuthorizationRequestAbstract
     }
 
     /**
-     * Getter for Wallettype
+     * Getter for Onlinebanktransfertype
      *
      * @return string
      */
-    public function getWallettype()
+    public function getOnlinebanktransfertype()
     {
-        return $this->wallettype;
+        return $this->onlinebanktransfertype;
+    }
+
+    /**
+     * Getter for BankAccount
+     *
+     * @return BankAccount
+     */
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
     }
 }

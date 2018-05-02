@@ -2,7 +2,6 @@
 
 namespace ArvPayoneApi\Api;
 
-use ArvPayoneApi\Request\RequestDataContract;
 use ArvPayoneApi\Request\SerializerInterface;
 use ArvPayoneApi\Response\ClientErrorResponse;
 use ArvPayoneApi\Response\ResponseContract;
@@ -60,14 +59,14 @@ class PostApi
     }
 
     /**
-     * @param RequestDataContract $data
+     * @param object $entity
      *
      * @return ResponseContract
      */
-    public function doRequest(RequestDataContract $data)
+    public function doRequest($entity)
     {
         try {
-            $serializedData = $this->serializer->serialize($data);
+            $serializedData = $this->serializer->serialize($entity);
             $responseBody = $this->client->doRequest($serializedData);
 
             return ResponseFactory::create($responseBody);

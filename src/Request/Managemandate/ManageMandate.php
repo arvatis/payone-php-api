@@ -135,4 +135,22 @@ class ManageMandate implements RequestDataContract
     {
         return $this->info;
     }
+
+    /**
+     * Getter for Sequencenumber
+     */
+    public function getSequencenumber()
+    {
+        return null;
+    }
+
+    /**
+     * Getter for Amount
+     *
+     * @return int
+     */
+    public function getAmount()
+    {
+        return null;
+    }
 }

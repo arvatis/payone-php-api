@@ -2,12 +2,10 @@
 
 namespace ArvPayoneApi\Response;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
 /**
  * Class Clearing
  */
-class Clearing extends ResponseDataAbstract implements RequestDataContract, \JsonSerializable
+class Clearing extends ResponseDataAbstract
 {
     /**
      * @var string

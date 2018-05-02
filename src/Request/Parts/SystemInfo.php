@@ -2,9 +2,7 @@
 
 namespace ArvPayoneApi\Request\Parts;
 
-use ArvPayoneApi\Request\RequestDataContract;
-
-class SystemInfo implements RequestDataContract
+class SystemInfo
 {
     /** @var string */
     private $integratorName;

@@ -17,11 +17,11 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
     /**
      * XmlApiResponse constructor.
      *
-     * @param string $responseString
+     * @param array $responseData
      */
-    public function __construct($responseString)
+    public function __construct($responseData)
     {
-        $this->responseData = $this->parseResponse($responseString);
+        $this->responseData = $responseData;
     }
 
     /**
@@ -99,36 +99,5 @@ class GenericResponse extends ResponseDataAbstract implements ResponseContract
     public function getLibVersion()
     {
         return Version::getVersion();
-    }
-
-    /**
-     * @param string $response
-     *
-     * @return array
-     */
-    private function parseResponse($response)
-    {
-        $separator = "\n\t";
-        $line = strtok($response, $separator);
-
-        while ($line !== false) {
-            $this->parseLine($line);
-            $line = strtok($separator);
-        }
-
-        return $this->responseData;
-    }
-
-    /**
-     * @param string $line
-     */
-    private function parseLine($line)
-    {
-        if (!trim($line)) {
-            return;
-        }
-        list($key, $value) = explode('=', $line, 2);
-
-        $this->responseData[trim($key)] = trim($value);
     }
 }
