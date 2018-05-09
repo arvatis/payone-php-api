@@ -6,7 +6,9 @@ use ArvPayoneApi\Request\Authorization\RequestFactory as AuthorizationRequestFac
 use ArvPayoneApi\Request\RequestFactoryContract;
 use ArvPayoneApi\Request\Types;
 
-class RequestFactory extends AuthorizationRequestFactory implements RequestFactoryContract
+class RequestFactory
+    extends AuthorizationRequestFactory
+    implements RequestFactoryContract
 {
     protected static $requestType = Types::PREAUTHORIZATION;
 }

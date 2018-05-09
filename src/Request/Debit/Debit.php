@@ -3,6 +3,7 @@
 namespace ArvPayoneApi\Request\Debit;
 
 use ArvPayoneApi\Request\GenericRequest;
+use ArvPayoneApi\Request\Parts\Cart;
 
 class Debit
 {
@@ -11,17 +12,21 @@ class Debit
      * @var GenericRequest
      */
     private $request;
+    /** @var Cart */
+    private $cart;
 
     /**
      * Debit constructor.
      *
      * @param GenericRequest $request
      * @param $txid
+     * @param Cart $cart
      */
-    public function __construct(GenericRequest $request, $txid)
+    public function __construct(GenericRequest $request, $txid, Cart $cart = null)
     {
         $this->txid = $txid;
         $this->request = $request;
+        $this->cart = $cart;
     }
 
     /**
@@ -42,5 +47,14 @@ class Debit
     public function getTxid()
     {
         return $this->txid;
+    }
+
+    /**
+     * Getter for Cart
+     * @return Cart
+     */
+    public function getCart()
+    {
+        return $this->cart;
     }
 }

@@ -13,6 +13,13 @@ class ArraySerializer implements SerializerInterface
      */
     public function serialize($object)
     {
+        if ($object instanceof \JsonSerializable) {
+            /** @var \JsonSerializable $object */
+            $result = $object->jsonSerialize();
+            asort($result);
+            return $result;
+        }
+
         $oClass = new \ReflectionClass(get_class($object));
         $result = [];
         foreach ($oClass->getMethods() as $method) {

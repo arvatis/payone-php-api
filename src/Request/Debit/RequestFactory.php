@@ -3,6 +3,8 @@
 namespace ArvPayoneApi\Request\Debit;
 
 use ArvPayoneApi\Request\GenericRequestFactory;
+use ArvPayoneApi\Request\Parts\CartFactory;
+use ArvPayoneApi\Request\PaymentTypes;
 use ArvPayoneApi\Request\RequestFactoryContract;
 use ArvPayoneApi\Request\Types;
 
@@ -18,7 +20,10 @@ class RequestFactory implements RequestFactoryContract
     public static function create($paymentMethod, $data, $referenceId = null)
     {
         $genericRequest = GenericRequestFactory::create(Types::DEBIT, $data);
-
-        return new Debit($genericRequest, $referenceId);
+        $cart = null;
+        if ($paymentMethod == PaymentTypes::PAYONE_INVOICE_SECURE) {
+            $cart = CartFactory::create($data);
+        }
+        return new Debit($genericRequest, $referenceId, $cart);
     }
 }

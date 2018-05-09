@@ -17,6 +17,7 @@ class RequestGenerationData
         $basket['basketAmount'] = 10000;
         $basket['currency'] = 'EUR';
         $basket['shippingAmount'] = 0;
+        $basket['shippingAmountNet'] = 0;
         $basket['itemSum'] = '840.34';
 
         $basketItem = [];
@@ -24,6 +25,7 @@ class RequestGenerationData
         $basketItem['quantity'] = '1';
         $basketItem['itemId'] = '123124';
         $basketItem['price'] = 10000;
+        $basketItem['vat'] = 19.;
 
         $address = [];
         $address['town'] = 'Kiel';

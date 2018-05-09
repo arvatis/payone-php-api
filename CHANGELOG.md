@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+## [2.2.0]
+### Added
+
+* add bank transfer payment method
+* add secure invoice payment method
+* added option to pass cart in requests
+
 ## [2.1.0]
 ### Added
 

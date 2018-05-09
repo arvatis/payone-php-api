@@ -5,6 +5,7 @@ namespace ArvPayoneApi\Request\Authorization;
 use ArvPayoneApi\Request\AuthorizationRequestAbstract;
 use ArvPayoneApi\Request\GenericAuthRequestFactory;
 use ArvPayoneApi\Request\Parts\BankAccount;
+use ArvPayoneApi\Request\Parts\CartFactory;
 use ArvPayoneApi\Request\Parts\RedirectUrls;
 use ArvPayoneApi\Request\Parts\SepaMandate;
 use ArvPayoneApi\Request\Parts\ShippingAddress;
@@ -32,7 +33,7 @@ class RequestFactory implements RequestFactoryContract
             case PaymentTypes::PAYONE_INVOICE:
                 return new Invoice($genericAuthRequest);
             case PaymentTypes::PAYONE_INVOICE_SECURE:
-                return new InvoiceSecure($genericAuthRequest);
+                return new InvoiceSecure($genericAuthRequest, CartFactory::create($data));
             case PaymentTypes::PAYONE_PRE_PAYMENT:
                 return new PrePayment($genericAuthRequest);
             case PaymentTypes::PAYONE_CASH_ON_DELIVERY:
@@ -68,6 +69,20 @@ class RequestFactory implements RequestFactoryContract
                     self::createUrls($data['redirect'])
                 );
             case PaymentTypes::PAYONE_SOFORT:
+                $bankAccountData = $data['bankAccount'];
+                $bankAccount = new BankAccount(
+                    $bankAccountData['country'],
+                    $bankAccountData['holder'],
+                    $bankAccountData['iban'],
+                    $bankAccountData['bic']
+                );
+
+                return new Sofort(
+                    $genericAuthRequest,
+                    self::createUrls($data['redirect']),
+                    $bankAccount
+                );
+            case PaymentTypes::PAYONE_ON_LINE_BANK_TRANSFER:
                 $bankAccountData = $data['bankAccount'];
                 $bankAccount = new BankAccount(
                     $bankAccountData['country'],

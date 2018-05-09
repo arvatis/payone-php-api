@@ -16,8 +16,13 @@ class BankAccount
      * @var string
      */
     private $bic;
-
+    /**
+     * @var string
+     */
     private $firstname;
+    /**
+     * @var string
+     */
     private $lastname;
 
     /**

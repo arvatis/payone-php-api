@@ -3,11 +3,13 @@
 namespace ArvPayoneApi\Request\Capture;
 
 use ArvPayoneApi\Request\GenericRequest;
+use ArvPayoneApi\Request\Parts\Cart;
 
 class Capture
 {
     private $txid;
     private $capturemode;
+    private $cart;
     /**
      * @var GenericRequest
      */
@@ -19,15 +21,27 @@ class Capture
      * @param GenericRequest $request
      * @param $txid
      * @param $capturemode
+     * @param Cart $cart
      */
     public function __construct(
         GenericRequest $request,
         $txid,
-        $capturemode
+        $capturemode,
+        Cart $cart = null
     ) {
         $this->request = $request;
         $this->txid = $txid;
         $this->capturemode = $capturemode;
+        $this->cart = $cart;
+    }
+
+    /**
+     * Getter for Cart
+     * @return Cart
+     */
+    public function getCart()
+    {
+        return $this->cart;
     }
 
     /**
