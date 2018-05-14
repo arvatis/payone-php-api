@@ -14,6 +14,7 @@ class Capture
      * @var GenericRequest
      */
     private $request;
+    private $settleaccount;
 
     /**
      * Capture constructor.
@@ -21,18 +22,21 @@ class Capture
      * @param GenericRequest $request
      * @param $txid
      * @param $capturemode
+     * @param $settleaccount
      * @param Cart $cart
      */
     public function __construct(
         GenericRequest $request,
         $txid,
         $capturemode,
+        $settleaccount,
         Cart $cart = null
     ) {
         $this->request = $request;
         $this->txid = $txid;
         $this->capturemode = $capturemode;
         $this->cart = $cart;
+        $this->settleaccount = $settleaccount;
     }
 
     /**
@@ -73,4 +77,15 @@ class Capture
     {
         return $this->request;
     }
+
+    /**
+     * Getter for Settleaccount
+     * @return mixed
+     */
+    public function getSettleaccount()
+    {
+        return $this->settleaccount;
+    }
+
+
 }

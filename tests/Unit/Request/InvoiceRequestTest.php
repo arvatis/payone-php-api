@@ -116,6 +116,7 @@ class InvoiceRequestTest extends \PHPUnit_Framework_TestCase
         $order['currency'] = 'EUR';
         $context = Config::getConfig()['api_context'];
         $context['capturemode'] = 'completed';
+        $context['settleaccount'] = 'yes';
         $context['sequencenumber'] = 1;
         $context['txid'] = 'preAuthId';
         $context['mode'] = 'test';

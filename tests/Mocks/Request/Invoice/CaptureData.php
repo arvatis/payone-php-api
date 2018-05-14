@@ -21,6 +21,7 @@ class CaptureData extends DataAbstract implements RequestContract
             'amount' => 10000, // amount in smallest currency unit, i.e. cents
             'currency' => 'EUR',
             'capturemode' => 'completed',
+            'settleaccount' => 'yes',
             'sequencenumber' => 1,
             'txid' => 'preAuthId',
             'integrator_name' => 'arvatis media GmbH',

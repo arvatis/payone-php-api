@@ -26,10 +26,12 @@ class RequestFactory implements RequestFactoryContract
         if ($paymentMethod == PaymentTypes::PAYONE_INVOICE_SECURE) {
             $cart = CartFactory::create($data);
         }
+
         return new Capture(
             $genericRequest,
             $referenceId,
             $context['capturemode'],
+            $context['settleaccount'] ?? SettleAccountModes::AUTO,
             $cart
         );
     }

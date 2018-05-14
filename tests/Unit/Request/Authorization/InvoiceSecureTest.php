@@ -7,7 +7,7 @@ use ArvPayoneApi\Request\ArraySerializer;
 use ArvPayoneApi\Request\Authorization\RequestFactory;
 use ArvPayoneApi\Request\PaymentTypes;
 
-class InoiceSecureTest extends \PHPUnit_Framework_TestCase
+class InvoiceSecureTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
     private $paymentMethod = PaymentTypes::PAYONE_INVOICE_SECURE;

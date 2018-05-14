@@ -52,6 +52,7 @@ class RequestGenerationData
         $context = Config::getConfig()['api_context'];
         $context['mode'] = 'test';
         $context['capturemode'] = '';
+        $context['settleaccount'] = '';
 
         $shippingProvider = [];
         $shippingProvider['name'] = 'DHL';

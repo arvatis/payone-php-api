@@ -6,6 +6,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 * WIP: add bank transfer payment method
 
+## [2.2.2]
+### Fixed 
+
+* allow settleaccount to be passed for capture request
+
 ## [2.2.1]
 ### Fixed 
 
