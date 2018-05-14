@@ -7,7 +7,7 @@ use ArvPayoneApi\Request\ArraySerializer;
 use ArvPayoneApi\Request\Debit\RequestFactory;
 use ArvPayoneApi\Request\PaymentTypes;
 
-class InoiceSecureTest extends \PHPUnit_Framework_TestCase
+class InvoiceSecureTest extends \PHPUnit_Framework_TestCase
 {
     private $data;
     private $paymentMethod = PaymentTypes::PAYONE_INVOICE_SECURE;
@@ -28,5 +28,11 @@ class InoiceSecureTest extends \PHPUnit_Framework_TestCase
         $request = RequestFactory::create($this->paymentMethod, $this->data);
         $requestData = $this->serializer->serialize($request);
         self::assertTrue((bool)$requestData['id1']);
+    }
+
+    public function testAmountNegativeForRefund()
+    {
+        $request = RequestFactory::create($this->paymentMethod, $this->data);
+        self::assertTrue($request->getRequest()->getAmount() < 0 );
     }
 }

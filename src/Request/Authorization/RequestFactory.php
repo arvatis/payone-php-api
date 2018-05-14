@@ -91,7 +91,7 @@ class RequestFactory implements RequestFactoryContract
                     $bankAccountData['bic']
                 );
 
-                return new Sofort(
+                return new OnlineBankTransfer(
                     $genericAuthRequest,
                     self::createUrls($data['redirect']),
                     $bankAccount

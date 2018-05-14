@@ -19,6 +19,7 @@ class RequestFactory implements RequestFactoryContract
      */
     public static function create($paymentMethod, $data, $referenceId = null)
     {
+        $data['basket']['basketAmount'] *= -1;
         $genericRequest = GenericRequestFactory::create(Types::DEBIT, $data);
         $cart = null;
         if ($paymentMethod == PaymentTypes::PAYONE_INVOICE_SECURE) {

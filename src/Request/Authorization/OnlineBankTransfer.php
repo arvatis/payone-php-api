@@ -13,9 +13,9 @@ use ArvPayoneApi\Request\Parts\RedirectUrls;
  */
 class OnlineBankTransfer extends AuthorizationRequestAbstract
 {
-    const SOFORT_BANK_TRANSFER_TYPE = 'PNT';
+    const ONLINE_TRANSFER = 'EPS';
 
-    protected $onlinebanktransfertype = self::SOFORT_BANK_TRANSFER_TYPE;
+    protected $onlinebanktransfertype = self::ONLINE_TRANSFER;
     protected $clearingtype = ClearingTypes::ONLINE_BANK_TRANSFER;
 
     /**

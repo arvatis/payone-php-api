@@ -4,10 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+* WIP: add bank transfer payment method
+
+## [2.2.1]
+### Fixed 
+
+* debit amount has not been negative for refunds
+
 ## [2.2.0]
 ### Added
 
-* add bank transfer payment method
 * add secure invoice payment method
 * added option to pass cart in requests
 
