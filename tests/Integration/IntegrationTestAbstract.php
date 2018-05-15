@@ -27,10 +27,17 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     protected static $client;
 
+    /**
+     * @var array
+     */
+    protected static $requestData;
+
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
         self::$client = new PostApi(new ApiClient(), SerializerFactory::createArraySerializer());
+        self::$requestData = RequestGenerationData::getRequestData();
+
     }
 
     /**
@@ -38,11 +45,12 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testAuthSuccessfullyPlaced()
     {
-        $data = RequestGenerationData::getRequestData();
-        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = AuthFactory::create(self::$paymentMethod, $data);
+
+        self::$requestData['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = AuthFactory::create(self::$paymentMethod, self::$requestData);
         $response = self::$client->doRequest($request);
-        self::assertTrue($response->getSuccess(), $response->getErrorMessage());
+        self::assertTrue($response->getSuccess(), $response->getErrorMessage(). PHP_EOL .
+            'Request data: ' . print_r(self::$client->getLastRequestData(), true));
         self::assertSame(9, strlen($response->getTransactionID()));
         self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
@@ -54,12 +62,13 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testPreAuthSuccessfullyPlaced()
     {
-        $data = RequestGenerationData::getRequestData();
-        $data['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
-        $request = PreAuthFactory::create(self::$paymentMethod, $data);
+
+        self::$requestData['order']['orderId'] = TransactionHelper::getUniqueTransactionId();
+        $request = PreAuthFactory::create(self::$paymentMethod, self::$requestData);
         $response = self::$client->doRequest($request);
+        self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage(). PHP_EOL .
+            'Request data: ' . print_r(self::$client->getLastRequestData(), true));
         self::assertTrue($response->getSuccess(), $response->getErrorMessage());
-        self::assertFalse(Status::ERROR == $response->getStatus(), $response->getErrorMessage());
 
         return $response;
     }
@@ -70,17 +79,17 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testCapturing(GenericResponse $preAuth)
     {
-        $data = RequestGenerationData::getRequestData();
-        $data['context']['sequencenumber'] = 1;
-        $data['context']['txid'] = $preAuth->getTransactionID();
+        sleep(3);
+        self::$requestData['context']['sequencenumber'] = 1;
+        self::$requestData['context']['txid'] = $preAuth->getTransactionID();
 
-        $request = CaptureFactory::create(self::$paymentMethod, $data, $preAuth->getTransactionID());
+        $request = CaptureFactory::create(self::$paymentMethod, self::$requestData, $preAuth->getTransactionID());
 
         $response = self::$client->doRequest($request);
-
         self::assertFalse(
             Status::ERROR == $response->getStatus(),
-            $response->getErrorMessage() . 'PreAuth request id: ' . $preAuth->getTransactionID()
+            $response->getErrorMessage() . 'PreAuth request id: ' . $preAuth->getTransactionID() . PHP_EOL .
+            'Request data: ' . print_r(self::$client->getLastRequestData(), true)
         );
         self::assertTrue($response->getSuccess());
 
@@ -93,19 +102,20 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
      */
     public function testRefundAfterCapture(GenericResponse $capture)
     {
-        sleep(3);
-        $data = RequestGenerationData::getRequestData();
-        $data['context']['sequencenumber'] = 2;
+        sleep(15);
+
+        self::$requestData['context']['sequencenumber'] = 2;
 
         $request = RefundFactory::create(
-            self::$paymentMethod, $data, $capture->getTransactionID()
+            self::$paymentMethod, self::$requestData, $capture->getTransactionID()
         );
 
         $response = self::$client->doRequest($request);
 
         self::assertFalse(
             Status::ERROR == $response->getStatus(),
-            $response->getErrorMessage() . 'Capture request id: ' . $capture->getTransactionID()
+            $response->getErrorMessage() . 'Capture request id: ' . $capture->getTransactionID() . PHP_EOL .
+            'Request data: ' . print_r(self::$client->getLastRequestData(), true)
         );
         self::assertTrue($response->getSuccess());
     }
@@ -117,16 +127,17 @@ abstract class IntegrationTestAbstract extends \PHPUnit_Framework_TestCase
     public function testDebitAfterAuth(GenericResponse $auth)
     {
         sleep(3);
-        $data = RequestGenerationData::getRequestData();
-        $data['context']['sequencenumber'] = -1; // -1 should never happen. It is necessary as no payone callbacks are
 
-        $request = DebitFactory::create(self::$paymentMethod, $data, $auth->getTransactionID());
+        self::$requestData['context']['sequencenumber'] = -1; // -1 should never happen. It is necessary as no payone callbacks are
+
+        $request = DebitFactory::create(self::$paymentMethod, self::$requestData, $auth->getTransactionID());
 
         $response = self::$client->doRequest($request);
 
         self::assertFalse(
             Status::ERROR == $response->getStatus(),
-            $response->getErrorMessage() . 'Auth request id: ' . $auth->getTransactionID()
+            $response->getErrorMessage() . 'Auth request id: ' . $auth->getTransactionID(). PHP_EOL .
+            'Request data: ' . print_r(self::$client->getLastRequestData(), true)
         );
         self::assertTrue($response->getSuccess());
     }

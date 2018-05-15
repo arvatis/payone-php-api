@@ -4,7 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
 * WIP: add bank transfer payment method
+* make tests more verbose
+
+### Fixed 
+* refund request can not be generated
+
 
 ## [2.2.2]
 ### Fixed 

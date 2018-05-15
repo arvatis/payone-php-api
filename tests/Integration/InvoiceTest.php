@@ -17,6 +17,22 @@ class InvoiceTest extends IntegrationTestAbstract
     }
 
     /**
+     * @group online
+     */
+    public function testPreAuthSuccessfullyPlaced()
+    {
+        return parent::testPreAuthSuccessfullyPlaced();
+    }
+
+    /**
+     * @depends testPreAuthSuccessfullyPlaced
+     * @group online
+     */
+    public function testCapturing(GenericResponse $preAuth)
+    {
+        return parent::testCapturing($preAuth);
+    }
+    /**
      * @depends testCapturing
      * @group online
      */

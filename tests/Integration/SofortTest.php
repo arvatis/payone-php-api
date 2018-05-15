@@ -17,15 +17,6 @@ class SofortTest extends IntegrationTestAbstract
     }
 
     /**
-     * @depends testPreAuthSuccessfullyPlaced
-     * @group online
-     */
-    public function testCapturing(GenericResponse $preAuth)
-    {
-        $this->markTestSkipped('Customer action required on PayPal website');
-    }
-
-    /**
      * @depends testAuthSuccessfullyPlaced
      * @group online
      */
@@ -55,4 +46,18 @@ class SofortTest extends IntegrationTestAbstract
 
         return $response;
     }
+
+    /**
+     * @depends testPreAuthSuccessfullyPlaced
+     * @group online
+     */
+    public function testCapturing(GenericResponse $preAuth)
+    {
+        $this->markTestSkipped('Customer action required on PayPal website');
+        self::$requestData['context']['capturemode'] = 'completed';
+        self::$requestData['context']['settleaccount'] = 'yes';
+
+        return parent::testCapturing($preAuth);
+    }
+
 }

@@ -21,7 +21,16 @@ class PostApi
      * @var  ClientContract
      */
     protected $client;
+
+    /**
+     * @var SerializerInterface
+     */
     private $serializer;
+
+    /**
+     * @var array
+     */
+    private $requestData = [];
 
     /**
      * PostApi constructor.
@@ -65,9 +74,9 @@ class PostApi
      */
     public function doRequest($entity)
     {
+        $this->requestData = $this->serializer->serialize($entity);
         try {
-            $serializedData = $this->serializer->serialize($entity);
-            $responseBody = $this->client->doRequest($serializedData);
+            $responseBody = $this->client->doRequest($this->requestData);
 
             return ResponseFactory::create($responseBody);
         } catch (\Exception $e) {
@@ -82,5 +91,12 @@ class PostApi
     protected function getEndPointUrl()
     {
         return $this::PAYONE_SERVER_API_URL;
+    }
+
+    /**
+     * @return array
+     */
+    public function getLastRequestData(){
+        return $this->requestData;
     }
 }

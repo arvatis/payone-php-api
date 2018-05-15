@@ -17,6 +17,26 @@ class InvoiceSecureTest extends IntegrationTestAbstract
     }
 
     /**
+     * @group online
+     */
+    public function testPreAuthSuccessfullyPlaced()
+    {
+        return parent::testPreAuthSuccessfullyPlaced();
+    }
+
+    /**
+     * @depends testPreAuthSuccessfullyPlaced
+     * @group online
+     */
+    public function testCapturing(GenericResponse $preAuth)
+    {
+        $this->markTestSkipped('Will fail with "Desired status change not possible for this payment process" as Payone callbacks will not be processed.');
+        self::$requestData['context']['capturemode'] = 'completed';
+        self::$requestData['context']['settleaccount'] = 'yes';
+        return parent::testCapturing($preAuth);
+    }
+
+    /**
      * @depends testCapturing
      * @group online
      */
