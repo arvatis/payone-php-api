@@ -4,12 +4,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
-### Added
-* WIP: add bank transfer payment method
-
 ## [2.2.3]
 ### Added
 
+* WIP: add bank transfer payment method
 * make tests more verbose
 
 ### Fixed
