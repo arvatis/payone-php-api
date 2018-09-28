@@ -6,11 +6,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 * WIP: add bank transfer payment method
+
+## [2.2.3]
+### Added
+
 * make tests more verbose
 
-### Fixed 
-* refund request can not be generated
+### Fixed
 
+* changed guzzle/httpguzzle version for compatibility with PayPal
+* refund request can not be generated
 
 ## [2.2.2]
 ### Fixed 
