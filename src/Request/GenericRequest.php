@@ -31,6 +31,8 @@ class GenericRequest implements RequestDataContract
     /** @var string|null */
     private $sequencenumber;
 
+    /** @var string|null */
+    private $param;
     /**
      * @var SystemInfo
      */
@@ -43,8 +45,9 @@ class GenericRequest implements RequestDataContract
      * @param string $request
      * @param int $amount
      * @param string $currency
-     * @param string|null $sequencenumber
      * @param SystemInfo $info
+     * @param string|null $sequencenumber
+     * @param string|null $param
      */
     public function __construct(
         Config $config,
@@ -52,7 +55,8 @@ class GenericRequest implements RequestDataContract
         int $amount,
         $currency,
         SystemInfo $info,
-        $sequencenumber = null
+        $sequencenumber = null,
+        $param = null
     ) {
         $this->config = $config;
         $this->request = $request;
@@ -60,6 +64,7 @@ class GenericRequest implements RequestDataContract
         $this->currency = $currency;
         $this->sequencenumber = $sequencenumber;
         $this->info = $info;
+        $this->param = $param;
     }
 
     /**
@@ -116,5 +121,13 @@ class GenericRequest implements RequestDataContract
     public function getInfo()
     {
         return $this->info;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getParam()
+    {
+        return $this->param;
     }
 }
