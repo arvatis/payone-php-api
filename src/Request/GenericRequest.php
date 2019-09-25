@@ -45,9 +45,9 @@ class GenericRequest implements RequestDataContract
     /**
      * GenericRequest constructor.
      * @param Config $config
-     * @param $request
+     * @param string $request
      * @param int $amount
-     * @param $currency
+     * @param string $currency
      * @param SystemInfo $info
      * @param null $sequencenumber
      * @param null $param
@@ -57,9 +57,9 @@ class GenericRequest implements RequestDataContract
      */
     public function __construct(
         Config $config,
-        $request,
+        string $request,
         int $amount,
-        $currency,
+        string $currency,
         SystemInfo $info,
         $sequencenumber = null,
         $param = null,
