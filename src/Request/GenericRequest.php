@@ -10,89 +10,101 @@ use ArvPayoneApi\Request\Parts\SystemInfo;
  */
 class GenericRequest implements RequestDataContract
 {
-    /**
-     * @var string
-     */
+
+    /** @var string */
     protected $request;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     private $amount;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $currency;
 
     /** @var Config */
     private $config;
 
+    /** @var SystemInfo */
+    private $info;
+
     /** @var string|null */
     private $sequencenumber;
 
-    /**
-     * @var SystemInfo
-     */
-    private $info;
+    /** @var string|null */
+    private $param;
+
+    /** @var string|null */
+    private $reference;
+
+    /** @var string|null */
+    private $narrative_text;
+
+    /** @var string|null */
+    private $transaction_param;
+
 
     /**
      * GenericRequest constructor.
-     *
      * @param Config $config
      * @param string $request
      * @param int $amount
      * @param string $currency
-     * @param string|null $sequencenumber
      * @param SystemInfo $info
+     * @param null $sequencenumber
+     * @param null $param
+     * @param null $reference
+     * @param null $narrative_text
+     * @param null $transaction_param
      */
     public function __construct(
         Config $config,
-        $request,
+        string $request,
         int $amount,
-        $currency,
+        string $currency,
         SystemInfo $info,
-        $sequencenumber = null
+        $sequencenumber = null,
+        $param = null,
+        $reference = null,
+        $narrative_text = null,
+        $transaction_param = null
     ) {
         $this->config = $config;
         $this->request = $request;
         $this->amount = $amount;
         $this->currency = $currency;
-        $this->sequencenumber = $sequencenumber;
         $this->info = $info;
+        $this->sequencenumber = $sequencenumber;
+        $this->param = $param;
+        $this->reference = $reference;
+        $this->narrative_text = $narrative_text;
+        $this->transaction_param = $transaction_param;
     }
 
+
     /**
-     * Getter for Sequencenumber
+     * @return string
      */
-    public function getSequencenumber()
+    public function getRequest(): string
     {
-        return $this->sequencenumber;
+        return $this->request;
     }
 
     /**
-     * Getter for Amount
-     *
      * @return int
      */
-    public function getAmount()
+    public function getAmount(): int
     {
         return $this->amount;
     }
 
     /**
-     * Getter for Currency
-     *
      * @return string
      */
-    public function getCurrency()
+    public function getCurrency(): string
     {
         return $this->currency;
     }
 
     /**
-     * Getter for Config
-     *
      * @return Config
      */
     public function getConfig(): Config
@@ -101,20 +113,51 @@ class GenericRequest implements RequestDataContract
     }
 
     /**
-     * @return string
-     */
-    public function getRequest()
-    {
-        return $this->request;
-    }
-
-    /**
-     * Getter for Info
-     *
      * @return SystemInfo
      */
-    public function getInfo()
+    public function getInfo(): SystemInfo
     {
         return $this->info;
     }
+
+    /**
+     * @return string|null
+     */
+    public function getSequencenumber(): ?string
+    {
+        return $this->sequencenumber;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getParam(): ?string
+    {
+        return $this->param;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNarrativeText(): ?string
+    {
+        return $this->narrative_text;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTransactionParam(): ?string
+    {
+        return $this->transaction_param;
+    }
+
 }

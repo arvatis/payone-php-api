@@ -23,6 +23,7 @@ class GenericAuthRequestFactory
             $customerAddressData['town'],
             $customerAddressData['country']
         );
+
         $customerData = $data['customer'];
         $customer = new Customer(
             $customerData['title'],
@@ -36,9 +37,15 @@ class GenericAuthRequestFactory
             $customerData['gender'],
             $customerData['ip']
         );
+
         $reference = isset($data['order']['orderId']) && $data['order']['orderId'] ?
             'order-' . $data['order']['orderId'] : 'basket-' . $data['basket']['id'];
+
         $genericRequest = GenericRequestFactory::create($requestType, $data);
+
+        if ($genericRequest->getReference()) {
+            $reference = $genericRequest->getReference();
+        }
 
         return new GenericAuthorizationRequest(
             $genericRequest,
