@@ -1,5 +1,5 @@
 {
-  "name": "arvatis/payone-php-api",
+  "name": "dpfaffenbauer/payone-php-api",
   "description": "Payone api developed for the plentymarkets Payone plugin",
   "autoload": {
     "psr-4": {
